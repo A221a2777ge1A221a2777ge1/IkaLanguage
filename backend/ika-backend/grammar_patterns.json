@@ -1,0 +1,86 @@
+{
+  "version": "1.0",
+  "patterns": [
+    {
+      "pattern_id": "P001",
+      "type": "declarative",
+      "structure": ["Subject", "Verb", "Object"],
+      "description": "Basic declarative sentence (SVO order)",
+      "example": "O rị nri",
+      "slots": {
+        "Subject": ["PRON", "NOUN"],
+        "Verb": ["VERB_TRANS", "VERB_INTR"],
+        "Object": ["NOUN"]
+      }
+    },
+    {
+      "pattern_id": "P002",
+      "type": "declarative",
+      "structure": ["Subject", "Verb"],
+      "description": "Intransitive sentence",
+      "example": "O bia",
+      "slots": {
+        "Subject": ["PRON", "NOUN"],
+        "Verb": ["VERB_INTR"]
+      }
+    },
+    {
+      "pattern_id": "P004",
+      "type": "question",
+      "structure": ["InterrogativeParticle", "Clause"],
+      "description": "Yes/No question (particle-based or prosodic extension)",
+      "example": "Ni o bia?",
+      "slots": {
+        "InterrogativeParticle": ["ni", "nị"],
+        "Clause": ["P001", "P002"]
+      }
+    },
+    {
+      "pattern_id": "P005",
+      "type": "declarative",
+      "structure": ["Subject", "Verb", "IndirectObject", "DirectObject"],
+      "description": "Ditransitive construction",
+      "example": "O nyere m akwukwo",
+      "slots": {
+        "Subject": ["PRON", "NOUN"],
+        "Verb": ["VERB_DITRANS"],
+        "IndirectObject": ["PRON", "NOUN"],
+        "DirectObject": ["NOUN"]
+      }
+    },
+    {
+      "pattern_id": "P007",
+      "type": "declarative",
+      "structure": ["Subject", "Verb", "LocationPhrase"],
+      "description": "Locative construction",
+      "example": "O no n’ulo",
+      "slots": {
+        "Subject": ["PRON", "NOUN"],
+        "Verb": ["VERB_LOC"],
+        "LocationPhrase": ["PP_LOC"]
+      }
+    },
+    {
+      "pattern_id": "P011",
+      "type": "compound",
+      "structure": ["Clause", "Conjunction", "Clause"],
+      "description": "Compound sentence with coordination",
+      "example": "O bia ma o rie",
+      "slots": {
+        "Clause": ["P001", "P002"],
+        "Conjunction": ["ma", "na"]
+      }
+    },
+    {
+      "pattern_id": "P012",
+      "type": "conditional",
+      "structure": ["IfClause", "MainClause"],
+      "description": "Conditional structure",
+      "example": "Obu na o bia, anyi ga eje",
+      "slots": {
+        "IfClause": ["CLAUSE_IF"],
+        "MainClause": ["P001", "P002"]
+      }
+    }
+  ]
+}
