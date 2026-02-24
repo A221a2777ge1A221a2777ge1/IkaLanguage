@@ -78,39 +78,44 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Security(secu
 
 @app.on_event("startup")
 async def startup_event():
-    """Initialize all components on startup"""
+    """Initialize all components on startup. Server still starts if Firestore/dataset fail."""
     global firestore_client, storage_client, lexicon_repo, pattern_repo
     global rule_engine, slot_filler, generator, templates_engine, audio_cache, store
 
     logger.info(f"Initializing IKA backend for project: {PROJECT_ID}")
-    
-    # Validate data files before starting
+
+    # Validate data files (required for rule-based engine)
     try:
         validate_on_startup()
         logger.info("Data validation passed")
     except Exception as e:
         logger.error(f"Data validation failed: {e}")
         raise RuntimeError(f"Cannot start: validation failed - {e}")
-    
-    # Initialize Firebase clients
-    firestore_client = get_firestore_client(PROJECT_ID)
-    storage_client = get_storage_client(PROJECT_ID, FIREBASE_STORAGE_BUCKET)
-    
-    # Initialize repositories and engines
-    lexicon_repo = LexiconRepository(firestore_client, LEXICON_COLLECTION)
-    pattern_repo = PatternRepository()
-    rule_engine = RuleEngine()
-    slot_filler = SlotFiller(lexicon_repo, pattern_repo, rule_engine)
-    templates_engine = TemplatesEngine(pattern_repo, slot_filler, rule_engine)
-    generator = Generator(lexicon_repo, pattern_repo, rule_engine, slot_filler, templates_engine)
-    audio_cache = AudioCache(storage_client, FIREBASE_STORAGE_BUCKET, AUDIO_CACHE_PREFIX)
 
+    # Initialize Firebase and repos (non-blocking: allow start even if Firestore fails)
+    try:
+        firestore_client = get_firestore_client(PROJECT_ID)
+        storage_client = get_storage_client(PROJECT_ID, FIREBASE_STORAGE_BUCKET)
+        lexicon_repo = LexiconRepository(firestore_client, LEXICON_COLLECTION)
+        pattern_repo = PatternRepository()
+        rule_engine = RuleEngine()
+        slot_filler = SlotFiller(lexicon_repo, pattern_repo, rule_engine)
+        templates_engine = TemplatesEngine(pattern_repo, slot_filler, rule_engine)
+        generator = Generator(lexicon_repo, pattern_repo, rule_engine, slot_filler, templates_engine)
+        audio_cache = AudioCache(storage_client, FIREBASE_STORAGE_BUCKET, AUDIO_CACHE_PREFIX)
+    except Exception as e:
+        logger.warning("Firebase/repos init failed (some endpoints may return 503): %s", e)
+        firestore_client = storage_client = None
+        lexicon_repo = pattern_repo = rule_engine = slot_filler = None
+        templates_engine = generator = audio_cache = None
+
+    # Dataset from JSON (optional; file may be gitignored in deploy)
     if _dataset_available and get_store:
         try:
             store = get_store()
             logger.info("Dataset (firestore_lexicon_export) loaded: %d entries", len(store.entries))
         except Exception as e:
-            logger.warning("Dataset not loaded: %s", e)
+            logger.warning("Dataset not loaded (add data/firestore_lexicon_export.json for full features): %s", e)
             store = None
     else:
         store = None
@@ -203,6 +208,8 @@ async def translate(
     and store is loaded; otherwise rule-based. Returns text + meta (source_lang/target_lang when dataset).
     """
     mode = (request.mode or "rule_based").lower()
+    if store is None and generator is None:
+        raise HTTPException(status_code=503, detail="Translation unavailable (backend not fully initialized)")
     if store is not None and mode in ("auto", "en_to_ika", "ika_to_en"):
         try:
             text = request.text.strip()
@@ -257,6 +264,8 @@ async def generate(
     Generate Ika text (poem/story/lecture) based on topic and parameters.
     Returns text only - NO audio generation.
     """
+    if store is None and generator is None:
+        raise HTTPException(status_code=503, detail="Generation unavailable (backend not fully initialized)")
     try:
         result = generator.generate(
             kind=request.kind,
@@ -281,6 +290,8 @@ async def generate_story(
     """
     Generate Ika story. Uses dataset (659 entries) when loaded; else rule-based.
     """
+    if store is None and generator is None:
+        raise HTTPException(status_code=503, detail="Generation unavailable (backend not fully initialized)")
     if store is not None and dataset_generate_story is not None:
         try:
             length = request.length or "short"
@@ -311,6 +322,8 @@ async def generate_poem(
     token: str = Depends(verify_token)
 ):
     """Generate Ika poem from dataset (length short -> 8 lines, medium/long -> 14)."""
+    if store is None and generator is None:
+        raise HTTPException(status_code=503, detail="Generation unavailable (backend not fully initialized)")
     if store is not None and dataset_generate_poem is not None:
         try:
             length = request.length or "short"
@@ -339,6 +352,8 @@ async def generate_lecture(
     token: str = Depends(verify_token)
 ):
     """Generate Ika lecture from dataset."""
+    if store is None and generator is None:
+        raise HTTPException(status_code=503, detail="Generation unavailable (backend not fully initialized)")
     if store is not None and dataset_generate_lecture is not None:
         try:
             length = request.length or "short"
@@ -445,6 +460,8 @@ async def dictionary_lookup(
     Dictionary lookup: type English word (or prefix) and get Ika word(s).
     Returns lexicon entries where source_text starts with the query (case-insensitive).
     """
+    if lexicon_repo is None:
+        raise HTTPException(status_code=503, detail="Dictionary unavailable (Firestore not connected)")
     try:
         entries = lexicon_repo.search_by_source_prefix(prefix=q, limit=25)
         out = [

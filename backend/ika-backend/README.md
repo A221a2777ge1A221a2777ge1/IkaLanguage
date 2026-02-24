@@ -116,6 +116,8 @@ gcloud run deploy ika-backend \
 
 Note: Do **not** pass `--allow-unauthenticated`; omitting it keeps the service private (requires Bearer token).
 
+**Dataset (optional):** `data/firestore_lexicon_export.json` is gitignored. For dataset-based translate/naturalize/story in production, either remove it from `.gitignore` and commit (if acceptable), or add it in your build pipeline so the file is present in the image.
+
 ## API Endpoints
 
 ### 1. Health Check
