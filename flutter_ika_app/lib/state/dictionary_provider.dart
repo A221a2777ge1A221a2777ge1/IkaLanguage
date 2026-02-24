@@ -38,17 +38,15 @@ class DictionaryNotifier extends StateNotifier<DictionaryState> {
 
   DictionaryNotifier(this._api) : super(DictionaryState());
 
+  /// Search by prefix, or load all words when query is empty (up to 700).
   Future<void> search(String query) async {
     final q = query.trim();
-    if (q.isEmpty) {
-      state = state.copyWith(entries: [], error: null, lastQuery: '');
-      return;
-    }
-
-    state = state.copyWith(isLoading: true, error: null, lastQuery: q);
+    state = state.copyWith(isLoading: true, error: null, lastQuery: q.isEmpty ? 'all' : q);
 
     try {
-      final response = await _api.dictionaryLookup(q);
+      final response = q.isEmpty
+          ? await _api.dictionaryLookup('', limit: 700)
+          : await _api.dictionaryLookup(q, limit: 200);
       state = state.copyWith(
         isLoading: false,
         entries: response.entries,

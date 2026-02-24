@@ -56,6 +56,12 @@ class IkaApi {
     return NaturalizeResponse.fromJson(response.data);
   }
 
+  /// Download audio with auth (for Cloud Run). Returns bytes.
+  Future<List<int>> getAudioBytes(String path) async {
+    final p = path.startsWith('http') ? Uri.parse(path).path : (path.startsWith('/') ? path : '/$path');
+    return _client.getBytes(p);
+  }
+
   /// Generate audio. Returns null if server returns 501 Not Implemented.
   Future<GenerateAudioResponse?> generateAudio(GenerateAudioRequest request) async {
     try {
@@ -69,12 +75,18 @@ class IkaApi {
     }
   }
 
-  /// Dictionary lookup: English word/prefix → Ika words
-  Future<DictionaryResponse> dictionaryLookup(String query) async {
+  /// Dictionary lookup: English word/prefix → Ika words. Empty query returns all (e.g. 675+).
+  Future<DictionaryResponse> dictionaryLookup(String query, {int limit = 700}) async {
     final response = await _client.get(
       '/dictionary',
-      queryParameters: {'q': query.trim()},
+      queryParameters: {'q': query.trim(), 'limit': limit},
     );
     return DictionaryResponse.fromJson(response.data);
+  }
+
+  /// Build info from backend (git_sha, dataset_sha256). No auth required.
+  Future<Map<String, dynamic>> getBuildInfo() async {
+    final response = await _client.get('/build-info');
+    return Map<String, dynamic>.from(response.data as Map);
   }
 }

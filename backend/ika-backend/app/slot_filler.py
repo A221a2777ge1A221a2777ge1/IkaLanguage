@@ -114,11 +114,15 @@ class SlotFiller:
         # Last resort: return None (slot will be empty)
         return None
     
+    # Map ika_dictionary slot names to pronoun keys (Subject / Object)
+    _SUBJECT_SLOTS = {"Subject", "SUBJ"}
+    _OBJECT_SLOTS = {"Object", "OBJ_OR_COMP", "OBJ_OR_LOC"}
+
     def _get_pronoun_for_slot(self, slot_name: str) -> Optional[Dict]:
         """Get pronoun for Subject or Object slot"""
-        if slot_name == "Subject":
+        if slot_name in self._SUBJECT_SLOTS:
             pronouns_list = self.pronouns.get("subject_pronouns", [])
-        elif slot_name == "Object":
+        elif slot_name in self._OBJECT_SLOTS:
             pronouns_list = self.pronouns.get("object_pronouns", [])
         else:
             return None
@@ -135,16 +139,20 @@ class SlotFiller:
         return None
     
     def _infer_pos_from_slot_name(self, slot_name: str) -> Optional[str]:
-        """Infer part of speech from slot name"""
+        """Infer part of speech from slot name (supports ika_grammar_patterns and ika_dictionary slot names)"""
         slot_lower = slot_name.lower()
-        if "verb" in slot_lower or slot_name == "Verb":
+        if "verb" in slot_lower or slot_name in ("Verb", "VERB"):
             return "verb"
-        elif "noun" in slot_lower or slot_name in ["Subject", "Object", "Noun"]:
+        if slot_name in ("Subject", "Object", "Noun", "SUBJ", "OBJ_OR_COMP", "OBJ_OR_LOC", "NP"):
             return "noun"
-        elif "adj" in slot_lower or slot_name == "Adjective":
+        if "noun" in slot_lower or "np" in slot_lower:
+            return "noun"
+        if "adj" in slot_lower or slot_name == "Adjective":
             return "adjective"
-        elif "adv" in slot_lower or slot_name == "Adverb":
+        if "adv" in slot_lower or slot_name == "Adverb":
             return "adverb"
+        if slot_name in ("LOC", "PHRASE", "LEXEME_OR_PHRASE"):
+            return "noun"
         return None
     
     def fill_pattern_slots(

@@ -16,7 +16,7 @@ def pick(entries: List[LexEntry]) -> Optional[LexEntry]:
 def normalize_domain(d: str) -> str:
     d = d.strip()
     if d.startswith("sentennce."):
-        d = "sentence." + d[len("sentennce.") :]
+        d = "sentence." + d[len("sentennce."):]
     return d
 
 
@@ -59,9 +59,10 @@ def translate_ika_to_en(store: LexiconStore, ika: str) -> str:
 
 
 def _story_pools(store: LexiconStore) -> List[LexEntry]:
-    """Build pool for story from preferred domains (or all entries)."""
+    """Build pool for story from preferred domains (matches ika_dictionary + firestore export)."""
     order = [
         "greeting",
+        "poetic_vocab",
         "sentence.location",
         "sentence.svo",
         "sentence.question",
@@ -69,6 +70,8 @@ def _story_pools(store: LexiconStore) -> List[LexEntry]:
         "sentence.conditional",
         "sentence.tense",
         "sentence.expression",
+        "sentence.imperative",
+        "sentence.possession",
         "synonym_general",
         "synonym_family",
         "synonym_education",

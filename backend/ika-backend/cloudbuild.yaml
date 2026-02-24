@@ -1,5 +1,8 @@
 # Build with Dockerfile and deploy to Cloud Run
-# Cloud Build substitutions: $COMMIT_SHA (full), $SHORT_SHA (short)
+# GIT_SHA: pass at build time so container knows commit. Do NOT rely on $COMMIT_SHA (only set on trigger).
+# Manual submit: gcloud builds submit --config=cloudbuild.yaml . --substitutions=_GIT_SHA=$(git rev-parse HEAD)
+substitutions:
+  _GIT_SHA: 'unknown'
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/ika-backend', '.']
@@ -20,6 +23,6 @@ steps:
       - '--service-account'
       - 'ika-cloudrun-sa@ikause.iam.gserviceaccount.com'
       - '--set-env-vars'
-      - 'PROJECT_ID=ikause,LEXICON_COLLECTION=lexicon,FIREBASE_STORAGE_BUCKET=ikause.appspot.com,AUDIO_CACHE_PREFIX=audio-cache,GIT_SHA=$COMMIT_SHA'
+      - 'PROJECT_ID=ikause,LEXICON_COLLECTION=lexicon,FIREBASE_STORAGE_BUCKET=ikause.appspot.com,AUDIO_CACHE_PREFIX=audio-cache,GIT_SHA=${_GIT_SHA}'
 images:
   - 'gcr.io/$PROJECT_ID/ika-backend'

@@ -30,18 +30,34 @@ class LexiconStore:
         self.ika_token_set: set = set()
 
     def load(self) -> None:
-        raw = json.loads(self.export_path.read_text(encoding="utf-8"))
-        docs = raw.get("docs", [])
-
+        data_dir = self.export_path.parent
         entries: List[LexEntry] = []
-        for d in docs:
-            domain = (d.get("domain") or d.get("category") or "").strip()
-            en = (d.get("source_text") or d.get("sourceText") or "").strip()
-            ika = (d.get("target_text") or d.get("targetText") or "").strip()
-            if not domain or not en or not ika:
-                continue
-            e = LexEntry(domain=domain, en=en, ika=ika)
-            entries.append(e)
+
+        # 1) Load firestore_lexicon_export.json (docs)
+        if self.export_path.exists():
+            raw = json.loads(self.export_path.read_text(encoding="utf-8"))
+            for d in raw.get("docs", []):
+                domain = (d.get("domain") or d.get("category") or "").strip()
+                en = (d.get("source_text") or d.get("sourceText") or "").strip()
+                ika = (d.get("target_text") or d.get("targetText") or "").strip()
+                if not domain or not en or not ika:
+                    continue
+                entries.append(LexEntry(domain=domain, en=en, ika=ika))
+
+        # 2) Load ika_dictionary.json (entries) and merge
+        ika_dict_path = data_dir / "ika_dictionary.json"
+        if ika_dict_path.exists():
+            try:
+                ika_raw = json.loads(ika_dict_path.read_text(encoding="utf-8"))
+                for d in ika_raw.get("entries", []):
+                    domain = (d.get("domain") or d.get("category") or "").strip()
+                    en = (d.get("source_text") or d.get("sourceText") or "").strip()
+                    ika = (d.get("target_text") or d.get("targetText") or "").strip()
+                    if not domain or not en or not ika:
+                        continue
+                    entries.append(LexEntry(domain=domain, en=en, ika=ika))
+            except Exception:
+                pass
 
         self.entries = entries
         self.by_domain.clear()

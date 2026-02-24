@@ -89,6 +89,25 @@ class ApiClient {
     }
   }
 
+  /// GET bytes (e.g. /audio/xxx – sends auth so Cloud Run allows it)
+  Future<List<int>> getBytes(String path) async {
+    try {
+      if (kDebugMode) {
+        debugPrint('API GET bytes: ${AppConfig.baseUrl}$path');
+      }
+      final response = await _dio.get<List<int>>(
+        path,
+        options: Options(responseType: ResponseType.bytes),
+      );
+      return response.data ?? [];
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        debugPrint('API Error GET $path: ${e.type} - ${e.message}');
+      }
+      throw _handleError(e);
+    }
+  }
+
   /// POST request
   Future<Response> post(
     String path, {

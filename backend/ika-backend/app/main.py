@@ -466,17 +466,22 @@ async def serve_audio(filename: str):
 
 @app.get("/dictionary", response_model=DictionaryResponse)
 async def dictionary_lookup(
-    q: str = Query(..., min_length=1),
-    token: str = Depends(verify_token)
+    q: str = Query("", description="English word or prefix; empty = return all entries"),
+    limit: int = Query(700, ge=1, le=1000, description="Max entries (e.g. 700 for full lexicon)"),
+    token: str = Depends(verify_token),
 ):
     """
     Dictionary lookup: type English word (or prefix) and get Ika word(s).
-    Returns lexicon entries where source_text starts with the query (case-insensitive).
+    Empty q returns all lexicon entries up to limit (e.g. 675+ words).
     """
     if lexicon_repo is None:
         raise HTTPException(status_code=503, detail="Dictionary unavailable (Firestore not connected)")
     try:
-        entries = lexicon_repo.search_by_source_prefix(prefix=q, limit=25)
+        query = (q or "").strip()
+        if not query:
+            entries = lexicon_repo.get_all()[:limit]
+        else:
+            entries = lexicon_repo.search_by_source_prefix(prefix=query, limit=min(limit, 200))
         out = [
             DictionaryEntry(
                 source_text=e.get("source_text", ""),

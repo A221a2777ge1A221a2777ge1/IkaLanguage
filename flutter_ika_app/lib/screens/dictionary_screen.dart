@@ -15,6 +15,18 @@ class DictionaryScreen extends ConsumerStatefulWidget {
 class _DictionaryScreenState extends ConsumerState<DictionaryScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+  bool _initialLoadDone = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_initialLoadDone) {
+        _initialLoadDone = true;
+        ref.read(dictionaryProvider.notifier).search('');
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -44,14 +56,17 @@ class _DictionaryScreenState extends ConsumerState<DictionaryScreen> {
                 children: [
                   Text(
                     'English → Ika',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w600,
+                        ),
                   ),
                   const SizedBox(height: 8),
                   TextField(
                     controller: _searchController,
                     focusNode: _focusNode,
                     decoration: const InputDecoration(
-                      hintText: 'Type an English word (e.g. hello, run, water)',
+                      hintText: 'Type an English word or leave empty for all',
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.search),
                     ),
@@ -59,16 +74,32 @@ class _DictionaryScreenState extends ConsumerState<DictionaryScreen> {
                     onSubmitted: (_) => _search(),
                   ),
                   const SizedBox(height: 12),
-                  FilledButton.icon(
-                    onPressed: state.isLoading ? null : _search,
-                    icon: state.isLoading
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : const Icon(Icons.search),
-                    label: Text(state.isLoading ? 'Searching...' : 'Look up'),
+                  Row(
+                    children: [
+                      FilledButton.icon(
+                        onPressed: state.isLoading ? null : _search,
+                        icon: state.isLoading
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                    strokeWidth: 2, color: Colors.white),
+                              )
+                            : const Icon(Icons.search),
+                        label: Text(state.isLoading ? 'Loading...' : 'Look up'),
+                      ),
+                      const SizedBox(width: 8),
+                      OutlinedButton.icon(
+                        onPressed: state.isLoading
+                            ? null
+                            : () {
+                                _searchController.clear();
+                                ref.read(dictionaryProvider.notifier).search('');
+                              },
+                        icon: const Icon(Icons.list),
+                        label: const Text('Show all'),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -90,14 +121,27 @@ class _DictionaryScreenState extends ConsumerState<DictionaryScreen> {
           if (state.entries.isNotEmpty) ...[
             const SizedBox(height: 16),
             Text(
-              'Ika words',
-              style: Theme.of(context).textTheme.titleMedium,
+              state.lastQuery == 'all'
+                  ? 'All Ika words (${state.entries.length})'
+                  : 'Ika words (${state.entries.length})',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w600,
+                  ),
             ),
             const SizedBox(height: 8),
-            ...state.entries.map((e) => _EntryCard(entry: e)),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: ListView.builder(
+                itemCount: state.entries.length,
+                itemBuilder: (context, i) =>
+                    _EntryCard(entry: state.entries[i]),
+              ),
+            ),
           ],
           if (!state.isLoading &&
               state.lastQuery.isNotEmpty &&
+              state.lastQuery != 'all' &&
               state.entries.isEmpty &&
               state.error == null) ...[
             const SizedBox(height: 16),

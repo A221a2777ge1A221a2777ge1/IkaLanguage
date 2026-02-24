@@ -40,10 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withOpacity(0.12),
               blurRadius: 8,
               offset: const Offset(0, -2),
             ),
@@ -57,29 +57,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 _currentIndex = index;
               });
             },
+            backgroundColor: Colors.white,
+            selectedItemColor: Colors.blue.shade700,
+            unselectedItemColor: Colors.black54,
             type: BottomNavigationBarType.fixed,
             items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.translate),
-                label: 'Translate',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.auto_stories),
-                label: 'Generate',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.menu_book),
-                label: 'Dictionary',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.library_books),
-                label: 'Library',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings',
-              ),
-            ],
+            BottomNavigationBarItem(
+              icon: Icon(Icons.translate),
+              label: 'Translate',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.auto_stories),
+              label: 'Generate',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.menu_book),
+              label: 'Dictionary',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.library_books),
+              label: 'Library',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+          ],
           ),
         ),
       ),

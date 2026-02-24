@@ -57,6 +57,21 @@ class PatternRepository:
                     pattern_id = pattern["pattern_id"]
                     self.pattern_index[pattern_id] = pattern
                     self.patterns[pattern_id] = pattern
+
+            # Merge patterns from ika_dictionary.json if present
+            data_dir = self.patterns_file.parent
+            ika_dict_path = data_dir / "ika_dictionary.json"
+            if ika_dict_path.exists():
+                try:
+                    ika_raw = json.loads(ika_dict_path.read_text(encoding="utf-8"))
+                    for pattern in ika_raw.get("patterns", []):
+                        if isinstance(pattern, dict) and pattern.get("pattern_id"):
+                            pattern_id = pattern["pattern_id"]
+                            self.pattern_index[pattern_id] = pattern
+                            self.patterns[pattern_id] = pattern
+                    logger.info(f"Merged patterns from ika_dictionary.json; total {len(self.pattern_index)} patterns")
+                except Exception as e:
+                    logger.warning(f"Could not merge ika_dictionary patterns: {e}")
             
             logger.info(f"Loaded {len(self.pattern_index)} grammar patterns from {self.patterns_file}")
             

@@ -1,11 +1,15 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter/foundation.dart';
 import '../services/audio_cache_service.dart';
+import '../state/auth_provider.dart';
 
-/// Audio player state provider
+/// Audio player state provider (uses ref for authenticated download on Cloud Run)
 final audioPlayerProvider = StateNotifierProvider<AudioPlayerNotifier, AudioPlayerState>((ref) {
-  return AudioPlayerNotifier();
+  return AudioPlayerNotifier(ref);
 });
 
 /// Audio player state
@@ -41,11 +45,12 @@ class AudioPlayerState {
   }
 }
 
-/// Audio player notifier
+/// Audio player notifier – uses authenticated download so /audio/xxx works on Cloud Run
 class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
+  final Ref _ref;
   final AudioPlayer _player = AudioPlayer();
 
-  AudioPlayerNotifier() : super(AudioPlayerState()) {
+  AudioPlayerNotifier(this._ref) : super(AudioPlayerState()) {
     _player.playerStateStream.listen((playerState) {
       state = state.copyWith(
         isPlaying: playerState.playing,
@@ -62,11 +67,23 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
     });
   }
 
-  /// Load and play audio: download/cache via AudioCacheService, then play from local file.
+  /// Load and play: download with auth, then play from local file. Fallback to cache if auth fails.
   Future<void> play(String audioUrl) async {
+    if (audioUrl.isEmpty) return;
     try {
       state = state.copyWith(isLoading: true, error: null);
-      final file = await AudioCacheService().getFileForUrl(audioUrl);
+      File file;
+      try {
+        final api = _ref.read(ikaApiProvider);
+        final bytes = await api.getAudioBytes(audioUrl);
+        final dir = await getTemporaryDirectory();
+        final name = audioUrl.replaceAll(RegExp(r'[^a-zA-Z0-9._-]'), '_');
+        file = File('${dir.path}/ika_audio_$name');
+        await file.writeAsBytes(bytes);
+      } catch (e) {
+        if (kDebugMode) debugPrint('Auth download failed, trying cache: $e');
+        file = await AudioCacheService().getFileForUrl(audioUrl);
+      }
       await _player.setFilePath(file.path);
       await _player.play();
     } catch (e) {
