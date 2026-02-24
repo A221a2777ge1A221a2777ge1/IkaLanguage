@@ -8,7 +8,7 @@ from typing import Optional
 from google.cloud import texttospeech
 from google.api_core import exceptions as google_exceptions
 
-from tts.ssml import text_to_ssml_with_phonemes, load_ipa_dictionary
+from .tts.ssml import text_to_ssml_with_phonemes, load_ipa_dictionary
 
 logger = logging.getLogger(__name__)
 

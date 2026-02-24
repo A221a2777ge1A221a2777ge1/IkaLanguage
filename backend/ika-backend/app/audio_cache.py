@@ -6,7 +6,7 @@ from typing import Optional
 import hashlib
 import logging
 from datetime import timedelta
-from tts_engine import generate_tts_audio
+from .tts_engine import generate_tts_audio
 
 logger = logging.getLogger(__name__)
 

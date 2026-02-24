@@ -4,11 +4,11 @@ Combines lexicon, patterns, rules, and templates
 """
 from typing import Dict, List, Optional
 import logging
-from lexicon_repo import LexiconRepository
-from pattern_repo import PatternRepository
-from rule_engine import RuleEngine
-from slot_filler import SlotFiller
-from templates_engine import TemplatesEngine
+from .lexicon_repo import LexiconRepository
+from .pattern_repo import PatternRepository
+from .rule_engine import RuleEngine
+from .slot_filler import SlotFiller
+from .templates_engine import TemplatesEngine
 
 logger = logging.getLogger(__name__)
 

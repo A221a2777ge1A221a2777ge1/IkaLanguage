@@ -44,12 +44,21 @@ class IkaApi {
     return _client.postBytes('/generate-audio', data: request.toJson());
   }
 
-  /// Dictionary lookup: English word/prefix → Ika words
+  /// Dictionary lookup: English word/prefix → Ika words.
+  /// Uses POST /translate with mode: dictionary (returns same entries shape).
   Future<DictionaryResponse> dictionaryLookup(String query) async {
-    final response = await _client.get(
-      '/dictionary',
-      queryParameters: {'q': query.trim()},
+    final response = await _client.post(
+      '/translate',
+      data: {
+        'text': query.trim(),
+        'mode': 'dictionary',
+        'tense': 'present',
+      },
     );
-    return DictionaryResponse.fromJson(response.data);
+    final data = response.data;
+    if (data is! Map<String, dynamic>) {
+      throw Exception('Dictionary lookup failed: unexpected response');
+    }
+    return DictionaryResponse.fromJson(data);
   }
 }

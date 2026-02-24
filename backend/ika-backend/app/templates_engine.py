@@ -6,9 +6,9 @@ from pathlib import Path
 from typing import Dict, List, Optional
 import random
 import logging
-from pattern_repo import PatternRepository
-from slot_filler import SlotFiller
-from rule_engine import RuleEngine
+from .pattern_repo import PatternRepository
+from .slot_filler import SlotFiller
+from .rule_engine import RuleEngine
 
 logger = logging.getLogger(__name__)
 

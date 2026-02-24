@@ -11,17 +11,17 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
 
-from firebase_client import get_firestore_client, get_storage_client
-from lexicon_repo import LexiconRepository
-from pattern_repo import PatternRepository
-from rule_engine import RuleEngine
-from slot_filler import SlotFiller
-from generator import Generator
-from templates_engine import TemplatesEngine
-from audio_cache import AudioCache
-from validators import validate_on_startup
-from tts.ssml import load_ipa_dictionary
-from tts_engine import generate_tts_audio_mp3
+from .firebase_client import get_firestore_client, get_storage_client
+from .lexicon_repo import LexiconRepository
+from .pattern_repo import PatternRepository
+from .rule_engine import RuleEngine
+from .slot_filler import SlotFiller
+from .generator import Generator
+from .templates_engine import TemplatesEngine
+from .audio_cache import AudioCache
+from .validators import validate_on_startup
+from .tts.ssml import load_ipa_dictionary
+from .tts_engine import generate_tts_audio_mp3
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -146,28 +146,50 @@ async def health():
     return {"ok": True}
 
 
-@app.post("/translate", response_model=TranslateResponse)
+@app.post("/translate")
 async def translate(
     request: TranslateRequest,
     token: str = Depends(verify_token)
 ):
     """
-    Translate English text to Ika using rule-based generation.
-    Returns text only - NO audio generation.
+    Translate English text to Ika, or dictionary lookup.
+    - mode=rule_based (default): returns {"text": "...", "meta": {...}}
+    - mode=dictionary: returns {"entries": [{"source_text", "target_text", ...}]}
     """
+    mode = (request.mode or "rule_based").strip().lower()
+    text = request.text.strip()
+
+    if mode == "dictionary":
+        try:
+            entries = lexicon_repo.search_by_source_prefix(prefix=text, limit=25)
+            out = [
+                {
+                    "source_text": e.get("source_text", ""),
+                    "target_text": e.get("target_text", ""),
+                    "pos": e.get("pos"),
+                    "domain": e.get("domain"),
+                    "doc_id": e.get("doc_id"),
+                }
+                for e in entries
+            ]
+            return {"entries": out}
+        except Exception as e:
+            logger.error("Dictionary lookup error: %s", str(e), exc_info=True)
+            raise HTTPException(status_code=500, detail="Dictionary lookup failed") from e
+
     try:
         result = generator.translate(
             text=request.text,
             tense=request.tense,
             mode=request.mode
         )
-        return TranslateResponse(
-            text=result["text"],
-            meta=result["meta"]
-        )
+        return {
+            "text": result["text"],
+            "meta": result["meta"],
+        }
     except Exception as e:
-        logger.error(f"Translation error: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Translation failed: {str(e)}")
+        logger.error("Translation error: %s", str(e), exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Translation failed: {str(e)}") from e
 
 
 @app.post("/generate", response_model=GenerateResponse)
