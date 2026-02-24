@@ -87,14 +87,23 @@ The validator is also run automatically on startup - the service will refuse to 
 
 ### Deploy
 
-**PowerShell (Windows)** — single line:
+**Option A — Cloud Build + Dockerfile (recommended; avoids Buildpack failures)**
+
+From repo root (e.g. `IkaLanguage/`):
+
+```bash
+cd backend/ika-backend
+gcloud builds submit --config=cloudbuild.yaml .
+```
+
+**Option B — Deploy from source (PowerShell, Windows)**
 
 ```powershell
 cd backend\ika-backend
 gcloud run deploy ika-backend --source . --region europe-west2 --service-account ika-cloudrun-sa@ikause.iam.gserviceaccount.com --set-env-vars "PROJECT_ID=ikause,LEXICON_COLLECTION=lexicon,FIREBASE_STORAGE_BUCKET=ikause.appspot.com,AUDIO_CACHE_PREFIX=audio-cache"
 ```
 
-**Bash / Cloud Shell** (use backslash `\` for line continuation):
+**Option B — Deploy from source (Bash / Cloud Shell)**
 
 ```bash
 cd backend/ika-backend
@@ -105,7 +114,7 @@ gcloud run deploy ika-backend \
   --set-env-vars "PROJECT_ID=ikause,LEXICON_COLLECTION=lexicon,FIREBASE_STORAGE_BUCKET=ikause.appspot.com,AUDIO_CACHE_PREFIX=audio-cache"
 ```
 
-Note: Do **not** pass `--allow-unauthenticated`; omitting it keeps the service private (requires Bearer token). To make the service public, add `--allow-unauthenticated`.
+Note: Do **not** pass `--allow-unauthenticated`; omitting it keeps the service private (requires Bearer token).
 
 ## API Endpoints
 

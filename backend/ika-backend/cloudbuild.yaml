@@ -1,0 +1,24 @@
+# Build with Dockerfile and deploy to Cloud Run
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/ika-backend', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/ika-backend']
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'ika-backend'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/ika-backend'
+      - '--region'
+      - 'europe-west2'
+      - '--platform'
+      - 'managed'
+      - '--service-account'
+      - 'ika-cloudrun-sa@ikause.iam.gserviceaccount.com'
+      - '--set-env-vars'
+      - 'PROJECT_ID=ikause,LEXICON_COLLECTION=lexicon,FIREBASE_STORAGE_BUCKET=ikause.appspot.com,AUDIO_CACHE_PREFIX=audio-cache'
+images:
+  - 'gcr.io/$PROJECT_ID/ika-backend'
