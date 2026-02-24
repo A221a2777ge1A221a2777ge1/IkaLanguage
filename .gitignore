@@ -1,18 +1,27 @@
-# Python
+# === GitHub / tooling ===
+.DS_Store
+*.log
+*.tmp
+*.swp
+*.swo
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-*.log
 .venv/
 venv/
+.env
 
-# Backend venv + caches (your layout)
-backend/ika-backend/.venv/
-backend/ika-backend/app/__pycache__/
-backend/ika-backend/**/__pycache__/
+# === Node / Flutter / Dart (if any) ===
+node_modules/
+build/
+dist/
+.dart_tool/
+.packages
+.pub-cache/
 
-# OS / editors
-.DS_Store
-.vscode/
-.idea/
+# === Python ===
+__pycache__/
+*.py[cod]
+
+# === Generated exports / local datasets ===
+backend/ika-backend/data/firestore_lexicon_export.json
+backend/ika-backend/data/ika_dictionary*.json
