@@ -4,8 +4,10 @@ Option A: Rule-based generator using Firestore lexicon + grammar patterns
 """
 import os
 import logging
+import uuid
 from fastapi import FastAPI, HTTPException, Depends, Security, Query
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.responses import Response
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
 
@@ -18,6 +20,8 @@ from generator import Generator
 from templates_engine import TemplatesEngine
 from audio_cache import AudioCache
 from validators import validate_on_startup
+from tts.ssml import load_ipa_dictionary
+from tts_engine import generate_tts_audio_mp3
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -45,6 +49,7 @@ slot_filler = None
 generator = None
 templates_engine = None
 audio_cache = None
+ipa_dict = None
 
 
 async def verify_token(credentials: HTTPAuthorizationCredentials = Security(security)):
@@ -58,18 +63,22 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Security(secu
 async def startup_event():
     """Initialize all components on startup"""
     global firestore_client, storage_client, lexicon_repo, pattern_repo
-    global rule_engine, slot_filler, generator, templates_engine, audio_cache
-    
-    logger.info(f"Initializing IKA backend for project: {PROJECT_ID}")
-    
+    global rule_engine, slot_filler, generator, templates_engine, audio_cache, ipa_dict
+
+    logger.info("Initializing IKA backend for project: %s", PROJECT_ID)
+
     # Validate data files before starting
     try:
         validate_on_startup()
         logger.info("Data validation passed")
     except Exception as e:
-        logger.error(f"Data validation failed: {e}")
-        raise RuntimeError(f"Cannot start: validation failed - {e}")
-    
+        logger.error("Data validation failed: %s", e)
+        raise RuntimeError(f"Cannot start: validation failed - {e}") from e
+
+    # Load IPA dictionary for TTS (cached in tts.ssml)
+    data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
+    ipa_dict = load_ipa_dictionary(data_dir)
+
     # Initialize Firebase clients
     firestore_client = get_firestore_client(PROJECT_ID)
     storage_client = get_storage_client(PROJECT_ID, FIREBASE_STORAGE_BUCKET)
@@ -111,12 +120,9 @@ class GenerateResponse(BaseModel):
 
 
 class GenerateAudioRequest(BaseModel):
-    text: str
+    text: Optional[str] = None
+    prompt: Optional[str] = None
     voice: Optional[str] = "default"
-
-
-class GenerateAudioResponse(BaseModel):
-    audio_url: str
 
 
 class DictionaryEntry(BaseModel):
@@ -187,30 +193,36 @@ async def generate(
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
 
 
-@app.post("/generate-audio", response_model=GenerateAudioResponse)
+@app.post("/generate-audio")
 async def generate_audio(
     request: GenerateAudioRequest,
     token: str = Depends(verify_token)
 ):
     """
-    Generate or retrieve audio for Ika text.
-    This is the ONLY endpoint that generates audio.
-
-    Logic:
-    1. Hash text with SHA256
-    2. Check Firebase Storage cache
-    3. If exists, return URL
-    4. Else generate TTS, upload, return URL
+    Generate audio for Ika text using Google Cloud TTS + IPA SSML.
+    Returns MP3 bytes (audio/mpeg).
     """
+    request_id = str(uuid.uuid4())[:8]
+    input_text = (request.text or request.prompt or "").strip()
+    if not input_text:
+        raise HTTPException(status_code=400, detail="Missing 'text' or 'prompt' in request body")
+
     try:
-        audio_url = await audio_cache.get_or_generate_audio(
-            text=request.text,
-            voice=request.voice
+        audio_bytes = generate_tts_audio_mp3(input_text, voice=request.voice or "default")
+        logger.info("generate_audio request_id=%s len=%d", request_id, len(audio_bytes))
+        return Response(
+            content=audio_bytes,
+            media_type="audio/mpeg",
+            headers={
+                "Content-Disposition": 'attachment; filename="ika.mp3"',
+            },
         )
-        return GenerateAudioResponse(audio_url=audio_url)
     except Exception as e:
-        logger.error(f"Audio generation error: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Audio generation failed: {str(e)}")
+        logger.error("generate_audio request_id=%s error: %s", request_id, str(e), exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail={"error": "Audio generation failed", "request_id": request_id},
+        )
 
 
 @app.get("/dictionary", response_model=DictionaryResponse)

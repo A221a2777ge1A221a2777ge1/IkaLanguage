@@ -3,5 +3,6 @@ uvicorn[standard]==0.24.0
 firebase-admin==6.2.0
 google-cloud-storage==2.10.0
 google-cloud-firestore==2.13.1
+google-cloud-texttospeech>=2.16.0
 pydantic==2.5.0
 python-multipart==0.0.6

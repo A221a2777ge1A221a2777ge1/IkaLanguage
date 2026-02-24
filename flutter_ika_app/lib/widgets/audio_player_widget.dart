@@ -61,11 +61,15 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
     });
   }
 
-  /// Load and play audio from URL
-  Future<void> play(String audioUrl) async {
+  /// Load and play audio from URL or local file path
+  Future<void> play(String audioUrlOrPath) async {
     try {
       state = state.copyWith(isLoading: true, error: null);
-      await _player.setUrl(audioUrl);
+      if (audioUrlOrPath.startsWith('http://') || audioUrlOrPath.startsWith('https://')) {
+        await _player.setUrl(audioUrlOrPath);
+      } else {
+        await _player.setFilePath(audioUrlOrPath);
+      }
       await _player.play();
     } catch (e) {
       state = state.copyWith(

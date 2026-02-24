@@ -38,17 +38,10 @@ class IkaApi {
     return GenerateResponse.fromJson(response.data);
   }
 
-  /// Generate audio. Returns null if server returns 501 Not Implemented.
-  Future<GenerateAudioResponse?> generateAudio(GenerateAudioRequest request) async {
-    try {
-      final response = await _client.post('/generate-audio', data: request.toJson());
-      return GenerateAudioResponse.fromJson(response.data);
-    } on ApiException catch (e) {
-      if (e.statusCode == 501) {
-        return null;
-      }
-      rethrow;
-    }
+  /// Generate audio: POST /generate-audio returns MP3 bytes.
+  /// Returns raw MP3 bytes; caller should write to temp file and play with just_audio.
+  Future<List<int>> generateAudioBytes(GenerateAudioRequest request) async {
+    return _client.postBytes('/generate-audio', data: request.toJson());
   }
 
   /// Dictionary lookup: English word/prefix → Ika words

@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import '../api/models.dart';
 import '../state/auth_provider.dart';
 import '../state/library_provider.dart';
@@ -41,29 +43,20 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     try {
       final api = ref.read(ikaApiProvider);
       final request = GenerateAudioRequest(text: widget.result.outputText);
-      final response = await api.generateAudio(request);
+      final bytes = await api.generateAudioBytes(request);
+
+      final dir = await getTemporaryDirectory();
+      final file = File('${dir.path}/ika_${DateTime.now().millisecondsSinceEpoch}.mp3');
+      await file.writeAsBytes(bytes);
 
       setState(() {
         _isGeneratingAudio = false;
-      });
-
-      if (response == null) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text('Audio generation is not enabled on the server yet.')),
-          );
-        }
-        return;
-      }
-
-      setState(() {
-        _audioUrl = response.audioUrl;
+        _audioUrl = file.path;
       });
 
       ref.read(libraryProvider.notifier).updateItemAudioUrl(
         widget.result.id,
-        response.audioUrl,
+        file.path,
       );
 
       if (mounted) {

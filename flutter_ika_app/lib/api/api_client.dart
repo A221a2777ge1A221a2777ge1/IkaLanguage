@@ -110,6 +110,40 @@ class ApiClient {
     }
   }
 
+  /// POST request returning raw bytes (e.g. for /generate-audio MP3).
+  Future<List<int>> postBytes(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    try {
+      if (kDebugMode) {
+        debugPrint('API POST bytes: ${AppConfig.baseUrl}$path');
+      }
+      final response = await _dio.post<List<int>>(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: Options(responseType: ResponseType.bytes),
+      );
+      final body = response.data;
+      if (body == null) {
+        throw ApiException(
+          message: 'Empty response body',
+          url: '${AppConfig.baseUrl}$path',
+          statusCode: response.statusCode,
+        );
+      }
+      return body;
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        debugPrint('API Error POST $path: ${e.type} - ${e.message}');
+        debugPrint('Status: ${e.response?.statusCode}');
+      }
+      throw _handleError(e);
+    }
+  }
+
   /// Handle errors with detailed information
   ApiException _handleError(DioException error) {
     final requestUrl = '${error.requestOptions.baseUrl}${error.requestOptions.path}';

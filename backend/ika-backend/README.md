@@ -85,6 +85,16 @@ The validator is also run automatically on startup - the service will refuse to 
 - Firestore database with `lexicon` collection populated
 - APIs enabled (run `backend/scripts/setup_gcp.sh`)
 
+### TTS permissions
+
+The `/generate-audio` endpoint uses **Google Cloud Text-to-Speech** with IPA phonemes (SSML).
+
+- **Enable the API**: In GCP Console, enable **Cloud Text-to-Speech API** for your project.
+- **Service account permissions**: The Cloud Run service account (`ika-cloudrun-sa@ikause.iam.gserviceaccount.com`) must be allowed to call Text-to-Speech. Options:
+  - **Testing**: Grant `roles/editor` (or project Editor) to the service account so it can call the API.
+  - **Production**: Grant the narrow role **Cloud Text-to-Speech API User** (or a custom role with `cloudtts.synthesize`) to the service account.
+- After changing roles, redeploy or wait for the next request; no restart needed.
+
 ### Deploy
 
 ```bash
@@ -189,14 +199,11 @@ Content-Type: application/json
 }
 ```
 
-Response:
-```json
-{
-  "audio_url": "https://storage.googleapis.com/..."
-}
-```
+Alternatively, `"prompt"` is accepted instead of `"text"`.
 
-**Note**: This is the **ONLY endpoint that generates audio**. Audio is on-demand and cached.
+**Response**: Raw MP3 bytes (`Content-Type: audio/mpeg`), with optional header `Content-Disposition: attachment; filename="ika.mp3"`.
+
+**Note**: This is the **ONLY endpoint that generates audio**. It uses Google Cloud Text-to-Speech with IPA phonemes (SSML). The app may save the bytes to a local file and play with `just_audio`.
 
 ## Testing in Cloud Shell
 
@@ -242,14 +249,15 @@ curl -X POST "https://ika-backend-<hash>-ew.a.run.app/generate" \
 
 ### Test Generate Audio Endpoint
 
+Saves MP3 to `out.mp3` and prints file size:
+
 ```bash
 curl -X POST "https://ika-backend-<hash>-ew.a.run.app/generate-audio" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{
-    "text": "ya",
-    "voice": "default"
-  }'
+  -d '{"text": "hello water", "voice": "default"}' \
+  -o out.mp3
+ls -la out.mp3
 ```
 
 ## Firestore Schema

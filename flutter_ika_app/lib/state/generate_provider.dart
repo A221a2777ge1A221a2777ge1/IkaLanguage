@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 import '../api/ika_api.dart';
 import '../api/models.dart';
 import 'auth_provider.dart';
@@ -73,12 +75,12 @@ class GenerateNotifier extends StateNotifier<GenerateState> {
 
     try {
       final request = GenerateAudioRequest(text: state.result!.text);
-      final response = await _api.generateAudio(request);
-      if (response == null) {
-        return null; // 501 Not Implemented — UI shows friendly message
-      }
-      state = state.copyWith(audioUrl: response.audioUrl);
-      return response.audioUrl;
+      final bytes = await _api.generateAudioBytes(request);
+      final dir = await getTemporaryDirectory();
+      final file = File('${dir.path}/ika_${DateTime.now().millisecondsSinceEpoch}.mp3');
+      await file.writeAsBytes(bytes);
+      state = state.copyWith(audioUrl: file.path);
+      return file.path;
     } catch (e) {
       state = state.copyWith(error: 'Failed to generate audio: $e');
       return null;
