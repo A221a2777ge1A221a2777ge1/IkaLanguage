@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+.venv/
+venv/
+
+# Backend venv + caches (your layout)
+backend/ika-backend/.venv/
+backend/ika-backend/app/__pycache__/
+backend/ika-backend/**/__pycache__/
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
