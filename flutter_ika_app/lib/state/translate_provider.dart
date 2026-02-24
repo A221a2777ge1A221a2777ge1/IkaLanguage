@@ -72,6 +72,9 @@ class TranslateNotifier extends StateNotifier<TranslateState> {
     try {
       final request = GenerateAudioRequest(text: state.result!.text);
       final response = await _api.generateAudio(request);
+      if (response == null) {
+        return null; // 501 Not Implemented — UI shows friendly message
+      }
       state = state.copyWith(audioUrl: response.audioUrl);
       return response.audioUrl;
     } catch (e) {

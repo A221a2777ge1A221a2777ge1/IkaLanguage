@@ -38,23 +38,15 @@ class GenerateNotifier extends StateNotifier<GenerateState> {
 
   GenerateNotifier(this._api) : super(GenerateState());
 
-  /// Generate content
+  /// Generate story (calls POST /generate-story)
   Future<void> generate({
-    required String kind,
-    required String topic,
-    String tone = 'neutral',
-    String length = 'medium',
+    required String prompt,
+    String length = 'short',
   }) async {
     state = state.copyWith(isLoading: true, error: null);
-    
     try {
-      final request = GenerateRequest(
-        kind: kind,
-        topic: topic,
-        tone: tone,
-        length: length,
-      );
-      final response = await _api.generate(request);
+      final request = GenerateRequest(prompt: prompt, length: length);
+      final response = await _api.generateStory(request);
       state = state.copyWith(
         isLoading: false,
         result: response,
@@ -82,6 +74,9 @@ class GenerateNotifier extends StateNotifier<GenerateState> {
     try {
       final request = GenerateAudioRequest(text: state.result!.text);
       final response = await _api.generateAudio(request);
+      if (response == null) {
+        return null; // 501 Not Implemented — UI shows friendly message
+      }
       state = state.copyWith(audioUrl: response.audioUrl);
       return response.audioUrl;
     } catch (e) {

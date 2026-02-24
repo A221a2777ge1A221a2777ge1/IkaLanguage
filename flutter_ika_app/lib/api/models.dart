@@ -37,24 +37,18 @@ class TranslateResponse {
       );
 }
 
-/// Generate request model
+/// Generate (story) request model — matches backend StoryIn
 class GenerateRequest {
-  final String kind; // poem|story|lecture
-  final String topic;
-  final String tone; // neutral|formal|poetic
+  final String prompt;
   final String length; // short|medium|long
 
   GenerateRequest({
-    required this.kind,
-    required this.topic,
-    this.tone = 'neutral',
-    this.length = 'medium',
+    required this.prompt,
+    this.length = 'short',
   });
 
   Map<String, dynamic> toJson() => {
-        'kind': kind,
-        'topic': topic,
-        'tone': tone,
+        'prompt': prompt,
         'length': length,
       };
 }

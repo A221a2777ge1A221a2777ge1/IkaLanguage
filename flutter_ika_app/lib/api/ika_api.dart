@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'api_client.dart';
 import 'models.dart';
 
@@ -12,7 +13,7 @@ class IkaApi {
     try {
       final response = await _client.get('/health');
       return HealthResponse.fromJson(response.data);
-    } on ApiException catch (e) {
+    } on ApiException catch (_) {
       // Re-throw ApiException as-is to preserve URL and status code
       rethrow;
     } catch (e) {
@@ -27,16 +28,27 @@ class IkaApi {
     return TranslateResponse.fromJson(response.data);
   }
 
-  /// Generate content (poem/story/lecture)
-  Future<GenerateResponse> generate(GenerateRequest request) async {
-    final response = await _client.post('/generate', data: request.toJson());
+  /// Generate story (POST /generate-story)
+  Future<GenerateResponse> generateStory(GenerateRequest request) async {
+    if (kDebugMode) {
+      // ignore: avoid_print
+      print('Calling /generate-story …');
+    }
+    final response = await _client.post('/generate-story', data: request.toJson());
     return GenerateResponse.fromJson(response.data);
   }
 
-  /// Generate audio
-  Future<GenerateAudioResponse> generateAudio(GenerateAudioRequest request) async {
-    final response = await _client.post('/generate-audio', data: request.toJson());
-    return GenerateAudioResponse.fromJson(response.data);
+  /// Generate audio. Returns null if server returns 501 Not Implemented.
+  Future<GenerateAudioResponse?> generateAudio(GenerateAudioRequest request) async {
+    try {
+      final response = await _client.post('/generate-audio', data: request.toJson());
+      return GenerateAudioResponse.fromJson(response.data);
+    } on ApiException catch (e) {
+      if (e.statusCode == 501) {
+        return null;
+      }
+      rethrow;
+    }
   }
 
   /// Dictionary lookup: English word/prefix → Ika words

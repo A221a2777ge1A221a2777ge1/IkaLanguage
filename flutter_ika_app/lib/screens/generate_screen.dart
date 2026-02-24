@@ -37,9 +37,7 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
     }
 
     ref.read(generateProvider.notifier).generate(
-      kind: _selectedKind,
-      topic: topic,
-      tone: _selectedTone,
+      prompt: topic,
       length: _selectedLength,
     );
   }
@@ -48,17 +46,21 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
     final generateState = ref.read(generateProvider);
     if (generateState.result == null) return;
 
-    // Show loading
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Generating audio...')),
     );
 
-    // Generate audio
     final audioUrl = await ref.read(generateProvider.notifier).generateAudio();
-    
-    if (audioUrl != null && mounted) {
+
+    if (!mounted) return;
+    if (audioUrl != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Audio generated successfully')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Audio generation is not enabled on the server yet.')),
       );
     }
   }

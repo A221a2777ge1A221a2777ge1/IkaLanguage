@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../api/ika_api.dart';
 import '../api/models.dart';
+import 'auth_provider.dart';
 
 /// Dictionary state
 class DictionaryState {

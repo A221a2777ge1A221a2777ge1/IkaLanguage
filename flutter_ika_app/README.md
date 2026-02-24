@@ -5,8 +5,8 @@ Flutter mobile app for the IKA Language Engine, connecting to a Cloud Run FastAP
 ## Features
 
 - **Translate**: English to Ika translation with tense selection
-- **Generate**: Create poems, stories, or lectures in Ika
-- **Audio**: On-demand audio generation (only when Play is tapped)
+- **Generate**: Create poems, stories, or lectures in Ika (uses `POST /generate-story`)
+- **Audio**: On-demand audio generation when Play is tapped (`POST /generate-audio`; returns 501 Not Implemented on the server for now — app shows a friendly message and does not crash)
 - **Library**: Save and manage translation/generation history
 - **Firebase Auth**: Anonymous authentication for backend access
 
@@ -56,7 +56,14 @@ Flutter mobile app for the IKA Language Engine, connecting to a Cloud Run FastAP
 
 ### 3. Configure Backend URL
 
-The backend URL is set in `lib/config/env.dart`:
+Backend base URL (DO NOT CHANGE): `https://ika-backend-516421484935.europe-west2.run.app`
+
+The app uses these OpenAPI endpoints:
+- `POST /translate`
+- `POST /generate-story` (request body: `{"prompt": "<text>", "length": "short"}`)
+- `POST /generate-audio` (currently returns 501 Not Implemented)
+
+The backend URL is also in `lib/config/app_config.dart` and `lib/config/env.dart`:
 
 ```dart
 static const String baseUrl = 
@@ -167,10 +174,13 @@ lib/
 - Audio is generated **ONLY** when user taps "Play Audio" or "Generate Audio"
 - Audio URLs are cached locally to avoid regeneration
 - Audio is streamed using `just_audio` package
+- If the backend returns **501 Not Implemented** for `/generate-audio`, the app shows “Audio generation is not enabled on the server yet” and does not crash
 
 ## Error Handling
 
 - **401/403**: Automatically refreshes token and retries once
+- **404**: Backend not found (wrong URL or service not deployed)
+- **501** (e.g. `/generate-audio`): Shows “Audio generation is not enabled on the server yet” — no crash
 - **Network timeout**: Shows friendly error message
 - **Backend errors**: Displays error message to user
 - **Session expired**: Prompts user to re-authenticate

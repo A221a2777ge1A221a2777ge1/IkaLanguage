@@ -42,13 +42,25 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
       final api = ref.read(ikaApiProvider);
       final request = GenerateAudioRequest(text: widget.result.outputText);
       final response = await api.generateAudio(request);
-      
+
       setState(() {
-        _audioUrl = response.audioUrl;
         _isGeneratingAudio = false;
       });
 
-      // Update library item
+      if (response == null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text('Audio generation is not enabled on the server yet.')),
+          );
+        }
+        return;
+      }
+
+      setState(() {
+        _audioUrl = response.audioUrl;
+      });
+
       ref.read(libraryProvider.notifier).updateItemAudioUrl(
         widget.result.id,
         response.audioUrl,

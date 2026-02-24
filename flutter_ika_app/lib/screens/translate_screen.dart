@@ -46,12 +46,17 @@ class _TranslateScreenState extends ConsumerState<TranslateScreen> {
       const SnackBar(content: Text('Generating audio...')),
     );
 
-    // Generate audio
     final audioUrl = await ref.read(translateProvider.notifier).generateAudio();
-    
-    if (audioUrl != null && mounted) {
+
+    if (!mounted) return;
+    if (audioUrl != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Audio generated successfully')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Audio generation is not enabled on the server yet.')),
       );
     }
   }
