@@ -18,4 +18,4 @@ ENV PYTHONUNBUFFERED=1
 EXPOSE 8080
 
 # Run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["bash", "-lc", "uvicorn app.main:app --host 0.0.0.0 --port "]
