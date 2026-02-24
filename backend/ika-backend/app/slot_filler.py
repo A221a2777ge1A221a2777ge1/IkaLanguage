@@ -6,9 +6,9 @@ from pathlib import Path
 from typing import Dict, List, Optional
 import random
 import logging
-from lexicon_repo import LexiconRepository
-from pattern_repo import PatternRepository
-from rule_engine import RuleEngine
+from app.lexicon_repo import LexiconRepository
+from app.pattern_repo import PatternRepository
+from app.rule_engine import RuleEngine
 
 logger = logging.getLogger(__name__)
 

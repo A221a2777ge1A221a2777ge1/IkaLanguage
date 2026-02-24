@@ -51,38 +51,38 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: SafeArea(
           child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.translate),
-              label: 'Translate',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.auto_stories),
-              label: 'Generate',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book),
-              label: 'Dictionary',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.library_books),
-              label: 'Library',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            type: BottomNavigationBarType.fixed,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.translate),
+                label: 'Translate',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.auto_stories),
+                label: 'Generate',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.menu_book),
+                label: 'Dictionary',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.library_books),
+                label: 'Library',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+              ),
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 }

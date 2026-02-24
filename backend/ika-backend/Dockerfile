@@ -17,7 +17,5 @@ ENV PYTHONUNBUFFERED=1
 # Expose port
 EXPOSE 8080
 
-# Run the application
-# Cloud Run injects PORT at runtime; must listen on it
-ENV PORT=8080
+# Run the application (Cloud Run injects PORT at runtime)
 CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8080}"]

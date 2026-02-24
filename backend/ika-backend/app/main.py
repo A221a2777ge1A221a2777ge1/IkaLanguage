@@ -10,20 +10,21 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
 
-from firebase_client import get_firestore_client, get_storage_client
-from lexicon_repo import LexiconRepository
-from pattern_repo import PatternRepository
-from rule_engine import RuleEngine
-from slot_filler import SlotFiller
-from generator import Generator
-from templates_engine import TemplatesEngine
-from audio_cache import AudioCache
-from validators import validate_on_startup
-from local_audio_cache import get_or_generate as local_audio_get_or_generate, get_file_path as local_audio_get_file_path
+from app.firebase_client import get_firestore_client, get_storage_client
+from app.lexicon_repo import LexiconRepository
+from app.pattern_repo import PatternRepository
+from app.rule_engine import RuleEngine
+from app.slot_filler import SlotFiller
+from app.generator import Generator
+from app.templates_engine import TemplatesEngine
+from app.audio_cache import AudioCache
+from app.validators import validate_on_startup
+from app.build_info import get_build_info
+from app.local_audio_cache import get_or_generate as local_audio_get_or_generate, get_file_path as local_audio_get_file_path
 
 try:
-    from lexicon_store import get_store
-    from dataset_generator import (
+    from app.lexicon_store import get_store
+    from app.dataset_generator import (
         translate_en_to_ika_sentence,
         translate_ika_to_en,
         generate_story as dataset_generate_story,
@@ -193,8 +194,21 @@ class DictionaryResponse(BaseModel):
 # Endpoints
 @app.get("/health")
 async def health():
-    """Health check endpoint"""
-    return {"ok": True}
+    """Health check endpoint (no auth). Returns ok + build fingerprint."""
+    try:
+        build = get_build_info()
+    except Exception:
+        build = {"git_sha": "unknown", "dataset_sha256": "error", "dataset_files_count": 0}
+    return {"ok": True, "build": build}
+
+
+@app.get("/build-info")
+async def build_info():
+    """Build and dataset fingerprint (no auth). For verifying Cursor/GitHub/Cloud Run match."""
+    try:
+        return get_build_info()
+    except Exception:
+        return {"git_sha": "unknown", "dataset_sha256": "error", "dataset_files_count": 0}
 
 
 @app.post("/translate", response_model=TranslateResponse)

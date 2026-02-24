@@ -147,7 +147,7 @@ def validate_on_startup():
     # Validate templates (requires pattern_repo)
     try:
         # Import here to avoid circular imports
-        from pattern_repo import PatternRepository
+        from app.pattern_repo import PatternRepository
         pattern_repo = PatternRepository()
         
         templates_file = data_dir / "templates.json"
