@@ -195,15 +195,28 @@ Content-Type: application/json
 
 {
   "text": "ika text",
-  "voice": "default"
+  "voice": "default",
+  "speaking_rate": 1.0,
+  "pitch": 0.0
 }
 ```
 
-Alternatively, `"prompt"` is accepted instead of `"text"`.
+- **text**: Ika text to synthesize (optional if `prompt` is set).
+- **prompt**: If set and `text` is omitted, the backend generates Ika text from the prompt (e.g. story), then synthesizes that.
+- **voice**, **speaking_rate**, **pitch**: Optional TTS parameters (cache key includes them).
 
-**Response**: Raw MP3 bytes (`Content-Type: audio/mpeg`), with optional header `Content-Disposition: attachment; filename="ika.mp3"`.
+**Response**: Raw MP3 bytes (`Content-Type: audio/mpeg`), with header `Content-Disposition: attachment; filename="ika.mp3"`.
 
-**Note**: This is the **ONLY endpoint that generates audio**. It uses Google Cloud Text-to-Speech with IPA phonemes (SSML). The app may save the bytes to a local file and play with `just_audio`.
+**Example — save MP3 to file:**
+
+```bash
+curl -o out.mp3 -X POST "https://ika-backend-516421484935.europe-west2.run.app/generate-audio" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "hello water", "voice": "default"}'
+```
+
+**Note**: Uses Google Cloud Text-to-Speech with IPA SSML. IAM: see **docs/tts_iam.md** if you get permission errors.
 
 ## Testing in Cloud Shell
 

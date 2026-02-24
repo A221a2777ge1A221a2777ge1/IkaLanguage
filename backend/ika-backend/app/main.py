@@ -123,6 +123,8 @@ class GenerateAudioRequest(BaseModel):
     text: Optional[str] = None
     prompt: Optional[str] = None
     voice: Optional[str] = "default"
+    speaking_rate: Optional[float] = 1.0
+    pitch: Optional[float] = 0.0
 
 
 class DictionaryEntry(BaseModel):
@@ -200,29 +202,72 @@ async def generate_audio(
 ):
     """
     Generate audio for Ika text using Google Cloud TTS + IPA SSML.
-    Returns MP3 bytes (audio/mpeg).
+    - If "text" is provided: synthesize that Ika text.
+    - If "prompt" is provided (and no text): generate Ika text from prompt, then synthesize.
+    Returns raw MP3 (Content-Type: audio/mpeg).
     """
     request_id = str(uuid.uuid4())[:8]
-    input_text = (request.text or request.prompt or "").strip()
+    voice = request.voice or "default"
+    speaking_rate = request.speaking_rate if request.speaking_rate is not None else 1.0
+    pitch = request.pitch if request.pitch is not None else 0.0
+
+    input_text: Optional[str] = (request.text or "").strip() or None
+    if not input_text and (request.prompt or "").strip():
+        try:
+            result = generator.generate(
+                kind="story",
+                topic=(request.prompt or "").strip(),
+                tone="neutral",
+                length="short",
+            )
+            input_text = (result.get("text") or "").strip()
+        except Exception as e:
+            logger.error("generate_audio request_id=%s generate from prompt failed: %s", request_id, e)
+            raise HTTPException(
+                status_code=500,
+                detail={"error": "Ika generation from prompt failed", "request_id": request_id},
+            ) from e
     if not input_text:
         raise HTTPException(status_code=400, detail="Missing 'text' or 'prompt' in request body")
 
     try:
-        audio_bytes = generate_tts_audio_mp3(input_text, voice=request.voice or "default")
+        cached = audio_cache.get_cached_audio_bytes(input_text, voice, speaking_rate, pitch)
+        if cached is not None:
+            logger.info("generate_audio request_id=%s cache hit len=%d", request_id, len(cached))
+            return Response(
+                content=cached,
+                media_type="audio/mpeg",
+                headers={"Content-Disposition": 'attachment; filename="ika.mp3"'},
+            )
+        audio_bytes = generate_tts_audio_mp3(
+            input_text,
+            voice=voice,
+            speaking_rate=speaking_rate,
+            pitch=pitch,
+        )
+        audio_cache.put_cached_audio_bytes(input_text, audio_bytes, voice, speaking_rate, pitch)
         logger.info("generate_audio request_id=%s len=%d", request_id, len(audio_bytes))
         return Response(
             content=audio_bytes,
             media_type="audio/mpeg",
-            headers={
-                "Content-Disposition": 'attachment; filename="ika.mp3"',
-            },
+            headers={"Content-Disposition": 'attachment; filename="ika.mp3"'},
         )
+    except RuntimeError as e:
+        if "permission" in str(e).lower() or "IAM" in str(e):
+            raise HTTPException(
+                status_code=500,
+                detail={
+                    "error": "Audio generation failed (likely IAM/permission). See docs/tts_iam.md.",
+                    "request_id": request_id,
+                },
+            ) from e
+        raise HTTPException(status_code=500, detail={"error": str(e), "request_id": request_id}) from e
     except Exception as e:
         logger.error("generate_audio request_id=%s error: %s", request_id, str(e), exc_info=True)
         raise HTTPException(
             status_code=500,
             detail={"error": "Audio generation failed", "request_id": request_id},
-        )
+        ) from e
 
 
 @app.get("/dictionary", response_model=DictionaryResponse)
