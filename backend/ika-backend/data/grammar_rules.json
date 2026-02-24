@@ -1,0 +1,28 @@
+{
+  "tense_markers": {
+    "present": "",
+    "past": "mere",
+    "future": "ga",
+    "progressive": "na-"
+  },
+  "negation": {
+    "marker": "adịghị",
+    "strategy": "prefix"
+  },
+  "questions": {
+    "yes_no_marker": "ọ bụ",
+    "wh_question_markers": {
+      "what": "gịnị",
+      "who": "onye",
+      "where": "ebe",
+      "when": "mgbe",
+      "why": "maka gịnị",
+      "how": "otú"
+    }
+  },
+  "notes": [
+    "Tense markers are applied as prefixes in Ika",
+    "Negation marker strategy: prefix",
+    "Question formation uses markers"
+  ]
+}

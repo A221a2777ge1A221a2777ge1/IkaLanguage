@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "516421484935",
+    "project_id": "ikause",
+    "storage_bucket": "ikause.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516421484935:android:498499ca3fd3d4f0de1322",
+        "android_client_info": {
+          "package_name": "com.example.ika2025"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516421484935-4cp8vnhhm73ljdl1e5bak43k41noele6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRPcnGyyJMn-LUSdKVyV8uX34NkAQq5ak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516421484935-4cp8vnhhm73ljdl1e5bak43k41noele6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "516421484935-rno85a3ni6jh4ajskhttbhmn7p7r1fgm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ikayou"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516421484935:android:143786eba236887ede1322",
+        "android_client_info": {
+          "package_name": "com.example.ika_language_engine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516421484935-4cp8vnhhm73ljdl1e5bak43k41noele6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRPcnGyyJMn-LUSdKVyV8uX34NkAQq5ak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516421484935-4cp8vnhhm73ljdl1e5bak43k41noele6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "516421484935-rno85a3ni6jh4ajskhttbhmn7p7r1fgm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ikayou"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516421484935:android:77aca31466981ea1de1322",
+        "android_client_info": {
+          "package_name": "com.gmoney.ikaengine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516421484935-ccvvpa7s6prnfnfs8r91trr2v4v5ljpt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gmoney.ikaengine",
+            "certificate_hash": "323571df77375b00e93604eab5271eaf5a687e19"
+          }
+        },
+        {
+          "client_id": "516421484935-4cp8vnhhm73ljdl1e5bak43k41noele6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRPcnGyyJMn-LUSdKVyV8uX34NkAQq5ak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516421484935-4cp8vnhhm73ljdl1e5bak43k41noele6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "516421484935-rno85a3ni6jh4ajskhttbhmn7p7r1fgm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ikayou"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

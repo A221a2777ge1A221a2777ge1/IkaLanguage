@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "description": "IKA Grammar Patterns - Structure for grammar rules and transformations",
+  "patterns": [
+    {
+      "pattern_id": "simple_sentence",
+      "slots": ["Subject", "Verb", "Object"],
+      "category": "sentence",
+      "example": ""
+    },
+    {
+      "pattern_id": "verb_phrase",
+      "slots": ["Verb", "Object"],
+      "category": "phrase",
+      "example": ""
+    },
+    {
+      "pattern_id": "noun_phrase",
+      "slots": ["Adjective", "Noun"],
+      "category": "phrase",
+      "example": ""
+    }
+  ],
+  "notes": [
+    "Add your verified Ika grammar patterns here",
+    "Patterns must NOT contain example_language field",
+    "Examples must NOT contain banned tokens: akwukwo, anyi, umunna, ga eje, ya mere, mgbe",
+    "Examples are display-only and never used in generation"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "connectors": [
+    {
+      "english": "and",
+      "ika": "na"
+    },
+    {
+      "english": "but",
+      "ika": "ma"
+    },
+    {
+      "english": "because",
+      "ika": "n'ihi na"
+    },
+    {
+      "english": "if",
+      "ika": "ọ bụrụ na"
+    },
+    {
+      "english": "when",
+      "ika": "mgbe"
+    },
+    {
+      "english": "therefore",
+      "ika": "ya mere"
+    },
+    {
+      "english": "so",
+      "ika": "ya mere"
+    },
+    {
+      "english": "then",
+      "ika": "mgbe ahụ"
+    }
+  ],
+  "notes": [
+    "Connectors are used to link sentences and phrases",
+    "These are basic connectors - expand as needed"
+  ]
+}
