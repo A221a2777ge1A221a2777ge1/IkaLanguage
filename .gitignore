@@ -3,3 +3,7 @@
 *.swp
 *.swo
 *.swx
+
+# Generated exports / local datasets
+backend/ika-backend/data/firestore_lexicon_export.json
+backend/ika-backend/data/ika_dictionary*.json
