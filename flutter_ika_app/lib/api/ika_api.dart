@@ -38,6 +38,24 @@ class IkaApi {
     return GenerateResponse.fromJson(response.data);
   }
 
+  /// Generate poem (POST /generate-poem)
+  Future<GenerateResponse> generatePoem(GenerateRequest request) async {
+    final response = await _client.post('/generate-poem', data: request.toJson());
+    return GenerateResponse.fromJson(response.data);
+  }
+
+  /// Generate lecture (POST /generate-lecture)
+  Future<GenerateResponse> generateLecture(GenerateRequest request) async {
+    final response = await _client.post('/generate-lecture', data: request.toJson());
+    return GenerateResponse.fromJson(response.data);
+  }
+
+  /// Naturalize: "Say it like an Ika person" (POST /naturalize)
+  Future<NaturalizeResponse> naturalize(NaturalizeRequest request) async {
+    final response = await _client.post('/naturalize', data: request.toJson());
+    return NaturalizeResponse.fromJson(response.data);
+  }
+
   /// Generate audio. Returns null if server returns 501 Not Implemented.
   Future<GenerateAudioResponse?> generateAudio(GenerateAudioRequest request) async {
     try {

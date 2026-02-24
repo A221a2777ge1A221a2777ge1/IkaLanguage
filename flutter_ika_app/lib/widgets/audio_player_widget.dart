@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../services/audio_cache_service.dart';
 
 /// Audio player state provider
 final audioPlayerProvider = StateNotifierProvider<AudioPlayerNotifier, AudioPlayerState>((ref) {
@@ -61,11 +62,12 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
     });
   }
 
-  /// Load and play audio from URL
+  /// Load and play audio: download/cache via AudioCacheService, then play from local file.
   Future<void> play(String audioUrl) async {
     try {
       state = state.copyWith(isLoading: true, error: null);
-      await _player.setUrl(audioUrl);
+      final file = await AudioCacheService().getFileForUrl(audioUrl);
+      await _player.setFilePath(file.path);
       await _player.play();
     } catch (e) {
       state = state.copyWith(
@@ -97,11 +99,13 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
 class AudioPlayerWidget extends ConsumerWidget {
   final String? audioUrl;
   final VoidCallback? onGenerateAudio;
+  final bool cacheHit;
 
   const AudioPlayerWidget({
     super.key,
     this.audioUrl,
     this.onGenerateAudio,
+    this.cacheHit = false,
   });
 
   @override
@@ -125,6 +129,15 @@ class AudioPlayerWidget extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (cacheHit)
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Chip(
+                  label: const Text('Cached'),
+                  avatar: Icon(Icons.offline_pin, size: 18, color: Colors.green[700]),
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+              ),
             IconButton(
               icon: Icon(playerState.isPlaying ? Icons.pause : Icons.play_arrow),
               onPressed: () {

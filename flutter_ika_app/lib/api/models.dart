@@ -5,12 +5,12 @@ library;
 class TranslateRequest {
   final String text;
   final String tense; // present|past|future|progressive
-  final String mode; // rule_based
+  final String mode; // auto|en_to_ika|ika_to_en|rule_based
 
   TranslateRequest({
     required this.text,
     this.tense = 'present',
-    this.mode = 'rule_based',
+    this.mode = 'auto',
   });
 
   Map<String, dynamic> toJson() => {
@@ -60,7 +60,7 @@ class GenerateResponse {
 
   GenerateResponse({
     required this.text,
-    required this.meta,
+    this.meta = const {},
   });
 
   factory GenerateResponse.fromJson(Map<String, dynamic> json) =>
@@ -68,35 +68,94 @@ class GenerateResponse {
         text: json['text'] ?? '',
         meta: json['meta'] ?? {},
       );
+
+  String? get englishBacktranslation =>
+      meta['english_backtranslation'] as String?;
+  List<String>? get notes =>
+      (meta['notes'] as List<dynamic>?)?.cast<String>();
+}
+
+/// Naturalize request — "Say it like an Ika person"
+class NaturalizeRequest {
+  final String intentText;
+  final String tone;
+  final String length;
+
+  NaturalizeRequest({
+    required this.intentText,
+    this.tone = 'polite',
+    this.length = 'short',
+  });
+
+  Map<String, dynamic> toJson() => {
+        'intent_text': intentText,
+        'tone': tone,
+        'length': length,
+      };
+}
+
+/// Naturalize response
+class NaturalizeResponse {
+  final String ika;
+  final String englishBacktranslation;
+  final List<String> notes;
+
+  NaturalizeResponse({
+    required this.ika,
+    required this.englishBacktranslation,
+    this.notes = const [],
+  });
+
+  factory NaturalizeResponse.fromJson(Map<String, dynamic> json) =>
+      NaturalizeResponse(
+        ika: json['ika'] ?? '',
+        englishBacktranslation: json['english_backtranslation'] ?? '',
+        notes: (json['notes'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [],
+      );
 }
 
 /// Generate audio request model
 class GenerateAudioRequest {
   final String text;
-  final String voice; // default
+  final String voice;
+  final String speed;
+  final String format;
 
   GenerateAudioRequest({
     required this.text,
     this.voice = 'default',
+    this.speed = '1.0',
+    this.format = 'mp3',
   });
 
   Map<String, dynamic> toJson() => {
         'text': text,
         'voice': voice,
+        'speed': speed,
+        'format': format,
       };
 }
 
 /// Generate audio response model
 class GenerateAudioResponse {
+  final bool cacheHit;
   final String audioUrl;
+  final String filename;
+  final String text;
 
   GenerateAudioResponse({
     required this.audioUrl,
+    this.cacheHit = false,
+    this.filename = '',
+    this.text = '',
   });
 
   factory GenerateAudioResponse.fromJson(Map<String, dynamic> json) =>
       GenerateAudioResponse(
+        cacheHit: json['cache_hit'] ?? false,
         audioUrl: json['audio_url'] ?? '',
+        filename: json['filename'] ?? '',
+        text: json['text'] ?? '',
       );
 }
 

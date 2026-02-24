@@ -39,6 +39,8 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
     ref.read(generateProvider.notifier).generate(
       prompt: topic,
       length: _selectedLength,
+      kind: _selectedKind,
+      tone: _selectedTone,
     );
   }
 
@@ -95,8 +97,9 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
   Widget build(BuildContext context) {
     final generateState = ref.watch(generateProvider);
 
+    final bottomPadding = 16.0 + 56.0 + MediaQuery.of(context).padding.bottom;
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, bottomPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -118,21 +121,33 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
                       ButtonSegment(value: 'poem', label: Text('Poem')),
                       ButtonSegment(value: 'story', label: Text('Story')),
                       ButtonSegment(value: 'lecture', label: Text('Lecture')),
+                      ButtonSegment(value: 'natural', label: Text('Say it like Ika')),
                     ],
                     selected: {_selectedKind},
                     onSelectionChanged: (Set<String> newSelection) {
                       setState(() {
                         _selectedKind = newSelection.first;
+                        if (_selectedKind == 'natural') {
+                          if (!['polite', 'casual', 'respectful', 'romantic'].contains(_selectedTone)) {
+                            _selectedTone = 'polite';
+                          }
+                        } else {
+                          if (!['neutral', 'formal', 'poetic'].contains(_selectedTone)) {
+                            _selectedTone = 'neutral';
+                          }
+                        }
                       });
                     },
                   ),
                   const SizedBox(height: 16),
                   TextField(
                     controller: _topicController,
-                    decoration: const InputDecoration(
-                      labelText: 'Topic',
-                      hintText: 'Enter topic for generation...',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: _selectedKind == 'natural' ? 'Describe what you want to say' : 'Topic',
+                      hintText: _selectedKind == 'natural'
+                          ? 'e.g. Tell my friend I\'ll be late because of traffic, and I\'m sorry.'
+                          : 'Enter topic for generation...',
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -140,19 +155,28 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _selectedTone,
+                          value: _selectedKind == 'natural'
+                              ? (['polite', 'casual', 'respectful', 'romantic'].contains(_selectedTone) ? _selectedTone : 'polite')
+                              : (['neutral', 'formal', 'poetic'].contains(_selectedTone) ? _selectedTone : 'neutral'),
                           decoration: const InputDecoration(
                             labelText: 'Tone',
                             border: OutlineInputBorder(),
                           ),
-                          items: const [
-                            DropdownMenuItem(value: 'neutral', child: Text('Neutral')),
-                            DropdownMenuItem(value: 'formal', child: Text('Formal')),
-                            DropdownMenuItem(value: 'poetic', child: Text('Poetic')),
-                          ],
+                          items: _selectedKind == 'natural'
+                              ? const [
+                                  DropdownMenuItem(value: 'polite', child: Text('Polite')),
+                                  DropdownMenuItem(value: 'casual', child: Text('Casual')),
+                                  DropdownMenuItem(value: 'respectful', child: Text('Respectful')),
+                                  DropdownMenuItem(value: 'romantic', child: Text('Romantic')),
+                                ]
+                              : const [
+                                  DropdownMenuItem(value: 'neutral', child: Text('Neutral')),
+                                  DropdownMenuItem(value: 'formal', child: Text('Formal')),
+                                  DropdownMenuItem(value: 'poetic', child: Text('Poetic')),
+                                ],
                           onChanged: (value) {
                             setState(() {
-                              _selectedTone = value ?? 'neutral';
+                              _selectedTone = value ?? (_selectedKind == 'natural' ? 'polite' : 'neutral');
                             });
                           },
                         ),
@@ -216,7 +240,9 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Generated ${_selectedKind.capitalize()}',
+                            _selectedKind == 'natural'
+                                ? 'Say it like Ika'
+                                : 'Generated ${_selectedKind.capitalize()}',
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
@@ -241,12 +267,52 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
                     AudioPlayerWidget(
                       audioUrl: generateState.audioUrl,
                       onGenerateAudio: _generateAudio,
+                      cacheHit: generateState.audioCacheHit,
                     ),
+                    if (generateState.result!.englishBacktranslation != null &&
+                        generateState.result!.englishBacktranslation!.isNotEmpty) ...[
+                      const SizedBox(height: 12),
+                      ExpansionTile(
+                        title: const Text('Show English meaning'),
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                SelectableText(
+                                  generateState.result!.englishBacktranslation!,
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                if (generateState.result!.notes != null &&
+                                    generateState.result!.notes!.isNotEmpty) ...[
+                                  const SizedBox(height: 8),
+                                  ...generateState.result!.notes!
+                                      .map((n) => Padding(
+                                            padding: const EdgeInsets.only(bottom: 4.0),
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Icon(Icons.info_outline, size: 16, color: Theme.of(context).colorScheme.primary),
+                                                const SizedBox(width: 6),
+                                                Expanded(child: Text(n, style: Theme.of(context).textTheme.bodySmall)),
+                                              ],
+                                            ),
+                                          )),
+                                ],
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ],
                 ),
               ),
             ),
-            MetaExpandable(meta: generateState.result!.meta),
+            if (generateState.result!.meta.isNotEmpty &&
+                generateState.result!.englishBacktranslation == null)
+              MetaExpandable(meta: generateState.result!.meta),
           ],
         ],
       ),

@@ -8,13 +8,15 @@ class TranslateState {
   final bool isLoading;
   final String? error;
   final TranslateResponse? result;
-  final String? audioUrl; // Cached audio URL
+  final String? audioUrl;
+  final bool audioCacheHit;
 
   TranslateState({
     this.isLoading = false,
     this.error,
     this.result,
     this.audioUrl,
+    this.audioCacheHit = false,
   });
 
   TranslateState copyWith({
@@ -22,12 +24,14 @@ class TranslateState {
     String? error,
     TranslateResponse? result,
     String? audioUrl,
+    bool? audioCacheHit,
   }) {
     return TranslateState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       result: result ?? this.result,
       audioUrl: audioUrl ?? this.audioUrl,
+      audioCacheHit: audioCacheHit ?? this.audioCacheHit,
     );
   }
 }
@@ -75,7 +79,10 @@ class TranslateNotifier extends StateNotifier<TranslateState> {
       if (response == null) {
         return null; // 501 Not Implemented — UI shows friendly message
       }
-      state = state.copyWith(audioUrl: response.audioUrl);
+      state = state.copyWith(
+        audioUrl: response.audioUrl,
+        audioCacheHit: response.cacheHit,
+      );
       return response.audioUrl;
     } catch (e) {
       state = state.copyWith(error: 'Failed to generate audio: $e');

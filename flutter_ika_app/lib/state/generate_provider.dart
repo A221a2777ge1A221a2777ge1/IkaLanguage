@@ -8,13 +8,15 @@ class GenerateState {
   final bool isLoading;
   final String? error;
   final GenerateResponse? result;
-  final String? audioUrl; // Cached audio URL
+  final String? audioUrl;
+  final bool audioCacheHit;
 
   GenerateState({
     this.isLoading = false,
     this.error,
     this.result,
     this.audioUrl,
+    this.audioCacheHit = false,
   });
 
   GenerateState copyWith({
@@ -22,12 +24,14 @@ class GenerateState {
     String? error,
     GenerateResponse? result,
     String? audioUrl,
+    bool? audioCacheHit,
   }) {
     return GenerateState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       result: result ?? this.result,
       audioUrl: audioUrl ?? this.audioUrl,
+      audioCacheHit: audioCacheHit ?? this.audioCacheHit,
     );
   }
 }
@@ -38,15 +42,48 @@ class GenerateNotifier extends StateNotifier<GenerateState> {
 
   GenerateNotifier(this._api) : super(GenerateState());
 
-  /// Generate story (calls POST /generate-story)
+  /// Generate poem/story/lecture/natural (calls appropriate endpoint)
   Future<void> generate({
     required String prompt,
     String length = 'short',
+    String kind = 'story',
+    String tone = 'polite',
   }) async {
     state = state.copyWith(isLoading: true, error: null);
     try {
+      if (kind == 'natural') {
+        final request = NaturalizeRequest(
+          intentText: prompt,
+          tone: tone,
+          length: length,
+        );
+        final response = await _api.naturalize(request);
+        state = state.copyWith(
+          isLoading: false,
+          result: GenerateResponse(
+            text: response.ika,
+            meta: {
+              'english_backtranslation': response.englishBacktranslation,
+              'notes': response.notes,
+              'source': 'naturalize',
+            },
+          ),
+          error: null,
+        );
+        return;
+      }
       final request = GenerateRequest(prompt: prompt, length: length);
-      final response = await _api.generateStory(request);
+      final GenerateResponse response;
+      switch (kind) {
+        case 'poem':
+          response = await _api.generatePoem(request);
+          break;
+        case 'lecture':
+          response = await _api.generateLecture(request);
+          break;
+        default:
+          response = await _api.generateStory(request);
+      }
       state = state.copyWith(
         isLoading: false,
         result: response,
@@ -77,7 +114,10 @@ class GenerateNotifier extends StateNotifier<GenerateState> {
       if (response == null) {
         return null; // 501 Not Implemented — UI shows friendly message
       }
-      state = state.copyWith(audioUrl: response.audioUrl);
+      state = state.copyWith(
+        audioUrl: response.audioUrl,
+        audioCacheHit: response.cacheHit,
+      );
       return response.audioUrl;
     } catch (e) {
       state = state.copyWith(error: 'Failed to generate audio: $e');

@@ -5,6 +5,7 @@ Option A: Rule-based generator using Firestore lexicon + grammar patterns
 import os
 import logging
 from fastapi import FastAPI, HTTPException, Depends, Security, Query
+from fastapi.responses import FileResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
@@ -18,6 +19,26 @@ from generator import Generator
 from templates_engine import TemplatesEngine
 from audio_cache import AudioCache
 from validators import validate_on_startup
+from local_audio_cache import get_or_generate as local_audio_get_or_generate, get_file_path as local_audio_get_file_path
+
+try:
+    from lexicon_store import get_store
+    from dataset_generator import (
+        translate_en_to_ika_sentence,
+        translate_ika_to_en,
+        generate_story as dataset_generate_story,
+        generate_poem as dataset_generate_poem,
+        generate_lecture as dataset_generate_lecture,
+        naturalize as dataset_naturalize,
+    )
+    _dataset_available = True
+except Exception as e:
+    logging.getLogger(__name__).warning("Dataset (lexicon_store) not available: %s", e)
+    _dataset_available = False
+    get_store = None
+    translate_en_to_ika_sentence = translate_ika_to_en = None
+    dataset_generate_story = dataset_generate_poem = dataset_generate_lecture = None
+    dataset_naturalize = None
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -45,6 +66,7 @@ slot_filler = None
 generator = None
 templates_engine = None
 audio_cache = None
+store = None  # LexiconStore from firestore_lexicon_export.json when available
 
 
 async def verify_token(credentials: HTTPAuthorizationCredentials = Security(security)):
@@ -58,8 +80,8 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Security(secu
 async def startup_event():
     """Initialize all components on startup"""
     global firestore_client, storage_client, lexicon_repo, pattern_repo
-    global rule_engine, slot_filler, generator, templates_engine, audio_cache
-    
+    global rule_engine, slot_filler, generator, templates_engine, audio_cache, store
+
     logger.info(f"Initializing IKA backend for project: {PROJECT_ID}")
     
     # Validate data files before starting
@@ -82,7 +104,17 @@ async def startup_event():
     templates_engine = TemplatesEngine(pattern_repo, slot_filler, rule_engine)
     generator = Generator(lexicon_repo, pattern_repo, rule_engine, slot_filler, templates_engine)
     audio_cache = AudioCache(storage_client, FIREBASE_STORAGE_BUCKET, AUDIO_CACHE_PREFIX)
-    
+
+    if _dataset_available and get_store:
+        try:
+            store = get_store()
+            logger.info("Dataset (firestore_lexicon_export) loaded: %d entries", len(store.entries))
+        except Exception as e:
+            logger.warning("Dataset not loaded: %s", e)
+            store = None
+    else:
+        store = None
+
     logger.info("IKA backend initialized successfully")
 
 
@@ -110,13 +142,36 @@ class GenerateResponse(BaseModel):
     meta: Dict[str, Any]
 
 
+class StoryIn(BaseModel):
+    """Request body for POST /generate-story (app sends prompt + length)."""
+    prompt: str
+    length: Optional[str] = "short"
+
+
 class GenerateAudioRequest(BaseModel):
     text: str
     voice: Optional[str] = "default"
+    speed: Optional[str] = "1.0"
+    format: Optional[str] = "mp3"
 
 
 class GenerateAudioResponse(BaseModel):
-    audio_url: str
+    cache_hit: bool
+    audio_url: str  # e.g. /audio/abc123.mp3
+    filename: str
+    text: str
+
+
+class NaturalizeIn(BaseModel):
+    intent_text: str
+    tone: Optional[str] = "polite"  # polite|casual|respectful|romantic
+    length: Optional[str] = "short"
+
+
+class NaturalizeOut(BaseModel):
+    ika: str
+    english_backtranslation: str
+    notes: List[str]
 
 
 class DictionaryEntry(BaseModel):
@@ -144,9 +199,40 @@ async def translate(
     token: str = Depends(verify_token)
 ):
     """
-    Translate English text to Ika using rule-based generation.
-    Returns text only - NO audio generation.
+    Translate: use dataset (strict Ika patterns) when mode is auto|en_to_ika|ika_to_en
+    and store is loaded; otherwise rule-based. Returns text + meta (source_lang/target_lang when dataset).
     """
+    mode = (request.mode or "rule_based").lower()
+    if store is not None and mode in ("auto", "en_to_ika", "ika_to_en"):
+        try:
+            text = request.text.strip()
+            if mode == "ika_to_en":
+                result_text = translate_ika_to_en(store, text)
+                return TranslateResponse(
+                    text=result_text,
+                    meta={"source_lang": "ika", "target_lang": "en"}
+                )
+            if mode == "en_to_ika":
+                result_text = translate_en_to_ika_sentence(store, text)
+                return TranslateResponse(
+                    text=result_text,
+                    meta={"source_lang": "en", "target_lang": "ika"}
+                )
+            # auto: detect by is_ika_text
+            if store.is_ika_text(text):
+                result_text = translate_ika_to_en(store, text)
+                return TranslateResponse(
+                    text=result_text,
+                    meta={"source_lang": "ika", "target_lang": "en"}
+                )
+            result_text = translate_en_to_ika_sentence(store, text)
+            return TranslateResponse(
+                text=result_text,
+                meta={"source_lang": "en", "target_lang": "ika"}
+            )
+        except Exception as e:
+            logger.error(f"Dataset translation error: {str(e)}", exc_info=True)
+            raise HTTPException(status_code=500, detail=f"Translation failed: {str(e)}")
     try:
         result = generator.translate(
             text=request.text,
@@ -187,30 +273,167 @@ async def generate(
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
 
 
+@app.post("/generate-story", response_model=GenerateResponse)
+async def generate_story(
+    request: StoryIn,
+    token: str = Depends(verify_token)
+):
+    """
+    Generate Ika story. Uses dataset (659 entries) when loaded; else rule-based.
+    """
+    if store is not None and dataset_generate_story is not None:
+        try:
+            length = request.length or "short"
+            text = dataset_generate_story(store, length)
+            return GenerateResponse(text=text, meta={"source": "dataset", "length": length})
+        except Exception as e:
+            logger.error(f"Dataset generate story error: {str(e)}", exc_info=True)
+            raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+    try:
+        result = generator.generate(
+            kind="story",
+            topic=request.prompt.strip(),
+            tone="neutral",
+            length=request.length or "short",
+        )
+        return GenerateResponse(
+            text=result["text"],
+            meta=result["meta"]
+        )
+    except Exception as e:
+        logger.error(f"Generate story error: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+
+
+@app.post("/generate-poem", response_model=GenerateResponse)
+async def generate_poem(
+    request: StoryIn,
+    token: str = Depends(verify_token)
+):
+    """Generate Ika poem from dataset (length short -> 8 lines, medium/long -> 14)."""
+    if store is not None and dataset_generate_poem is not None:
+        try:
+            length = request.length or "short"
+            lines = 14 if length in ("medium", "long") else 8
+            text = dataset_generate_poem(store, lines=lines)
+            return GenerateResponse(text=text, meta={"source": "dataset", "lines": lines})
+        except Exception as e:
+            logger.error(f"Dataset generate poem error: {str(e)}", exc_info=True)
+            raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+    try:
+        result = generator.generate(
+            kind="poem",
+            topic=request.prompt.strip() or "poem",
+            tone="neutral",
+            length=request.length or "short",
+        )
+        return GenerateResponse(text=result["text"], meta=result["meta"])
+    except Exception as e:
+        logger.error(f"Generate poem error: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+
+
+@app.post("/generate-lecture", response_model=GenerateResponse)
+async def generate_lecture(
+    request: StoryIn,
+    token: str = Depends(verify_token)
+):
+    """Generate Ika lecture from dataset."""
+    if store is not None and dataset_generate_lecture is not None:
+        try:
+            length = request.length or "short"
+            text = dataset_generate_lecture(store, length)
+            return GenerateResponse(text=text, meta={"source": "dataset", "length": length})
+        except Exception as e:
+            logger.error(f"Dataset generate lecture error: {str(e)}", exc_info=True)
+            raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+    try:
+        result = generator.generate(
+            kind="lecture",
+            topic=request.prompt.strip() or "lecture",
+            tone="neutral",
+            length=request.length or "short",
+        )
+        return GenerateResponse(text=result["text"], meta=result["meta"])
+    except Exception as e:
+        logger.error(f"Generate lecture error: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+
+
+@app.post("/naturalize", response_model=NaturalizeOut)
+async def naturalize(
+    request: NaturalizeIn,
+    token: str = Depends(verify_token),
+):
+    """
+    Naturalize: "Say it like an Ika person." Input is English intent;
+    output is natural Ika phrasing from dataset (no word-for-word translation).
+    """
+    if store is None or dataset_naturalize is None:
+        raise HTTPException(
+            status_code=503,
+            detail="Dataset not loaded; naturalize unavailable",
+        )
+    try:
+        ika_text, en_back, notes = dataset_naturalize(
+            store,
+            intent_text=request.intent_text.strip(),
+            tone=request.tone or "polite",
+            length=request.length or "short",
+        )
+        return NaturalizeOut(
+            ika=ika_text,
+            english_backtranslation=en_back,
+            notes=notes,
+        )
+    except Exception as e:
+        logger.error(f"Naturalize error: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Naturalize failed: {str(e)}")
+
+
 @app.post("/generate-audio", response_model=GenerateAudioResponse)
 async def generate_audio(
     request: GenerateAudioRequest,
     token: str = Depends(verify_token)
 ):
     """
-    Generate or retrieve audio for Ika text.
-    This is the ONLY endpoint that generates audio.
-
-    Logic:
-    1. Hash text with SHA256
-    2. Check Firebase Storage cache
-    3. If exists, return URL
-    4. Else generate TTS, upload, return URL
+    Generate or retrieve audio for Ika text. Uses local file cache (data/audio_cache/).
+    Returns stable URL path /audio/<hash>.mp3 for download.
     """
     try:
-        audio_url = await audio_cache.get_or_generate_audio(
+        cache_hit, audio_url_path, filename = await local_audio_get_or_generate(
             text=request.text,
-            voice=request.voice
+            voice=request.voice or "default",
+            speed=request.speed or "1.0",
+            fmt=(request.format or "mp3").lower(),
         )
-        return GenerateAudioResponse(audio_url=audio_url)
+        return GenerateAudioResponse(
+            cache_hit=cache_hit,
+            audio_url=audio_url_path,
+            filename=filename,
+            text=request.text.strip(),
+        )
     except Exception as e:
         logger.error(f"Audio generation error: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Audio generation failed: {str(e)}")
+
+
+@app.get("/audio/{filename}")
+async def serve_audio(filename: str):
+    """
+    Serve cached audio file. No auth required so the app can download by URL.
+    Content-Type: audio/mpeg, Cache-Control: public, long-lived.
+    """
+    path = local_audio_get_file_path(filename)
+    if path is None:
+        raise HTTPException(status_code=404, detail="Audio file not found")
+    return FileResponse(
+        path,
+        media_type="audio/mpeg",
+        headers={
+            "Cache-Control": "public, max-age=31536000, immutable",
+        },
+    )
 
 
 @app.get("/dictionary", response_model=DictionaryResponse)

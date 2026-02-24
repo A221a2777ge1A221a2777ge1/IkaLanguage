@@ -196,6 +196,7 @@ class _TranslateScreenState extends ConsumerState<TranslateScreen> {
                     AudioPlayerWidget(
                       audioUrl: translateState.audioUrl,
                       onGenerateAudio: _generateAudio,
+                      cacheHit: translateState.audioCacheHit,
                     ),
                   ],
                 ),
