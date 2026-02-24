@@ -84,13 +84,12 @@ async def startup_event():
 
     logger.info(f"Initializing IKA backend for project: {PROJECT_ID}")
 
-    # Validate data files (required for rule-based engine)
+    # Validate data files (log only; do not block startup so Cloud Run can see the port)
     try:
         validate_on_startup()
         logger.info("Data validation passed")
     except Exception as e:
-        logger.error(f"Data validation failed: {e}")
-        raise RuntimeError(f"Cannot start: validation failed - {e}")
+        logger.warning("Data validation failed (continuing): %s", e)
 
     # Initialize Firebase and repos (non-blocking: allow start even if Firestore fails)
     try:
