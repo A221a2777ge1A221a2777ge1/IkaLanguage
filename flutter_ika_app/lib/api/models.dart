@@ -117,6 +117,7 @@ class DictionaryEntry {
   final String? pos;
   final String? domain;
   final String? docId;
+  final String? audioUrl;
 
   DictionaryEntry({
     required this.sourceText,
@@ -124,15 +125,136 @@ class DictionaryEntry {
     this.pos,
     this.domain,
     this.docId,
+    this.audioUrl,
   });
 
   factory DictionaryEntry.fromJson(Map<String, dynamic> json) =>
       DictionaryEntry(
-        sourceText: json['source_text'] ?? '',
-        targetText: json['target_text'] ?? '',
+        sourceText: json['source_text'] ?? json['en'] ?? '',
+        targetText: json['target_text'] ?? json['ika'] ?? '',
         pos: json['pos'],
         domain: json['domain'],
-        docId: json['doc_id'],
+        docId: json['doc_id'] ?? json['id']?.toString(),
+        audioUrl: json['audio_url'],
+      );
+}
+
+/// EN→Ika lookup response (GET /api/translate/en-ika)
+class EnIkaLookupResponse {
+  final bool found;
+  final String query;
+  final List<EnIkaCandidate> candidates;
+  final List<Map<String, dynamic>> suggestions;
+
+  EnIkaLookupResponse({
+    required this.found,
+    required this.query,
+    required this.candidates,
+    required this.suggestions,
+  });
+
+  factory EnIkaLookupResponse.fromJson(Map<String, dynamic> json) {
+    final candList = json['candidates'];
+    return EnIkaLookupResponse(
+      found: json['found'] ?? false,
+      query: json['query'] ?? '',
+      candidates: candList is List
+          ? (candList as List)
+              .map((e) => EnIkaCandidate.fromJson(e as Map<String, dynamic>))
+              .toList()
+          : [],
+      suggestions: (json['suggestions'] is List)
+          ? List<Map<String, dynamic>>.from(json['suggestions'] as List)
+          : [],
+    );
+  }
+}
+
+class EnIkaCandidate {
+  final String id;
+  final String ika;
+  final String? domain;
+  final String? audioUrl;
+
+  EnIkaCandidate({
+    required this.id,
+    required this.ika,
+    this.domain,
+    this.audioUrl,
+  });
+
+  factory EnIkaCandidate.fromJson(Map<String, dynamic> json) =>
+      EnIkaCandidate(
+        id: json['id']?.toString() ?? '',
+        ika: json['ika'] ?? '',
+        domain: json['domain'],
+        audioUrl: json['audio_url'],
+      );
+}
+
+/// Ika→EN lookup response (GET /api/translate/ika-en)
+class IkaEnLookupResponse {
+  final bool found;
+  final String query;
+  final List<String> meanings;
+  final List<Map<String, dynamic>>? suggestions;
+
+  IkaEnLookupResponse({
+    required this.found,
+    required this.query,
+    required this.meanings,
+    this.suggestions,
+  });
+
+  factory IkaEnLookupResponse.fromJson(Map<String, dynamic> json) =>
+      IkaEnLookupResponse(
+        found: json['found'] ?? false,
+        query: json['query'] ?? '',
+        meanings: (json['meanings'] is List)
+            ? List<String>.from(json['meanings'] as List)
+            : [],
+        suggestions: json['suggestions'] != null
+            ? List<Map<String, dynamic>>.from(json['suggestions'] as List)
+            : null,
+      );
+}
+
+/// List dictionary response (GET /api/dictionary)
+class DictionaryListResponse {
+  final List<DictionaryEntry> entries;
+
+  DictionaryListResponse({required this.entries});
+
+  factory DictionaryListResponse.fromJson(Map<String, dynamic> json) {
+    final list = json['entries'];
+    if (list is! List) return DictionaryListResponse(entries: []);
+    return DictionaryListResponse(
+      entries: (list as List)
+          .map((e) => DictionaryEntry.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+}
+
+/// API generate response (POST /api/generate)
+class ApiGenerateResponse {
+  final String text;
+  final Map<String, dynamic> meta;
+  final List<String>? missingConcepts;
+
+  ApiGenerateResponse({
+    required this.text,
+    required this.meta,
+    this.missingConcepts,
+  });
+
+  factory ApiGenerateResponse.fromJson(Map<String, dynamic> json) =>
+      ApiGenerateResponse(
+        text: json['text'] ?? '',
+        meta: json['meta'] ?? {},
+        missingConcepts: json['missing_concepts'] != null
+            ? List<String>.from(json['missing_concepts'] as List)
+            : null,
       );
 }
 

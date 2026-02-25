@@ -22,12 +22,13 @@ class GenerateState {
   GenerateState copyWith({
     bool? isLoading,
     String? error,
+    bool clearError = false,
     GenerateResponse? result,
     String? audioUrl,
   }) {
     return GenerateState(
       isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
+      error: clearError ? null : (error ?? this.error),
       result: result ?? this.result,
       audioUrl: audioUrl ?? this.audioUrl,
     );
@@ -40,19 +41,30 @@ class GenerateNotifier extends StateNotifier<GenerateState> {
 
   GenerateNotifier(this._api) : super(GenerateState());
 
-  /// Generate story (calls POST /generate-story)
+  /// Generate content via POST /api/generate (sentence|story|poem|lecture)
   Future<void> generate({
     required String prompt,
-    String length = 'short',
+    String kind = 'story',
+    String length = 'medium',
   }) async {
     state = state.copyWith(isLoading: true, error: null);
     try {
-      final request = GenerateRequest(prompt: prompt, length: length);
-      final response = await _api.generateStory(request);
+      final res = await _api.generateApi(
+        mode: kind,
+        topic: prompt,
+        length: length,
+        inputLang: 'en',
+      );
       state = state.copyWith(
         isLoading: false,
-        result: response,
-        error: null,
+        result: GenerateResponse(
+          text: res.text,
+          meta: {
+            ...res.meta,
+            if (res.missingConcepts != null) 'missing_concepts': res.missingConcepts,
+          },
+        ),
+        clearError: true,
       );
     } catch (e) {
       state = state.copyWith(

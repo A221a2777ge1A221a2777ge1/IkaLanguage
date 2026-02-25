@@ -18,6 +18,7 @@ class TranslateScreen extends ConsumerStatefulWidget {
 class _TranslateScreenState extends ConsumerState<TranslateScreen> {
   final TextEditingController _textController = TextEditingController();
   String _selectedTense = 'present';
+  String _inputLang = 'auto';
 
   @override
   void dispose() {
@@ -103,7 +104,7 @@ class _TranslateScreenState extends ConsumerState<TranslateScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'English Text',
+                    'Text to translate',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 8),
@@ -111,9 +112,28 @@ class _TranslateScreenState extends ConsumerState<TranslateScreen> {
                     controller: _textController,
                     maxLines: 5,
                     decoration: const InputDecoration(
-                      hintText: 'Enter English text to translate...',
+                      hintText: 'Enter English or Ika text...',
                       border: OutlineInputBorder(),
                     ),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Text('Input language:', style: Theme.of(context).textTheme.bodySmall),
+                      const SizedBox(width: 8),
+                      SegmentedButton<String>(
+                        segments: const [
+                          ButtonSegment(value: 'auto', label: Text('Auto'), icon: Icon(Icons.auto_awesome, size: 18)),
+                          ButtonSegment(value: 'en', label: Text('English')),
+                          ButtonSegment(value: 'ika', label: Text('Ika')),
+                        ],
+                        selected: {_inputLang},
+                        onSelectionChanged: (Set<String> s) {
+                          setState(() => _inputLang = s.first);
+                          ref.read(translateProvider.notifier).setInputLang(s.first);
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
                   DropdownButtonFormField<String>(

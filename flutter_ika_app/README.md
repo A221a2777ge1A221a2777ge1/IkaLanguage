@@ -217,21 +217,96 @@ If audio doesn't play:
 3. Check device audio settings
 4. Try regenerating audio
 
-## Building for Production
+## Deploy Android
 
-### Android
+### Prerequisites
+
+- Flutter SDK installed and on PATH
+- Android SDK (Android Studio or command-line tools)
+- `android/app/google-services.json` from Firebase Console (same package name: `com.gmoney.ikaengine`)
+
+### 1. Build release APK (sideload / testing)
+
+From the project root:
 
 ```bash
+cd flutter_ika_app
+flutter pub get
 flutter build apk --release
-# or
+```
+
+Output: `build/app/outputs/flutter-apk/app-release.apk`. Install on a device via USB or share the file.
+
+To point the app at your own backend (e.g. production URL):
+
+```bash
+flutter build apk --release --dart-define=BASE_URL=https://your-backend.run.app
+```
+
+### 2. Build App Bundle for Google Play Store
+
+```bash
+cd flutter_ika_app
+flutter pub get
 flutter build appbundle --release
 ```
+
+Output: `build/app/outputs/bundle/release/app-release.aab`. Upload this in [Google Play Console](https://play.google.com/console) (Release → Create new release → Upload AAB).
+
+For production backend URL:
+
+```bash
+flutter build appbundle --release --dart-define=BASE_URL=https://ika-backend-516421484935.europe-west2.run.app
+```
+
+### 3. Release signing (required for Play Store)
+
+The project is currently set to use **debug** signing for release builds. For Play Store you must sign with a release keystore.
+
+1. **Create a keystore** (once):
+
+   ```bash
+   keytool -genkey -v -keystore android/app/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+   ```
+
+   Store the passwords and backup the `.jks` file safely.
+
+2. **Create `android/key.properties`** (do not commit; add to `.gitignore`):
+
+   ```properties
+   storePassword=<keystore-password>
+   keyPassword=<key-password>
+   keyAlias=upload
+   storeFile=upload-keystore.jks
+   ```
+
+3. **Configure signing in `android/app/build.gradle`**:
+
+   - Load `key.properties` in the `android` block and add a `signingConfigs.release` that uses it.
+   - Set `buildTypes.release.signingConfig signingConfigs.release`.
+
+If you want, I can apply the exact Gradle changes for step 3 in your repo.
+
+### 4. Quick reference
+
+| Goal              | Command |
+|-------------------|--------|
+| Install on device | `flutter run --release` |
+| APK for testing   | `flutter build apk --release` |
+| AAB for Play      | `flutter build appbundle --release` |
+| Custom backend    | Add `--dart-define=BASE_URL=<url>` |
+
+---
+
+## Building for Production (other platforms)
 
 ### iOS
 
 ```bash
 flutter build ios --release
 ```
+
+Then open `ios/Runner.xcworkspace` in Xcode and archive/upload to App Store Connect.
 
 ## Development Notes
 

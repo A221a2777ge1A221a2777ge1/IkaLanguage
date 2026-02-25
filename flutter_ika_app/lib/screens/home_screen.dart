@@ -29,8 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('IKA Language Engine'),
         elevation: 0,
       ),
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      body: SafeArea(
+        child: _screens[_currentIndex],
+      ),
+      bottomNavigationBar: SafeArea(
+        child: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -55,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Library',
           ),
         ],
+      ),
       ),
     );
   }

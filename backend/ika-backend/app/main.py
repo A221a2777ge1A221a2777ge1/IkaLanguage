@@ -1,27 +1,28 @@
 """
 IKA Language Engine Backend - FastAPI Application
-Option A: Rule-based generator using Firestore lexicon + grammar patterns
+Rule-based generator using Firestore or local export lexicon + grammar patterns.
+Translation lookups use ONLY local export JSON (exact_en_lookup, ika_to_en).
 """
 import os
 import logging
 import uuid
+from pathlib import Path
 from fastapi import FastAPI, HTTPException, Depends, Security, Query
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import Response
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
 
-from .firebase_client import get_firestore_client, get_storage_client
 from .lexicon_repo import LexiconRepository
 from .pattern_repo import PatternRepository
 from .rule_engine import RuleEngine
 from .slot_filler import SlotFiller
 from .generator import Generator
 from .templates_engine import TemplatesEngine
-from .audio_cache import AudioCache
 from .validators import validate_on_startup
 from .tts.ssml import load_ipa_dictionary
 from .tts_engine import generate_tts_audio_mp3
+from . import api_routes
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -32,6 +33,7 @@ PROJECT_ID = os.getenv("PROJECT_ID", "ikause")
 LEXICON_COLLECTION = os.getenv("LEXICON_COLLECTION", "lexicon")
 FIREBASE_STORAGE_BUCKET = os.getenv("FIREBASE_STORAGE_BUCKET", "ikause.appspot.com")
 AUDIO_CACHE_PREFIX = os.getenv("AUDIO_CACHE_PREFIX", "audio-cache")
+USE_LOCAL_LEXICON = os.getenv("USE_LOCAL_LEXICON", "").strip().lower() in ("1", "true", "yes")
 
 # Initialize FastAPI app
 app = FastAPI(title="IKA Language Engine", version="1.0.0")
@@ -65,7 +67,7 @@ async def startup_event():
     global firestore_client, storage_client, lexicon_repo, pattern_repo
     global rule_engine, slot_filler, generator, templates_engine, audio_cache, ipa_dict
 
-    logger.info("Initializing IKA backend for project: %s", PROJECT_ID)
+    logger.info("Initializing IKA backend for project: %s (USE_LOCAL_LEXICON=%s)", PROJECT_ID, USE_LOCAL_LEXICON)
 
     # Validate data files before starting
     try:
@@ -75,23 +77,57 @@ async def startup_event():
         logger.error("Data validation failed: %s", e)
         raise RuntimeError(f"Cannot start: validation failed - {e}") from e
 
-    # Load IPA dictionary for TTS (cached in tts.ssml)
-    data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
-    ipa_dict = load_ipa_dictionary(data_dir)
+    # Paths
+    app_dir = Path(__file__).parent
+    data_dir = app_dir.parent / "data"
+    exports_dir = data_dir / "exports"
 
-    # Initialize Firebase clients
-    firestore_client = get_firestore_client(PROJECT_ID)
-    storage_client = get_storage_client(PROJECT_ID, FIREBASE_STORAGE_BUCKET)
-    
-    # Initialize repositories and engines
-    lexicon_repo = LexiconRepository(firestore_client, LEXICON_COLLECTION)
+    # Load IPA dictionary for TTS (cached in tts.ssml)
+    ipa_dict = load_ipa_dictionary(str(data_dir))
+
+    # Lexicon: USE_LOCAL_LEXICON=1 or fallback to local when Firebase fails (e.g. no ADC)
+    use_local = USE_LOCAL_LEXICON
+    if not use_local:
+        from .firebase_client import get_firestore_client, get_storage_client
+        from .audio_cache import AudioCache
+        try:
+            firestore_client = get_firestore_client(PROJECT_ID)
+            storage_client = get_storage_client(PROJECT_ID, FIREBASE_STORAGE_BUCKET)
+            lexicon_repo = LexiconRepository(firestore_client, LEXICON_COLLECTION)
+            audio_cache = AudioCache(storage_client, FIREBASE_STORAGE_BUCKET, AUDIO_CACHE_PREFIX)
+        except Exception as e:
+            logger.warning("Firebase init failed (%s), falling back to local lexicon", e)
+            use_local = True
+    if use_local:
+        from .local_lexicon_repo import LocalLexiconRepo
+        lexicon_repo = LocalLexiconRepo(exports_dir)
+        firestore_client = None
+        storage_client = None
+        audio_cache = None
+        logger.info("Using local lexicon from %s", exports_dir)
+
+    # Engines (same for both modes)
     pattern_repo = PatternRepository()
     rule_engine = RuleEngine()
     slot_filler = SlotFiller(lexicon_repo, pattern_repo, rule_engine)
     templates_engine = TemplatesEngine(pattern_repo, slot_filler, rule_engine)
     generator = Generator(lexicon_repo, pattern_repo, rule_engine, slot_filler, templates_engine)
-    audio_cache = AudioCache(storage_client, FIREBASE_STORAGE_BUCKET, AUDIO_CACHE_PREFIX)
-    
+
+    # LexiconService for /api/translate and /api/audio (local JSON only)
+    lexicon_service = None
+    if (exports_dir / "indexes" / "exact_en_lookup.json").exists():
+        from .lexicon_service import LexiconService
+        try:
+            lexicon_service = LexiconService(exports_dir)
+            lexicon_service.load()
+            app.state.lexicon_service = lexicon_service
+            logger.info("LexiconService loaded for /api/translate and /api/audio")
+        except Exception as e:
+            logger.warning("LexiconService failed to load: %s", e)
+    app.state.generator = generator
+
+    app.include_router(api_routes.router)
+
     logger.info("IKA backend initialized successfully")
 
 
@@ -253,21 +289,23 @@ async def generate_audio(
         raise HTTPException(status_code=400, detail="Missing 'text' or 'prompt' in request body")
 
     try:
-        cached = audio_cache.get_cached_audio_bytes(input_text, voice, speaking_rate, pitch)
-        if cached is not None:
-            logger.info("generate_audio request_id=%s cache hit len=%d", request_id, len(cached))
-            return Response(
-                content=cached,
-                media_type="audio/mpeg",
-                headers={"Content-Disposition": 'attachment; filename="ika.mp3"'},
-            )
+        if audio_cache:
+            cached = audio_cache.get_cached_audio_bytes(input_text, voice, speaking_rate, pitch)
+            if cached is not None:
+                logger.info("generate_audio request_id=%s cache hit len=%d", request_id, len(cached))
+                return Response(
+                    content=cached,
+                    media_type="audio/mpeg",
+                    headers={"Content-Disposition": 'attachment; filename="ika.mp3"'},
+                )
         audio_bytes = generate_tts_audio_mp3(
             input_text,
             voice=voice,
             speaking_rate=speaking_rate,
             pitch=pitch,
         )
-        audio_cache.put_cached_audio_bytes(input_text, audio_bytes, voice, speaking_rate, pitch)
+        if audio_cache:
+            audio_cache.put_cached_audio_bytes(input_text, audio_bytes, voice, speaking_rate, pitch)
         logger.info("generate_audio request_id=%s len=%d", request_id, len(audio_bytes))
         return Response(
             content=audio_bytes,

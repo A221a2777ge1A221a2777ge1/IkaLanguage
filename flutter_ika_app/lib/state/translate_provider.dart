@@ -22,16 +22,29 @@ class TranslateState {
   TranslateState copyWith({
     bool? isLoading,
     String? error,
+    bool clearError = false,
     TranslateResponse? result,
     String? audioUrl,
   }) {
     return TranslateState(
       isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
+      error: clearError ? null : (error ?? this.error),
       result: result ?? this.result,
       audioUrl: audioUrl ?? this.audioUrl,
     );
   }
+}
+
+/// Heuristic: treat as Ika if text contains common Ika diacritics.
+const _ikaLikeChars = 'ịẹọụạẹnyinọnwẹkịelebegwọrị';
+
+bool _looksLikeIka(String text) {
+  final t = text.trim().toLowerCase();
+  if (t.isEmpty) return false;
+  for (int i = 0; i < t.length; i++) {
+    if (_ikaLikeChars.contains(t[i])) return true;
+  }
+  return false;
 }
 
 /// Translate notifier
@@ -40,18 +53,72 @@ class TranslateNotifier extends StateNotifier<TranslateState> {
 
   TranslateNotifier(this._api) : super(TranslateState());
 
-  /// Translate text
+  /// Input language: auto (detect), en, ika
+  String _inputLang = 'auto';
+
+  void setInputLang(String lang) {
+    _inputLang = lang;
+  }
+
+  bool _isIkaInput(String text) {
+    if (_inputLang == 'ika') return true;
+    if (_inputLang == 'en') return false;
+    return _looksLikeIka(text);
+  }
+
+  /// Translate text (EN→Ika or Ika→EN using /api/translate)
   Future<void> translate(String text, String tense) async {
     state = state.copyWith(isLoading: true, error: null);
-    
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) {
+      state = state.copyWith(isLoading: false);
+      return;
+    }
+
     try {
-      final request = TranslateRequest(text: text, tense: tense);
-      final response = await _api.translate(request);
-      state = state.copyWith(
-        isLoading: false,
-        result: response,
-        error: null,
-      );
+      if (_isIkaInput(trimmed)) {
+        final res = await _api.translateIkaToEn(trimmed);
+        final textOut = res.meanings.isNotEmpty
+            ? res.meanings.join(', ')
+            : (res.suggestions?.isNotEmpty == true
+                ? 'Suggestions: ${res.suggestions!.map((s) => s['en']).join(', ')}'
+                : 'No English meaning found');
+        state = state.copyWith(
+          isLoading: false,
+          result: TranslateResponse(text: textOut, meta: {
+            'direction': 'ika_en',
+            'meanings': res.meanings,
+            'suggestions': res.suggestions,
+          }),
+          clearError: true,
+        );
+      } else {
+        final res = await _api.translateEnToIka(trimmed);
+        if (res.found && res.candidates.isNotEmpty) {
+          final first = res.candidates.first;
+          state = state.copyWith(
+            isLoading: false,
+            result: TranslateResponse(
+              text: first.ika,
+              meta: {
+                'direction': 'en_ika',
+                'candidates': res.candidates.map((c) => {'id': c.id, 'ika': c.ika, 'domain': c.domain}).toList(),
+                'tense': tense,
+              },
+            ),
+            clearError: true,
+          );
+        } else {
+          final suggestionText = res.suggestions.isNotEmpty
+              ? 'Suggestions: ${res.suggestions.take(3).map((s) => s['en']).join(', ')}'
+              : 'No Ika translation found';
+          state = state.copyWith(
+            isLoading: false,
+            result: TranslateResponse(text: suggestionText, meta: {'direction': 'en_ika', 'found': false}),
+            clearError: true,
+          );
+        }
+      }
     } catch (e) {
       state = state.copyWith(
         isLoading: false,

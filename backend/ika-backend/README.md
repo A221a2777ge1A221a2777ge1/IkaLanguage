@@ -32,9 +32,13 @@ LEXICON_COLLECTION=lexicon
 FIREBASE_STORAGE_BUCKET=ikause.appspot.com
 AUDIO_CACHE_PREFIX=audio-cache
 PORT=8080
+# Use local JSON exports only (no Firebase). Required for /api/translate and /api/audio.
+USE_LOCAL_LEXICON=1   # optional; set to 1 for local dev without Firebase
 ```
 
 ## Local Development
+
+### Option A: With Firebase (Cloud)
 
 1. **Install dependencies**:
    ```bash
@@ -59,6 +63,44 @@ PORT=8080
    ```bash
    uvicorn app.main:app --reload --port 8080
    ```
+
+### Option B: Local JSON only (no Firebase)
+
+Translation and audio use **only** the exported JSON files under `data/exports/`. No Firestore or Storage credentials needed.
+
+1. **Ensure export data is present**:
+   - `data/exports/indexes/exact_en_lookup.json`
+   - `data/exports/indexes/ika_to_en.json`
+   - `data/exports/lexicon.json` (for id→audio_url)
+
+2. **Set** `USE_LOCAL_LEXICON=1` and run:
+   ```bash
+   cd backend/ika-backend
+   pip install -r requirements.txt
+   # Windows CMD:
+   set USE_LOCAL_LEXICON=1
+   uvicorn app.main:app --reload --port 8080
+   ```
+   **Windows PowerShell:** use `$env:USE_LOCAL_LEXICON="1"` before running uvicorn (e.g. `$env:USE_LOCAL_LEXICON="1"; uvicorn app.main:app --reload --port 8080`).
+   **macOS/Linux:** `export USE_LOCAL_LEXICON=1` then run uvicorn.
+   **Note:** If you don't set the variable but local export files exist and Firebase credentials are missing, the server will automatically fall back to local lexicon and start.
+
+3. **Test** (no auth required for these):
+   ```bash
+   curl "http://localhost:8080/api/translate/en-ika?q=hello"
+   curl "http://localhost:8080/api/audio/health"
+   ```
+
+### Running the Flutter app against local backend
+
+- **Android emulator**: use `http://10.0.2.2:8080` as backend URL.
+- **iOS simulator / physical device**: use your machine’s IP (e.g. `http://192.168.1.100:8080`).
+
+Build with:
+```bash
+cd flutter_ika_app
+flutter run --dart-define=BASE_URL=http://10.0.2.2:8080
+```
 
 ## Validation
 
@@ -217,6 +259,40 @@ curl -o out.mp3 -X POST "https://ika-backend-516421484935.europe-west2.run.app/g
 ```
 
 **Note**: Uses Google Cloud Text-to-Speech with IPA SSML. IAM: see **docs/tts_iam.md** if you get permission errors.
+
+### 5. API routes (local JSON – no auth)
+
+These use **only** `data/exports/` and do not require authentication.
+
+**GET /api/translate/en-ika?q=**  
+English → Ika lookup. Returns `{ "found": true|false, "query": "...", "candidates": [{ "id", "ika", "domain", "audio_url" }], "suggestions": [...] }`.
+
+**GET /api/translate/ika-en?q=**  
+Ika → English lookup. Returns `{ "found", "query", "meanings": ["..."], "suggestions": [...] }`.
+
+**GET /api/audio?id=**  
+Stream/proxy lexicon audio (m4a). Headers: `Content-Type: audio/mp4`, `Content-Disposition: attachment; filename="<id>.m4a"`.
+
+**GET /api/audio/health**  
+Returns `{ "ok": true }`.
+
+**GET /api/dictionary?domain=&limit=**  
+List lexicon entries (optional `domain` filter).
+
+**POST /api/generate**  
+Body: `{ "mode": "sentence|story|poem|lecture", "topic": "...", "length": "short|medium|long", "input_lang": "en|ika" }`. Returns Ika text using grammar templates and lexicon only.
+
+**GET /api/review/uncertain**  
+Returns items from `uncertain_sentences.json`.
+
+**POST /api/review/uncertain**  
+Body: `{ "id", "action": "keep|delete", "note" }`. Appends to `data/reviews/review_decisions.json`.
+
+**GET /api/review/pos**  
+Returns items from `pos_review.json`.
+
+**POST /api/review/pos**  
+Body: `{ "id", "ika_word", "pos", "notes" }`. Writes to `data/reviews/pos_verified.json` and `pos_final.json`.
 
 ## Testing in Cloud Shell
 

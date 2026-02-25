@@ -17,7 +17,7 @@ class GenerateScreen extends ConsumerStatefulWidget {
 
 class _GenerateScreenState extends ConsumerState<GenerateScreen> {
   final TextEditingController _topicController = TextEditingController();
-  String _selectedKind = 'poem';
+  String _selectedKind = 'sentence';
   String _selectedTone = 'neutral';
   String _selectedLength = 'medium';
 
@@ -38,6 +38,7 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
 
     ref.read(generateProvider.notifier).generate(
       prompt: topic,
+      kind: _selectedKind,
       length: _selectedLength,
     );
   }
@@ -112,11 +113,12 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 16),
-                  // Kind selector
+                  // Mode selector
                   SegmentedButton<String>(
                     segments: const [
-                      ButtonSegment(value: 'poem', label: Text('Poem')),
+                      ButtonSegment(value: 'sentence', label: Text('Sentence')),
                       ButtonSegment(value: 'story', label: Text('Story')),
+                      ButtonSegment(value: 'poem', label: Text('Poem')),
                       ButtonSegment(value: 'lecture', label: Text('Lecture')),
                     ],
                     selected: {_selectedKind},
@@ -130,8 +132,8 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
                   TextField(
                     controller: _topicController,
                     decoration: const InputDecoration(
-                      labelText: 'Topic',
-                      hintText: 'Enter topic for generation...',
+                      labelText: 'Topic / Description (English)',
+                      hintText: 'e.g. The sun rises in the east',
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -237,7 +239,19 @@ class _GenerateScreenState extends ConsumerState<GenerateScreen> {
                       generateState.result!.text,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
+                    if (generateState.result!.meta['missing_concepts'] != null &&
+                        (generateState.result!.meta['missing_concepts'] as List).isNotEmpty) ...[
+                      const SizedBox(height: 12),
+                      Text(
+                        'Missing concepts (not in lexicon): ${(generateState.result!.meta['missing_concepts'] as List).join(', ')}',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.orange[800]),
+                      ),
+                    ],
                     const SizedBox(height: 16),
+                    Text(
+                      'Audio: use Dictionary tab to play per-word audio where available.',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+                    ),
                     AudioPlayerWidget(
                       audioUrl: generateState.audioUrl,
                       onGenerateAudio: _generateAudio,
