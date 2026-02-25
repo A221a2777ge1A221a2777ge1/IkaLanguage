@@ -1,104 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Audio player state provider
-final audioPlayerProvider = StateNotifierProvider<AudioPlayerNotifier, AudioPlayerState>((ref) {
-  return AudioPlayerNotifier();
-});
-
-/// Audio player state
-class AudioPlayerState {
-  final bool isPlaying;
-  final bool isLoading;
-  final String? error;
-  final Duration? duration;
-  final Duration? position;
-
-  AudioPlayerState({
-    this.isPlaying = false,
-    this.isLoading = false,
-    this.error,
-    this.duration,
-    this.position,
-  });
-
-  AudioPlayerState copyWith({
-    bool? isPlaying,
-    bool? isLoading,
-    String? error,
-    Duration? duration,
-    Duration? position,
-  }) {
-    return AudioPlayerState(
-      isPlaying: isPlaying ?? this.isPlaying,
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      duration: duration ?? this.duration,
-      position: position ?? this.position,
-    );
-  }
-}
-
-/// Audio player notifier
-class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
-  final AudioPlayer _player = AudioPlayer();
-
-  AudioPlayerNotifier() : super(AudioPlayerState()) {
-    _player.playerStateStream.listen((playerState) {
-      state = state.copyWith(
-        isPlaying: playerState.playing,
-        isLoading: playerState.processingState == ProcessingState.loading,
-      );
-    });
-
-    _player.durationStream.listen((duration) {
-      state = state.copyWith(duration: duration);
-    });
-
-    _player.positionStream.listen((position) {
-      state = state.copyWith(position: position);
-    });
-  }
-
-  /// Load and play audio from URL or local file path
-  Future<void> play(String audioUrlOrPath) async {
-    try {
-      state = state.copyWith(isLoading: true, error: null);
-      if (audioUrlOrPath.startsWith('http://') || audioUrlOrPath.startsWith('https://')) {
-        await _player.setUrl(audioUrlOrPath);
-      } else {
-        await _player.setFilePath(audioUrlOrPath);
-      }
-      await _player.play();
-    } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        error: 'Failed to play audio: $e',
-      );
-    }
-  }
-
-  /// Pause playback
-  Future<void> pause() async {
-    await _player.pause();
-  }
-
-  /// Stop playback
-  Future<void> stop() async {
-    await _player.stop();
-  }
-
-  /// Dispose
-  @override
-  void dispose() {
-    _player.dispose();
-    super.dispose();
-  }
-}
-
-/// Audio player widget
-class AudioPlayerWidget extends ConsumerWidget {
+/// Self-contained audio player widget for URL or file path.
+/// Used by Translate, Generate, and Detail screens (no Riverpod provider).
+class AudioPlayerWidget extends StatefulWidget {
   final String? audioUrl;
   final VoidCallback? onGenerateAudio;
 
@@ -109,20 +14,70 @@ class AudioPlayerWidget extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final playerState = ref.watch(audioPlayerProvider);
-    final playerNotifier = ref.read(audioPlayerProvider.notifier);
+  State<AudioPlayerWidget> createState() => _AudioPlayerWidgetState();
+}
 
-    // If no audio URL, show generate button
-    if (audioUrl == null || audioUrl!.isEmpty) {
+class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
+  final AudioPlayer _player = AudioPlayer();
+  bool _isPlaying = false;
+  bool _isLoading = false;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _player.playerStateStream.listen((state) {
+      if (mounted) {
+        setState(() {
+          _isPlaying = state.playing;
+          _isLoading = state.processingState == ProcessingState.loading;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
+  }
+
+  Future<void> _playOrPause() async {
+    final url = widget.audioUrl;
+    if (url == null || url.isEmpty) return;
+    try {
+      setState(() { _error = null; _isLoading = true; });
+      if (_isPlaying) {
+        await _player.pause();
+      } else {
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+          await _player.setUrl(url);
+        } else {
+          await _player.setFilePath(url);
+        }
+        await _player.play();
+      }
+    } catch (e) {
+      if (mounted) setState(() => _error = 'Failed to play: $e');
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _stop() async {
+    await _player.stop();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.audioUrl == null || widget.audioUrl!.isEmpty) {
       return ElevatedButton.icon(
-        onPressed: onGenerateAudio,
+        onPressed: widget.onGenerateAudio,
         icon: const Icon(Icons.play_arrow),
         label: const Text('Generate Audio'),
       );
     }
 
-    // Show player controls
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -130,20 +85,14 @@ class AudioPlayerWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-              icon: Icon(playerState.isPlaying ? Icons.pause : Icons.play_arrow),
-              onPressed: () {
-                if (playerState.isPlaying) {
-                  playerNotifier.pause();
-                } else {
-                  playerNotifier.play(audioUrl!);
-                }
-              },
+              icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
+              onPressed: _isLoading ? null : _playOrPause,
             ),
             IconButton(
               icon: const Icon(Icons.stop),
-              onPressed: () => playerNotifier.stop(),
+              onPressed: _isLoading ? null : _stop,
             ),
-            if (playerState.isLoading)
+            if (_isLoading)
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: SizedBox(
@@ -154,11 +103,11 @@ class AudioPlayerWidget extends ConsumerWidget {
               ),
           ],
         ),
-        if (playerState.error != null)
+        if (_error != null)
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              playerState.error!,
+              _error!,
               style: TextStyle(color: Colors.red[700], fontSize: 12),
             ),
           ),

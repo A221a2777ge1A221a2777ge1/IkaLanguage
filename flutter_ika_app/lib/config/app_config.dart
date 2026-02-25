@@ -1,14 +1,12 @@
 /// App Configuration - Single source of truth for backend URL
 class AppConfig {
-  // Backend base URL - change this to switch between environments.
-  // If you see "Backend not found (404)", ensure this URL matches your
-  // deployed Cloud Run service (or use a local URL for development).
-  // Production (default):
-  static const String baseUrl = 
-      'https://ika-backend-516421484935.europe-west2.run.app';
-  
-  // Local development (uncomment and set your local IP):
-  // static const String baseUrl = 'http://192.168.1.100:8080';
+  /// Backend base URL. Override with --dart-define=BASE_URL=http://10.0.2.2:8080
+  /// for Android emulator, or your machine IP for a physical device.
+  static String get baseUrl =>
+      const String.fromEnvironment(
+        'BASE_URL',
+        defaultValue: 'https://ika-backend-516421484935.europe-west2.run.app',
+      );
   
   // API timeouts
   static const Duration connectTimeout = Duration(seconds: 30);

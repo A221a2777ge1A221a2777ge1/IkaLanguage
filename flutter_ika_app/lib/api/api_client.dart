@@ -89,6 +89,36 @@ class ApiClient {
     }
   }
 
+  /// GET request returning raw bytes (e.g. for /api/audio)
+  Future<List<int>> getBytes(String path, {Map<String, dynamic>? queryParameters}) async {
+    try {
+      if (kDebugMode) {
+        debugPrint('API GET bytes: ${AppConfig.baseUrl}$path');
+      }
+      final response = await _dio.get<List<int>>(
+        path,
+        queryParameters: queryParameters,
+        options: Options(responseType: ResponseType.bytes),
+      );
+      final body = response.data;
+      if (body == null) {
+        throw ApiException(
+          message: 'Empty response body',
+          url: '${AppConfig.baseUrl}$path',
+          statusCode: response.statusCode,
+        );
+      }
+      return body;
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        debugPrint('API Error GET $path: ${e.type} - ${e.message}');
+        debugPrint('Status: ${e.response?.statusCode}');
+        debugPrint('Response: ${e.response?.data}');
+      }
+      throw _handleError(e);
+    }
+  }
+
   /// POST request
   Future<Response> post(
     String path, {
