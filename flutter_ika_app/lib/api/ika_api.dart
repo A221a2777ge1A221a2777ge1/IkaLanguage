@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'api_client.dart';
 import 'models.dart';
 
-/// IKA Language Engine API
+/// IKA Language Engine API (Cloud Run; no /api/ prefix)
 class IkaApi {
   final ApiClient _client;
 
   IkaApi(this._client);
 
-  /// Health check with detailed error reporting
+  /// GET /health
   Future<HealthResponse> healthCheck() async {
     try {
       final response = await _client.get('/health');
@@ -20,51 +20,29 @@ class IkaApi {
     }
   }
 
-  /// Translate text (legacy POST /translate)
+  /// POST /translate — body: { text, mode: rule_based|en_to_ika|ika_to_en|auto, tense }
+  /// Response: { text, meanings?, candidates?, found? } — pass through as text + meta
   Future<TranslateResponse> translate(TranslateRequest request) async {
     final response = await _client.post('/translate', data: request.toJson());
-    return TranslateResponse.fromJson(response.data);
-  }
-
-  /// EN → Ika lookup using local export only (GET /api/translate/en-ika)
-  Future<EnIkaLookupResponse> translateEnToIka(String q) async {
-    final response = await _client.get(
-      '/api/translate/en-ika',
-      queryParameters: {'q': q.trim()},
-    );
     final data = response.data;
     if (data is! Map<String, dynamic>) {
-      throw Exception('Translate en-ika failed: unexpected response');
+      throw Exception('Translate failed: unexpected response');
     }
-    return EnIkaLookupResponse.fromJson(data);
+    final text = data['text'] ?? '';
+    final meta = Map<String, dynamic>.from(data)..remove('text');
+    return TranslateResponse(text: text, meta: meta);
   }
 
-  /// Ika → EN lookup (GET /api/translate/ika-en)
-  Future<IkaEnLookupResponse> translateIkaToEn(String q) async {
-    final response = await _client.get(
-      '/api/translate/ika-en',
-      queryParameters: {'q': q.trim()},
-    );
-    final data = response.data;
-    if (data is! Map<String, dynamic>) {
-      throw Exception('Translate ika-en failed: unexpected response');
-    }
-    return IkaEnLookupResponse.fromJson(data);
-  }
-
-  /// Lexicon audio by id (GET /api/audio?id=). Returns m4a bytes for caching/playback.
-  Future<List<int>> getLexiconAudioBytes(String id) async {
-    return _client.getBytes('/api/audio', queryParameters: {'id': id});
-  }
-
-  /// List dictionary entries (GET /api/dictionary). Optional domain filter.
+  /// GET /dictionary?q=&limit= — returns entries with source_text, target_text, pos?, domain?, doc_id?
   Future<DictionaryListResponse> listDictionary({
-    String? domain,
-    int limit = 500,
+    String? q,
+    int limit = 200,
+    int offset = 0,
   }) async {
     final params = <String, dynamic>{'limit': limit};
-    if (domain != null && domain.isNotEmpty) params['domain'] = domain;
-    final response = await _client.get('/api/dictionary', queryParameters: params);
+    if (offset > 0) params['offset'] = offset;
+    if (q != null && q.isNotEmpty) params['q'] = q;
+    final response = await _client.get('/dictionary', queryParameters: params);
     final data = response.data;
     if (data is! Map<String, dynamic>) {
       return DictionaryListResponse(entries: []);
@@ -72,30 +50,27 @@ class IkaApi {
     return DictionaryListResponse.fromJson(data);
   }
 
-  /// Generate content (POST /api/generate). mode: story|poem|lecture|sentence.
-  Future<ApiGenerateResponse> generateApi({
-    required String mode,
+  /// POST /generate — body: kind, topic, tone, length
+  Future<GenerateResponse> generate({
+    required String kind,
     required String topic,
+    String tone = 'neutral',
     String length = 'medium',
-    String inputLang = 'en',
   }) async {
-    final response = await _client.post(
-      '/api/generate',
-      data: {
-        'mode': mode,
-        'topic': topic,
-        'length': length,
-        'input_lang': inputLang,
-      },
-    );
+    final response = await _client.post('/generate', data: {
+      'kind': kind,
+      'topic': topic,
+      'tone': tone,
+      'length': length,
+    });
     final data = response.data;
     if (data is! Map<String, dynamic>) {
       throw Exception('Generate failed: unexpected response');
     }
-    return ApiGenerateResponse.fromJson(data);
+    return GenerateResponse.fromJson(data);
   }
 
-  /// Generate story (legacy POST /generate-story)
+  /// POST /generate-story (body: prompt, length)
   Future<GenerateResponse> generateStory(GenerateRequest request) async {
     if (kDebugMode) {
       // ignore: avoid_print
@@ -105,23 +80,55 @@ class IkaApi {
     return GenerateResponse.fromJson(response.data);
   }
 
-  /// Generate audio: POST /generate-audio returns MP3 bytes.
-  Future<List<int>> generateAudioBytes(GenerateAudioRequest request) async {
-    return _client.postBytes('/generate-audio', data: request.toJson());
+  /// POST /generate-poem
+  Future<GenerateResponse> generatePoem(GenerateRequest request) async {
+    final response = await _client.post('/generate-poem', data: request.toJson());
+    return GenerateResponse.fromJson(response.data);
   }
 
-  /// Dictionary lookup: uses GET /api/translate/en-ika and maps to entries with audio.
+  /// POST /generate-lecture
+  Future<GenerateResponse> generateLecture(GenerateRequest request) async {
+    final response = await _client.post('/generate-lecture', data: request.toJson());
+    return GenerateResponse.fromJson(response.data);
+  }
+
+  /// POST /naturalize — body: intent_text, tone, length
+  Future<GenerateResponse> naturalize({
+    required String intentText,
+    String tone = 'neutral',
+    String length = 'medium',
+  }) async {
+    final response = await _client.post('/naturalize', data: {
+      'intent_text': intentText,
+      'tone': tone,
+      'length': length,
+    });
+    final data = response.data;
+    if (data is! Map<String, dynamic>) {
+      throw Exception('Naturalize failed: unexpected response');
+    }
+    return GenerateResponse.fromJson(data);
+  }
+
+  /// POST /generate-audio — returns JSON { audio_url, filename }; then use getAudioByFilename to download
+  Future<GenerateAudioResponse> generateAudio(GenerateAudioRequest request) async {
+    final response = await _client.post('/generate-audio', data: request.toJson());
+    final data = response.data;
+    if (data is! Map<String, dynamic>) {
+      throw Exception('Generate audio failed: unexpected response');
+    }
+    return GenerateAudioResponse.fromJson(data);
+  }
+
+  /// GET /audio/{filename} — download audio bytes (cache by filename)
+  Future<List<int>> getAudioByFilename(String filename) async {
+    final path = '/audio/${Uri.encodeComponent(filename)}';
+    return _client.getBytes(path);
+  }
+
+  /// Dictionary lookup: GET /dictionary?q=query&limit=25; map to DictionaryResponse
   Future<DictionaryResponse> dictionaryLookup(String query) async {
-    final res = await translateEnToIka(query);
-    final entries = res.candidates
-        .map((c) => DictionaryEntry(
-              sourceText: res.query,
-              targetText: c.ika,
-              domain: c.domain,
-              docId: c.id,
-              audioUrl: c.audioUrl,
-            ))
-        .toList();
-    return DictionaryResponse(entries: entries);
+    final res = await listDictionary(q: query.trim(), limit: 25);
+    return DictionaryResponse(entries: res.entries);
   }
 }

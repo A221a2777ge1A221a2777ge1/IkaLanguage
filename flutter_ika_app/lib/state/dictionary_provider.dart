@@ -71,10 +71,7 @@ class DictionaryNotifier extends StateNotifier<DictionaryState> {
         error: null,
         isShowAll: false,
       );
-      if (response.entries.isEmpty) {
-        final lookup = await _api.translateEnToIka(q);
-        state = state.copyWith(suggestions: lookup.suggestions);
-      }
+      // No separate suggestions API; empty results just show no suggestions
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
@@ -87,7 +84,7 @@ class DictionaryNotifier extends StateNotifier<DictionaryState> {
   Future<void> showAll({String? domain}) async {
     state = state.copyWith(isLoading: true, error: null, isShowAll: true);
     try {
-      final response = await _api.listDictionary(domain: domain, limit: 500);
+      final response = await _api.listDictionary(limit: 500);
       state = state.copyWith(
         isLoading: false,
         entries: response.entries,

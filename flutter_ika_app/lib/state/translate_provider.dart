@@ -66,7 +66,7 @@ class TranslateNotifier extends StateNotifier<TranslateState> {
     return _looksLikeIka(text);
   }
 
-  /// Translate text (EN→Ika or Ika→EN using /api/translate)
+  /// Translate text (EN→Ika or Ika→EN via POST /translate)
   Future<void> translate(String text, String tense) async {
     state = state.copyWith(isLoading: true, error: null);
     final trimmed = text.trim();
@@ -76,45 +76,67 @@ class TranslateNotifier extends StateNotifier<TranslateState> {
     }
 
     try {
-      if (_isIkaInput(trimmed)) {
-        final res = await _api.translateIkaToEn(trimmed);
-        final textOut = res.meanings.isNotEmpty
-            ? res.meanings.join(', ')
-            : (res.suggestions?.isNotEmpty == true
-                ? 'Suggestions: ${res.suggestions!.map((s) => s['en']).join(', ')}'
-                : 'No English meaning found');
+      final mode = _isIkaInput(trimmed) ? 'ika_to_en' : 'en_to_ika';
+      final res = await _api.translate(TranslateRequest(
+        text: trimmed,
+        tense: tense,
+        mode: mode,
+      ));
+      final meta = res.meta;
+      if (mode == 'ika_to_en') {
+        final meanings = meta['meanings'] is List ? List<String>.from(meta['meanings'] as List) : <String>[];
+        final suggestions = meta['suggestions'] as List?;
+        final textOut = res.text.isNotEmpty
+            ? res.text
+            : (meanings.isNotEmpty
+                ? meanings.join(', ')
+                : (suggestions != null && suggestions.isNotEmpty
+                    ? 'Suggestions: ${suggestions.take(3).map((s) => (s is Map ? s['en'] : s).toString()).join(', ')}'
+                    : 'No English meaning found'));
         state = state.copyWith(
           isLoading: false,
-          result: TranslateResponse(text: textOut, meta: {
-            'direction': 'ika_en',
-            'meanings': res.meanings,
-            'suggestions': res.suggestions,
-          }),
+          result: TranslateResponse(
+            text: textOut,
+            meta: {'direction': 'ika_en', 'meanings': meanings, 'suggestions': suggestions ?? []},
+          ),
           clearError: true,
         );
       } else {
-        final res = await _api.translateEnToIka(trimmed);
-        if (res.found && res.candidates.isNotEmpty) {
-          final first = res.candidates.first;
+        final found = meta['found'] == true;
+        final candidates = meta['candidates'] is List ? meta['candidates'] as List : <dynamic>[];
+        final hasResult = (found && candidates.isNotEmpty) || res.text.isNotEmpty;
+        if (hasResult) {
+          final ika = res.text.isNotEmpty
+              ? res.text
+              : (candidates.isNotEmpty
+                  ? (candidates.first is Map
+                      ? ((candidates.first as Map)['ika'] ?? (candidates.first as Map)['target_text'] ?? res.text)
+                      : res.text)
+                  : res.text);
           state = state.copyWith(
             isLoading: false,
             result: TranslateResponse(
-              text: first.ika,
+              text: ika.toString(),
               meta: {
                 'direction': 'en_ika',
-                'candidates': res.candidates.map((c) => {'id': c.id, 'ika': c.ika, 'domain': c.domain}).toList(),
+                'candidates': candidates,
                 'tense': tense,
               },
             ),
             clearError: true,
           );
         } else {
-          final suggestionText = res.suggestions.isNotEmpty
-              ? 'Suggestions: ${res.suggestions.take(3).map((s) => s['en']).join(', ')}'
-              : 'No Ika translation found';
+          final suggestionText = res.text.isNotEmpty
+              ? res.text
+              : (meta['suggestions'] is List && (meta['suggestions'] as List).isNotEmpty
+                  ? 'Suggestions: ${(meta['suggestions'] as List).take(3).map((s) => (s is Map ? s['en'] : s).toString()).join(', ')}'
+                  : 'No Ika translation found');
           state = state.copyWith(
             isLoading: false,
-            result: TranslateResponse(text: suggestionText, meta: {'direction': 'en_ika', 'found': false}),
+            result: TranslateResponse(
+              text: suggestionText,
+              meta: {'direction': 'en_ika', 'found': false},
+            ),
             clearError: true,
           );
         }
@@ -127,20 +149,20 @@ class TranslateNotifier extends StateNotifier<TranslateState> {
     }
   }
 
-  /// Generate audio for current result
+  /// Generate audio for current result (POST /generate-audio then GET /audio/{filename})
   Future<String?> generateAudio() async {
     if (state.result == null || state.result!.text.isEmpty) {
       return null;
     }
 
-    // Check if we already have audio URL for this text
     if (state.audioUrl != null) {
       return state.audioUrl;
     }
 
     try {
       final request = GenerateAudioRequest(text: state.result!.text);
-      final bytes = await _api.generateAudioBytes(request);
+      final res = await _api.generateAudio(request);
+      final bytes = await _api.getAudioByFilename(res.filename);
       final dir = await getTemporaryDirectory();
       final file = File('${dir.path}/ika_${DateTime.now().millisecondsSinceEpoch}.mp3');
       await file.writeAsBytes(bytes);

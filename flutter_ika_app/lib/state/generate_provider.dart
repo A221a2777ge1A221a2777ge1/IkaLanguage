@@ -41,7 +41,7 @@ class GenerateNotifier extends StateNotifier<GenerateState> {
 
   GenerateNotifier(this._api) : super(GenerateState());
 
-  /// Generate content via POST /api/generate (sentence|story|poem|lecture)
+  /// Generate content via POST /generate or /generate-story, /generate-poem, /generate-lecture
   Future<void> generate({
     required String prompt,
     String kind = 'story',
@@ -49,21 +49,29 @@ class GenerateNotifier extends StateNotifier<GenerateState> {
   }) async {
     state = state.copyWith(isLoading: true, error: null);
     try {
-      final res = await _api.generateApi(
-        mode: kind,
-        topic: prompt,
-        length: length,
-        inputLang: 'en',
-      );
+      final GenerateResponse res;
+      final req = GenerateRequest(prompt: prompt, length: length);
+      switch (kind) {
+        case 'story':
+          res = await _api.generateStory(req);
+          break;
+        case 'poem':
+          res = await _api.generatePoem(req);
+          break;
+        case 'lecture':
+          res = await _api.generateLecture(req);
+          break;
+        default:
+          res = await _api.generate(
+            kind: kind,
+            topic: prompt,
+            tone: 'neutral',
+            length: length,
+          );
+      }
       state = state.copyWith(
         isLoading: false,
-        result: GenerateResponse(
-          text: res.text,
-          meta: {
-            ...res.meta,
-            if (res.missingConcepts != null) 'missing_concepts': res.missingConcepts,
-          },
-        ),
+        result: res,
         clearError: true,
       );
     } catch (e) {
@@ -74,20 +82,20 @@ class GenerateNotifier extends StateNotifier<GenerateState> {
     }
   }
 
-  /// Generate audio for current result
+  /// Generate audio for current result (POST /generate-audio then GET /audio/{filename})
   Future<String?> generateAudio() async {
     if (state.result == null || state.result!.text.isEmpty) {
       return null;
     }
 
-    // Check if we already have audio URL for this text
     if (state.audioUrl != null) {
       return state.audioUrl;
     }
 
     try {
       final request = GenerateAudioRequest(text: state.result!.text);
-      final bytes = await _api.generateAudioBytes(request);
+      final res = await _api.generateAudio(request);
+      final bytes = await _api.getAudioByFilename(res.filename);
       final dir = await getTemporaryDirectory();
       final file = File('${dir.path}/ika_${DateTime.now().millisecondsSinceEpoch}.mp3');
       await file.writeAsBytes(bytes);

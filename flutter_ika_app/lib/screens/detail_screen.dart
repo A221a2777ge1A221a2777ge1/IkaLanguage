@@ -43,7 +43,8 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     try {
       final api = ref.read(ikaApiProvider);
       final request = GenerateAudioRequest(text: widget.result.outputText);
-      final bytes = await api.generateAudioBytes(request);
+      final res = await api.generateAudio(request);
+      final bytes = await api.getAudioByFilename(res.filename);
 
       final dir = await getTemporaryDirectory();
       final file = File('${dir.path}/ika_${DateTime.now().millisecondsSinceEpoch}.mp3');

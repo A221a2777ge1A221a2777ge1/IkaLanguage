@@ -162,7 +162,7 @@ class _EntryCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hasAudio = entry.docId != null && entry.docId!.isNotEmpty;
+    final hasIkaText = entry.targetText.trim().isNotEmpty;
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       child: ListTile(
@@ -204,7 +204,7 @@ class _EntryCard extends ConsumerWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (hasAudio) _AudioButton(lexiconId: entry.docId!),
+            if (hasIkaText) _AudioButton(ikaText: entry.targetText),
             IconButton(
               icon: const Icon(Icons.copy),
               onPressed: () {
@@ -223,9 +223,9 @@ class _EntryCard extends ConsumerWidget {
 }
 
 class _AudioButton extends ConsumerStatefulWidget {
-  final String lexiconId;
+  final String ikaText;
 
-  const _AudioButton({required this.lexiconId});
+  const _AudioButton({required this.ikaText});
 
   @override
   ConsumerState<_AudioButton> createState() => _AudioButtonState();
@@ -242,12 +242,12 @@ class _AudioButtonState extends ConsumerState<_AudioButton> {
     super.dispose();
   }
 
-  /// Uses AudioCacheService only (GET /api/audio?id=, cache ika_audio_<id>.m4a, play via local just_audio).
+  /// POST /generate-audio then GET /audio/{filename}; cache by filename, play via just_audio.
   Future<void> _play() async {
     setState(() { _loading = true; _error = null; });
     try {
       final cache = ref.read(audioCacheServiceProvider);
-      final path = await cache.getPathForLexiconId(widget.lexiconId);
+      final path = await cache.getPathForIkaText(widget.ikaText);
       _player ??= AudioPlayer();
       await _player!.setFilePath(path);
       await _player!.play();
@@ -262,7 +262,7 @@ class _AudioButtonState extends ConsumerState<_AudioButton> {
     setState(() { _loading = true; _error = null; });
     try {
       final cache = ref.read(audioCacheServiceProvider);
-      await cache.getPathForLexiconId(widget.lexiconId);
+      await cache.getPathForIkaText(widget.ikaText);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Audio downloaded and cached')),

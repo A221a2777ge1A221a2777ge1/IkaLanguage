@@ -1,11 +1,12 @@
 /// API Models for IKA Language Engine
 library;
 
-/// Translate request model
+/// Translate request model (POST /translate)
+/// mode: rule_based | en_to_ika | ika_to_en | auto
 class TranslateRequest {
   final String text;
   final String tense; // present|past|future|progressive
-  final String mode; // rule_based
+  final String mode; // rule_based|en_to_ika|ika_to_en|auto
 
   TranslateRequest({
     required this.text,
@@ -70,33 +71,42 @@ class GenerateResponse {
       );
 }
 
-/// Generate audio request model
+/// Generate audio request model (POST /generate-audio)
 class GenerateAudioRequest {
   final String text;
-  final String voice; // default
+  final String voice;
+  final double? speed;
+  final String? format;
 
   GenerateAudioRequest({
     required this.text,
     this.voice = 'default',
+    this.speed,
+    this.format,
   });
 
   Map<String, dynamic> toJson() => {
         'text': text,
         'voice': voice,
+        if (speed != null) 'speed': speed,
+        if (format != null) 'format': format,
       };
 }
 
-/// Generate audio response model
+/// Generate audio response (audio_url + filename for GET /audio/{filename})
 class GenerateAudioResponse {
   final String audioUrl;
+  final String filename;
 
   GenerateAudioResponse({
     required this.audioUrl,
+    this.filename = '',
   });
 
   factory GenerateAudioResponse.fromJson(Map<String, dynamic> json) =>
       GenerateAudioResponse(
         audioUrl: json['audio_url'] ?? '',
+        filename: json['filename'] ?? '',
       );
 }
 
