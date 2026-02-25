@@ -1,9 +1,9 @@
 {
   "poem_templates": [
     {
-      "pattern_pool": ["simple_sentence", "verb_phrase", "noun_phrase"],
-      "min_lines": 2,
-      "max_lines": 8,
+      "pattern_pool": ["poetic.noun_suffix", "poetic.prefix_okẹn", "sentence.expression.fixed"],
+      "min_lines": 4,
+      "max_lines": 10,
       "repetition": true,
       "parallelism": true
     }
@@ -11,17 +11,17 @@
   "story_templates": [
     {
       "opening": {
-        "pattern_pool": ["simple_sentence"],
+        "pattern_pool": ["sentence.svo", "sentence.location", "sentence.expression.fixed"],
         "min_sentences": 1,
         "max_sentences": 2
       },
       "conflict": {
-        "pattern_pool": ["simple_sentence", "verb_phrase"],
+        "pattern_pool": ["sentence.question.elebe", "sentence.negation.template", "sentence.conditional.omẹni"],
         "min_sentences": 2,
         "max_sentences": 4
       },
       "resolution": {
-        "pattern_pool": ["simple_sentence"],
+        "pattern_pool": ["sentence.tense.completive_gwọ", "sentence.svo"],
         "min_sentences": 1,
         "max_sentences": 2
       }
@@ -30,25 +30,24 @@
   "lecture_templates": [
     {
       "intro": {
-        "pattern_pool": ["simple_sentence"],
+        "pattern_pool": ["greeting.fixed", "sentence.svo"],
         "min_sentences": 2,
         "max_sentences": 3
       },
       "explain": {
-        "pattern_pool": ["simple_sentence", "verb_phrase", "noun_phrase"],
+        "pattern_pool": ["sentence.svo", "sentence.location", "sentence.question.kị_wụ", "sentence.tense.progressive_rị"],
         "min_sentences": 3,
         "max_sentences": 6
       },
       "summary": {
-        "pattern_pool": ["simple_sentence"],
+        "pattern_pool": ["sentence.expression.fixed", "sentence.svo"],
         "min_sentences": 1,
         "max_sentences": 2
       }
     }
   ],
   "notes": [
-    "Templates define structure for different generation kinds",
-    "pattern_pool must reference valid pattern_ids from ika_grammar_patterns.json",
-    "min/max_sentences control length of each section"
+    "pattern_pool must reference valid pattern_id values in ika_grammar_patterns.json",
+    "Templates are structure only; slot-filling happens in the generator"
   ]
 }

@@ -1,80 +1,21 @@
 {
   "subject_pronouns": [
-    {
-      "english": "I",
-      "ika": "m"
-    },
-    {
-      "english": "you",
-      "ika": "ị"
-    },
-    {
-      "english": "he",
-      "ika": "ọ"
-    },
-    {
-      "english": "she",
-      "ika": "ọ"
-    },
-    {
-      "english": "we",
-      "ika": "anyị"
-    },
-    {
-      "english": "they",
-      "ika": "ha"
-    }
+    { "english": "I", "ika": "m" },
+    { "english": "you", "ika": "ị" },
+    { "english": "he", "ika": "o" },
+    { "english": "she", "ika": "o" },
+    { "english": "we", "ika": "ẹnyin" },
+    { "english": "they", "ika": "wẹ" }
   ],
   "object_pronouns": [
-    {
-      "english": "me",
-      "ika": "m"
-    },
-    {
-      "english": "you",
-      "ika": "gị"
-    },
-    {
-      "english": "him",
-      "ika": "ya"
-    },
-    {
-      "english": "her",
-      "ika": "ya"
-    },
-    {
-      "english": "us",
-      "ika": "anyị"
-    },
-    {
-      "english": "them",
-      "ika": "ha"
-    }
+    { "english": "me", "ika": "m" }
   ],
   "possessive_pronouns": [
-    {
-      "english": "my",
-      "ika": "m"
-    },
-    {
-      "english": "your",
-      "ika": "gị"
-    },
-    {
-      "english": "his",
-      "ika": "ya"
-    },
-    {
-      "english": "her",
-      "ika": "ya"
-    },
-    {
-      "english": "our",
-      "ika": "anyị"
-    },
-    {
-      "english": "their",
-      "ika": "ha"
-    }
+    { "english": "my", "ika": "m" },
+    { "english": "your", "ika": "ị" }
+  ],
+  "notes": [
+    "Only pronouns confirmed from ika_grammar.txt are included.",
+    "Expand object/possessive sets as you confirm more from your dataset."
   ]
 }

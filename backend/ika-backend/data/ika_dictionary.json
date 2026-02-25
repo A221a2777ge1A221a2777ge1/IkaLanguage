@@ -1,0 +1,5611 @@
+{
+  "meta": {
+    "name": "ika_dictionary",
+    "created_at_utc": "2026-02-24T16:58:49.347020Z",
+    "source_file": "/mnt/data/ika_grammar.txt",
+    "note": "Built strictly from ika_grammar.txt sections (no invented translations).",
+    "total_entries": 227,
+    "domains": {
+      "greeting": {
+        "type": "fixed_phrases",
+        "count": 18
+      },
+      "poetic_vocab": {
+        "type": "lexicon_items",
+        "count": 130
+      },
+      "sentence.conditional": {
+        "type": "example_sentences",
+        "count": 5
+      },
+      "sentence.expression": {
+        "type": "example_sentences",
+        "count": 5
+      },
+      "sentence.imperative": {
+        "type": "example_sentences",
+        "count": 12
+      },
+      "sentence.location": {
+        "type": "example_sentences",
+        "count": 8
+      },
+      "sentence.negation": {
+        "type": "example_sentences",
+        "count": 8
+      },
+      "sentence.possession": {
+        "type": "example_sentences",
+        "count": 8
+      },
+      "sentence.question": {
+        "type": "example_sentences",
+        "count": 11
+      },
+      "sentence.svo": {
+        "type": "example_sentences",
+        "count": 10
+      },
+      "sentence.tense": {
+        "type": "example_sentences",
+        "count": 12
+      }
+    }
+  },
+  "grammar_inventory": {
+    "copula": "wụ",
+    "locative_existence": "rị",
+    "conditional_if": "omẹni",
+    "question_markers_observed": [
+      "ele",
+      "elebe",
+      "kị",
+      "onyẹn",
+      "egho",
+      "ole",
+      "mgbe"
+    ],
+    "completive_perfect_marker": "gwọ",
+    "future_markers_observed": [
+      "ke"
+    ],
+    "pronouns_observed": [
+      "m",
+      "ị",
+      "o",
+      "ọ",
+      "ẹnyin",
+      "wẹ"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern_id": "sentence.svo",
+      "domain": "sentence.svo",
+      "slots": [
+        "SUBJ",
+        "VERB",
+        "OBJ_OR_COMP"
+      ]
+    },
+    {
+      "pattern_id": "sentence.location.rị",
+      "domain": "sentence.location",
+      "slots": [
+        "NP",
+        "rị",
+        "LOC"
+      ]
+    },
+    {
+      "pattern_id": "sentence.location.hụ_rị",
+      "domain": "sentence.location",
+      "slots": [
+        "NP",
+        "hụ",
+        "rị",
+        "LOC"
+      ]
+    },
+    {
+      "pattern_id": "sentence.possession.wụ",
+      "domain": "sentence.possession",
+      "slots": [
+        "NP",
+        "wụ",
+        "NP"
+      ]
+    },
+    {
+      "pattern_id": "sentence.negation.template",
+      "domain": "sentence.negation",
+      "slots": [
+        "NEG_FORM",
+        "CLAUSE"
+      ]
+    },
+    {
+      "pattern_id": "sentence.imperative",
+      "domain": "sentence.imperative",
+      "slots": [
+        "VERB",
+        "OBJ_OR_LOC"
+      ]
+    },
+    {
+      "pattern_id": "sentence.conditional.omẹni",
+      "domain": "sentence.conditional",
+      "slots": [
+        "omẹni",
+        "CLAUSE1",
+        "CLAUSE2"
+      ]
+    },
+    {
+      "pattern_id": "sentence.question.kị_wụ",
+      "domain": "sentence.question",
+      "slots": [
+        "kị",
+        "wụ",
+        "NP"
+      ]
+    },
+    {
+      "pattern_id": "sentence.question.onyẹn",
+      "domain": "sentence.question",
+      "slots": [
+        "onyẹn",
+        "CLAUSE"
+      ]
+    },
+    {
+      "pattern_id": "sentence.question.elebe",
+      "domain": "sentence.question",
+      "slots": [
+        "elebe",
+        "CLAUSE"
+      ]
+    },
+    {
+      "pattern_id": "sentence.question.ele_mgbe",
+      "domain": "sentence.question",
+      "slots": [
+        "ele",
+        "mgbe",
+        "CLAUSE"
+      ]
+    },
+    {
+      "pattern_id": "sentence.tense.progressive_rị",
+      "domain": "sentence.tense",
+      "slots": [
+        "SUBJ",
+        "rị",
+        "VERB",
+        "OBJ_OR_COMP"
+      ]
+    },
+    {
+      "pattern_id": "sentence.tense.completive_gwọ",
+      "domain": "sentence.tense",
+      "slots": [
+        "CLAUSE",
+        "gwọ"
+      ]
+    },
+    {
+      "pattern_id": "greeting.fixed",
+      "domain": "greeting",
+      "slots": [
+        "PHRASE"
+      ]
+    },
+    {
+      "pattern_id": "poetic_vocab.item",
+      "domain": "poetic_vocab",
+      "slots": [
+        "LEXEME_OR_PHRASE"
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "id": 1,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "hello",
+      "target_text": "ya"
+    },
+    {
+      "id": 2,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "good morning",
+      "target_text": "ụtụntụn ọma"
+    },
+    {
+      "id": 3,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "good afternoon",
+      "target_text": "efinaị ọma"
+    },
+    {
+      "id": 4,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "good evening",
+      "target_text": "ẹnyasị ọma"
+    },
+    {
+      "id": 5,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "welcome",
+      "target_text": "alụa"
+    },
+    {
+      "id": 6,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "how are you?",
+      "target_text": "nanị irị"
+    },
+    {
+      "id": 7,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "I am fine",
+      "target_text": "m  hụn mma"
+    },
+    {
+      "id": 8,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "thank you",
+      "target_text": "ye mẹyekẹ"
+    },
+    {
+      "id": 9,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "please",
+      "target_text": "dodo"
+    },
+    {
+      "id": 10,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "sorry",
+      "target_text": "gharịma"
+    },
+    {
+      "id": 11,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "see you later",
+      "target_text": "nị ẹnyin hụn ọnọbei"
+    },
+    {
+      "id": 12,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "goodbye",
+      "target_text": "o hẹn eki"
+    },
+    {
+      "id": 13,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "safe journey",
+      "target_text": "ijẹn ẹwẹrẹ"
+    },
+    {
+      "id": 14,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "well done",
+      "target_text": "darụ"
+    },
+    {
+      "id": 15,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "congratulations",
+      "target_text": "nị ẹkaị shi elu"
+    },
+    {
+      "id": 16,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "happy birthday",
+      "target_text": "ighọghọ ọmụmụ"
+    },
+    {
+      "id": 17,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "happy new year",
+      "target_text": "ịghọghọ ahua ọhụn"
+    },
+    {
+      "id": 18,
+      "domain": "greeting",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "peace be with you",
+      "target_text": "udọn ya rịnị"
+    },
+    {
+      "id": 19,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient river",
+      "target_text": "iyi akan"
+    },
+    {
+      "id": 20,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient forest",
+      "target_text": "ẹgboko akan"
+    },
+    {
+      "id": 21,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient hill",
+      "target_text": "oke akan"
+    },
+    {
+      "id": 22,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient sky",
+      "target_text": "igwere akan"
+    },
+    {
+      "id": 23,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient earth",
+      "target_text": "alị akan"
+    },
+    {
+      "id": 24,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient wind",
+      "target_text": "ufere akan"
+    },
+    {
+      "id": 25,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient rain",
+      "target_text": "mirin ozuzue akan"
+    },
+    {
+      "id": 26,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient sun",
+      "target_text": "anwụn akan"
+    },
+    {
+      "id": 27,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient moon",
+      "target_text": "ifọn akan"
+    },
+    {
+      "id": 28,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient stars",
+      "target_text": "ikokisẹ akan"
+    },
+    {
+      "id": 29,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient path",
+      "target_text": "ozue akan"
+    },
+    {
+      "id": 30,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient drum",
+      "target_text": "ẹgede akan"
+    },
+    {
+      "id": 31,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient market",
+      "target_text": "afịa akan"
+    },
+    {
+      "id": 32,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient village",
+      "target_text": "igure akan"
+    },
+    {
+      "id": 33,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient ancestor",
+      "target_text": "ndị mbụ"
+    },
+    {
+      "id": 34,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient spirit",
+      "target_text": "nmọn akan"
+    },
+    {
+      "id": 35,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient song",
+      "target_text": "ẹbụ akan"
+    },
+    {
+      "id": 36,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient story",
+      "target_text": "akịkọ akan"
+    },
+    {
+      "id": 37,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient dream",
+      "target_text": "nrọ akan"
+    },
+    {
+      "id": 38,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient harvest",
+      "target_text": "ịghọ ihiẹn akụnkụn akan"
+    },
+    {
+      "id": 39,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient seed",
+      "target_text": "akpụrụ akan"
+    },
+    {
+      "id": 40,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient flame",
+      "target_text": "ibubu ọkụn akan"
+    },
+    {
+      "id": 41,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient shadow",
+      "target_text": "onyinyọn akan"
+    },
+    {
+      "id": 42,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient dawn",
+      "target_text": "ofufọn akan"
+    },
+    {
+      "id": 43,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient evening",
+      "target_text": "enyasị akan"
+    },
+    {
+      "id": 44,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient palm",
+      "target_text": "ọkẹtẹ akan"
+    },
+    {
+      "id": 45,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient raffia",
+      "target_text": "ịmaha akan"
+    },
+    {
+      "id": 46,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient masquerade",
+      "target_text": "ẹkpo akan"
+    },
+    {
+      "id": 47,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient festival",
+      "target_text": "mmẹnmẹn ahụn akan"
+    },
+    {
+      "id": 48,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient horn",
+      "target_text": "mpịn akan"
+    },
+    {
+      "id": 49,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient calabash",
+      "target_text": "obele akan"
+    },
+    {
+      "id": 50,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient kola nut",
+      "target_text": "ọgị akan"
+    },
+    {
+      "id": 51,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient praise",
+      "target_text": "ijamma  akan"
+    },
+    {
+      "id": 52,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient wisdom",
+      "target_text": "amamihiẹn akan"
+    },
+    {
+      "id": 53,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient proverb",
+      "target_text": "atụtụ ilu akan"
+    },
+    {
+      "id": 54,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient griot",
+      "target_text": "onyẹn akịkọ ilu akan"
+    },
+    {
+      "id": 55,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient hunter",
+      "target_text": "ohuẹ akan"
+    },
+    {
+      "id": 56,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient weaver",
+      "target_text": "ọ kpa ẹkwa akan"
+    },
+    {
+      "id": 57,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient farmer",
+      "target_text": "ọwẹ akan"
+    },
+    {
+      "id": 58,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient fisher",
+      "target_text": "o gbu azụn akan"
+    },
+    {
+      "id": 59,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "ancient warrior",
+      "target_text": "odogun akan"
+    },
+    {
+      "id": 60,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle river",
+      "target_text": "iyi mẹ jụ"
+    },
+    {
+      "id": 61,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle forest",
+      "target_text": "ẹgboko mẹ jụ"
+    },
+    {
+      "id": 62,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle hill",
+      "target_text": "oke mẹ jụ"
+    },
+    {
+      "id": 63,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle sky",
+      "target_text": "igwere mẹ jụ"
+    },
+    {
+      "id": 64,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle earth",
+      "target_text": "alị mẹ jụ"
+    },
+    {
+      "id": 65,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle wind",
+      "target_text": "ufere mẹ jụ"
+    },
+    {
+      "id": 66,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle rain",
+      "target_text": "mirin ozuzue mẹ jụ"
+    },
+    {
+      "id": 67,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle sun",
+      "target_text": "anwụ mẹ jụ"
+    },
+    {
+      "id": 68,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle moon",
+      "target_text": "ifọn mẹ jụ"
+    },
+    {
+      "id": 69,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle stars",
+      "target_text": "ikokisẹ mẹ jụ"
+    },
+    {
+      "id": 70,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle path",
+      "target_text": "ozue mẹ jụ"
+    },
+    {
+      "id": 71,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle drum",
+      "target_text": "ẹgede mẹ jụ"
+    },
+    {
+      "id": 72,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle market",
+      "target_text": "afịa mẹ jụ"
+    },
+    {
+      "id": 73,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle village",
+      "target_text": "igure mẹ jụ"
+    },
+    {
+      "id": 74,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle ancestor",
+      "target_text": "onyẹn akan mẹ jụ"
+    },
+    {
+      "id": 75,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle spirit",
+      "target_text": "mmọn mẹ jụ"
+    },
+    {
+      "id": 76,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle song",
+      "target_text": "ẹbụ mẹ jụ"
+    },
+    {
+      "id": 77,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle story",
+      "target_text": "akịkọ mẹ jụ"
+    },
+    {
+      "id": 78,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle dream",
+      "target_text": "nrọ mẹ jụ"
+    },
+    {
+      "id": 79,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle harvest",
+      "target_text": "ịghọ ihiẹn mẹ jụ"
+    },
+    {
+      "id": 80,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle seed",
+      "target_text": "akpụrụ mẹ jụ"
+    },
+    {
+      "id": 81,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle flame",
+      "target_text": "ibubu ọkụn mẹ jụ"
+    },
+    {
+      "id": 82,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle shadow",
+      "target_text": "onyinyọn mẹ jụ"
+    },
+    {
+      "id": 83,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle dawn",
+      "target_text": "ofunfọn mẹ jụ"
+    },
+    {
+      "id": 84,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle evening",
+      "target_text": "ẹnyasị mẹ jụ"
+    },
+    {
+      "id": 85,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle palm",
+      "target_text": "ọkẹtẹ mẹ jụ"
+    },
+    {
+      "id": 86,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle raffia",
+      "target_text": "ịmaha mẹ jụ"
+    },
+    {
+      "id": 87,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle masquerade",
+      "target_text": "ẹkpo mẹ jụ"
+    },
+    {
+      "id": 88,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle festival",
+      "target_text": "ihiẹn mmẹnmẹn ahụa mẹ jụ"
+    },
+    {
+      "id": 89,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle horn",
+      "target_text": "mpịn mẹ jụ"
+    },
+    {
+      "id": 90,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle calabash",
+      "target_text": "obele mẹ jụ"
+    },
+    {
+      "id": 91,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle kola nut",
+      "target_text": "ọgị mẹ jụ"
+    },
+    {
+      "id": 92,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle praise",
+      "target_text": "ijamma mẹ jụ"
+    },
+    {
+      "id": 93,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle wisdom",
+      "target_text": "amamihiẹn mẹ jụ"
+    },
+    {
+      "id": 94,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle proverb",
+      "target_text": "atụtụ ilu mẹ jụ"
+    },
+    {
+      "id": 95,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle griot",
+      "target_text": "onyẹn akịkọ ilu mẹ jụ"
+    },
+    {
+      "id": 96,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle hunter",
+      "target_text": "ohuẹ mẹ jụ"
+    },
+    {
+      "id": 97,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle weaver",
+      "target_text": "ọ kpa ẹkwa mẹ jụ"
+    },
+    {
+      "id": 98,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle farmer",
+      "target_text": "ọwẹ mẹ jụ"
+    },
+    {
+      "id": 99,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle fisher",
+      "target_text": "o gbu azụn mẹ jụ"
+    },
+    {
+      "id": 100,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "gentle warrior",
+      "target_text": "odogụn mẹ jụ"
+    },
+    {
+      "id": 101,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty river",
+      "target_text": "okẹn iyi"
+    },
+    {
+      "id": 102,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty forest",
+      "target_text": "okẹn ẹgboko"
+    },
+    {
+      "id": 103,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty hill",
+      "target_text": "okẹn oke"
+    },
+    {
+      "id": 104,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty sky",
+      "target_text": "okẹn igwere"
+    },
+    {
+      "id": 105,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty earth",
+      "target_text": "okẹn alị"
+    },
+    {
+      "id": 106,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty wind",
+      "target_text": "okẹn ufere"
+    },
+    {
+      "id": 107,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty rain",
+      "target_text": "okẹn mirin ozuzue"
+    },
+    {
+      "id": 108,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty sun",
+      "target_text": "okẹn anwụn"
+    },
+    {
+      "id": 109,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty moon",
+      "target_text": "okẹn ifọn"
+    },
+    {
+      "id": 110,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty stars",
+      "target_text": "okẹn ikokisẹ"
+    },
+    {
+      "id": 111,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty path",
+      "target_text": "okẹn ozue"
+    },
+    {
+      "id": 112,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty drum",
+      "target_text": "okẹn ẹgede"
+    },
+    {
+      "id": 113,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty market",
+      "target_text": "okẹn afịa"
+    },
+    {
+      "id": 114,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty village",
+      "target_text": "okẹn igure"
+    },
+    {
+      "id": 115,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty ancestor",
+      "target_text": "okẹn onyẹn akan"
+    },
+    {
+      "id": 116,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty spirit",
+      "target_text": "okẹn mmọn"
+    },
+    {
+      "id": 117,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty song",
+      "target_text": "okẹn ẹbụ"
+    },
+    {
+      "id": 118,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty story",
+      "target_text": "okẹn akịkọ"
+    },
+    {
+      "id": 119,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty dream",
+      "target_text": "okẹn nrọ"
+    },
+    {
+      "id": 120,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty harvest",
+      "target_text": "okẹn ighọ ihiẹn"
+    },
+    {
+      "id": 121,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty seed",
+      "target_text": "okẹn akpụrụ"
+    },
+    {
+      "id": 122,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty flame",
+      "target_text": "okẹn ibubu ọkụn"
+    },
+    {
+      "id": 123,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty shadow",
+      "target_text": "okẹn onyinyọn"
+    },
+    {
+      "id": 124,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty dawn",
+      "target_text": "okẹn ofunfọn"
+    },
+    {
+      "id": 125,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty evening",
+      "target_text": "okẹn ẹnyasị"
+    },
+    {
+      "id": 126,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty palm",
+      "target_text": "okẹn ọkẹtẹ"
+    },
+    {
+      "id": 127,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty raffia",
+      "target_text": "okẹn ịmaha"
+    },
+    {
+      "id": 128,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty masquerade",
+      "target_text": "okẹn ẹkpo"
+    },
+    {
+      "id": 129,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty festival",
+      "target_text": "okẹn mmẹnmẹn ahụa"
+    },
+    {
+      "id": 130,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty horn",
+      "target_text": "okẹn mpịn"
+    },
+    {
+      "id": 131,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty calabash",
+      "target_text": "okẹn obele"
+    },
+    {
+      "id": 132,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty kola nut",
+      "target_text": "okẹn ọgị"
+    },
+    {
+      "id": 133,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty praise",
+      "target_text": "okẹn ijamma"
+    },
+    {
+      "id": 134,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty wisdom",
+      "target_text": "okẹn amamihiẹn"
+    },
+    {
+      "id": 135,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty proverb",
+      "target_text": "okẹn atụtụ ilu"
+    },
+    {
+      "id": 136,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty griot",
+      "target_text": "okẹn onyẹn akịkọ ilu"
+    },
+    {
+      "id": 137,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty hunter",
+      "target_text": "okẹn ohuẹ"
+    },
+    {
+      "id": 138,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty weaver",
+      "target_text": "okẹn ọ kpa ẹkwa"
+    },
+    {
+      "id": 139,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty farmer",
+      "target_text": "okẹn ọwẹ"
+    },
+    {
+      "id": 140,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty fisher",
+      "target_text": "okẹn o gbu azụn"
+    },
+    {
+      "id": 141,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "mighty warrior",
+      "target_text": "okẹn odogun"
+    },
+    {
+      "id": 142,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "golden river",
+      "target_text": "iyi goru"
+    },
+    {
+      "id": 143,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "golden forest",
+      "target_text": "ẹgboko goru"
+    },
+    {
+      "id": 144,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "golden hill",
+      "target_text": "oke goru"
+    },
+    {
+      "id": 145,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "golden sky",
+      "target_text": "igwere goru"
+    },
+    {
+      "id": 146,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "golden earth",
+      "target_text": "alị goru"
+    },
+    {
+      "id": 147,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "golden wind",
+      "target_text": "ufere goru"
+    },
+    {
+      "id": 148,
+      "domain": "poetic_vocab",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "golden rain",
+      "target_text": "mirin ozuzue goru"
+    },
+    {
+      "id": 149,
+      "domain": "sentence.conditional",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "If it rains, I will not go.",
+      "target_text": "omẹni mirin ezue e jẹnkọ m"
+    },
+    {
+      "id": 150,
+      "domain": "sentence.conditional",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "If you eat, you will be strong.",
+      "target_text": "omẹni ye ri ihiẹn oriri ye ze"
+    },
+    {
+      "id": 151,
+      "domain": "sentence.conditional",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "If the sun is hot, we will rest.",
+      "target_text": "omẹni anwụn ekẹrẹn ẹnyin ezu ikẹn"
+    },
+    {
+      "id": 152,
+      "domain": "sentence.conditional",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "If you come early, we will leave together.",
+      "target_text": "omẹni ya bịa ẹgwa ẹnyin awịrị"
+    },
+    {
+      "id": 153,
+      "domain": "sentence.conditional",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "If there is no water, boil more.",
+      "target_text": "omẹni mirin arịa shi mẹ cheni"
+    },
+    {
+      "id": 154,
+      "domain": "sentence.expression",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "No problem.",
+      "target_text": "nsọngbu arịa"
+    },
+    {
+      "id": 155,
+      "domain": "sentence.expression",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "God bless you.",
+      "target_text": "osolobuẹ gọzi i"
+    },
+    {
+      "id": 156,
+      "domain": "sentence.expression",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "It is finished.",
+      "target_text": "ọ gụọlẹ"
+    },
+    {
+      "id": 157,
+      "domain": "sentence.expression",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "It is enough.",
+      "target_text": "o hiọụ"
+    },
+    {
+      "id": 158,
+      "domain": "sentence.expression",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Well done.",
+      "target_text": "darụ"
+    },
+    {
+      "id": 159,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Come here.",
+      "target_text": "bịa ebeni"
+    },
+    {
+      "id": 160,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Go to the market.",
+      "target_text": "jẹn mẹn afịa"
+    },
+    {
+      "id": 161,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Sit down.",
+      "target_text": "nọdị alị"
+    },
+    {
+      "id": 162,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Stand up.",
+      "target_text": "lihi ọtọ"
+    },
+    {
+      "id": 163,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Wait for me.",
+      "target_text": "cheri m"
+    },
+    {
+      "id": 164,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Bring water.",
+      "target_text": "kuhẹ mirin"
+    },
+    {
+      "id": 165,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Open the door.",
+      "target_text": "kpọpụ ụzọ"
+    },
+    {
+      "id": 166,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Close the window.",
+      "target_text": "gụnma ẹhoho"
+    },
+    {
+      "id": 167,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Speak slowly.",
+      "target_text": "ku ẹkẹrẹkẹrẹ"
+    },
+    {
+      "id": 168,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Listen to me.",
+      "target_text": "gọ m ntịn"
+    },
+    {
+      "id": 169,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Write your name.",
+      "target_text": "de ẹfan ị"
+    },
+    {
+      "id": 170,
+      "domain": "sentence.imperative",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Help me, please.",
+      "target_text": "yeni m ẹka dodo"
+    },
+    {
+      "id": 171,
+      "domain": "sentence.location",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "There is water in the pot.",
+      "target_text": "mirin rị imẹn ite"
+    },
+    {
+      "id": 172,
+      "domain": "sentence.location",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "There is food on the table.",
+      "target_text": "nnin rị elu teburu"
+    },
+    {
+      "id": 173,
+      "domain": "sentence.location",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "The man is in the house.",
+      "target_text": "okẹnyẹn hụ rị mmụlọ"
+    },
+    {
+      "id": 174,
+      "domain": "sentence.location",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "The woman is at the market.",
+      "target_text": "okpoho hụ rị afịa"
+    },
+    {
+      "id": 175,
+      "domain": "sentence.location",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "The road is long.",
+      "target_text": "ozọ hụ esuekẹ"
+    },
+    {
+      "id": 176,
+      "domain": "sentence.location",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "The school is near.",
+      "target_text": "ụlọ ẹkụkwọ  hụ rị nsue"
+    },
+    {
+      "id": 177,
+      "domain": "sentence.location",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "The goat is outside.",
+      "target_text": "ewu hụ rị ezi"
+    },
+    {
+      "id": 178,
+      "domain": "sentence.location",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "The child is behind the house.",
+      "target_text": "nwata hụ rị azụn ụlọ"
+    },
+    {
+      "id": 179,
+      "domain": "sentence.negation",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "I do not eat rice.",
+      "target_text": "mmẹn ari osikapa"
+    },
+    {
+      "id": 180,
+      "domain": "sentence.negation",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "You do not drink palm wine.",
+      "target_text": "yẹ ara ozu"
+    },
+    {
+      "id": 181,
+      "domain": "sentence.negation",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "He does not go to school.",
+      "target_text": "a jẹn ụlọ ẹkụkwọ"
+    },
+    {
+      "id": 182,
+      "domain": "sentence.negation",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "She does not want food.",
+      "target_text": "ọ chọnị nnin"
+    },
+    {
+      "id": 183,
+      "domain": "sentence.negation",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "We are not going today.",
+      "target_text": "ẹnyin ejẹnkọ tanị"
+    },
+    {
+      "id": 184,
+      "domain": "sentence.negation",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "They are not ready.",
+      "target_text": "a kwademẹ ni wẹ"
+    },
+    {
+      "id": 185,
+      "domain": "sentence.negation",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "I do not understand.",
+      "target_text": "a ghọha nị m"
+    },
+    {
+      "id": 186,
+      "domain": "sentence.negation",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "It is not enough.",
+      "target_text": "o zuni"
+    },
+    {
+      "id": 187,
+      "domain": "sentence.possession",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "This is my book.",
+      "target_text": "ọnwan wụ ẹkụkwọ m"
+    },
+    {
+      "id": 188,
+      "domain": "sentence.possession",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "That is your house.",
+      "target_text": "hụnahụn wụ ụlọ ị"
+    },
+    {
+      "id": 189,
+      "domain": "sentence.possession",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "His bag is here.",
+      "target_text": "ẹkpa a rị ebeni"
+    },
+    {
+      "id": 190,
+      "domain": "sentence.possession",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Her mother is at home.",
+      "target_text": "nnẹn rị  ụlọ"
+    },
+    {
+      "id": 191,
+      "domain": "sentence.possession",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Our father is sleeping.",
+      "target_text": "lẹdi ẹnyin rị oran"
+    },
+    {
+      "id": 192,
+      "domain": "sentence.possession",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Their farm is big.",
+      "target_text": "ugbo wẹ hi ogbe"
+    },
+    {
+      "id": 193,
+      "domain": "sentence.possession",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "This is our village.",
+      "target_text": "igure ẹnyin wụ ọnwan"
+    },
+    {
+      "id": 194,
+      "domain": "sentence.possession",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Those are their children.",
+      "target_text": "ndị hụ wụ mmụ wẹ"
+    },
+    {
+      "id": 195,
+      "domain": "sentence.question",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "What is your name?",
+      "target_text": "kị wụ ẹfan ị"
+    },
+    {
+      "id": 196,
+      "domain": "sentence.question",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Where are you going?",
+      "target_text": "elebe i jẹnkọ"
+    },
+    {
+      "id": 197,
+      "domain": "sentence.question",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Who is at home?",
+      "target_text": "onyẹn rị mmụlọ"
+    },
+    {
+      "id": 198,
+      "domain": "sentence.question",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "When will you come?",
+      "target_text": "ele mgbe ị lala"
+    },
+    {
+      "id": 199,
+      "domain": "sentence.question",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Which road is it?",
+      "target_text": "ele ụzọ rọ"
+    },
+    {
+      "id": 200,
+      "domain": "sentence.question",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Why are you late?",
+      "target_text": "kị haịn i gi lẹ ni bịa ẹgwa"
+    },
+    {
+      "id": 201,
+      "domain": "sentence.question",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "How much is this?",
+      "target_text": "egho ole wụ hụnị"
+    },
+    {
+      "id": 202,
+      "domain": "sentence.question",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Where is the market?",
+      "target_text": "ele be afịa rị"
+    },
+    {
+      "id": 203,
+      "domain": "sentence.question",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Who is the chief?",
+      "target_text": "onyẹn wụ ori nzere"
+    },
+    {
+      "id": 204,
+      "domain": "sentence.question",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "When did you arrive?",
+      "target_text": "ele mgbe i gi pụha"
+    },
+    {
+      "id": 205,
+      "domain": "sentence.question",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "Where do they live?",
+      "target_text": "ele be ki  i bi"
+    },
+    {
+      "id": 206,
+      "domain": "sentence.svo",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "I eat rice.",
+      "target_text": "m ri osikapa"
+    },
+    {
+      "id": 207,
+      "domain": "sentence.svo",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "You drink water.",
+      "target_text": "ị ra mirin"
+    },
+    {
+      "id": 208,
+      "domain": "sentence.svo",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "He goes to the market.",
+      "target_text": "o jẹn afịa"
+    },
+    {
+      "id": 209,
+      "domain": "sentence.svo",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "She cooks soup.",
+      "target_text": "o te ofe"
+    },
+    {
+      "id": 210,
+      "domain": "sentence.svo",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "We play football.",
+      "target_text": "ẹnyin gba bọrụ"
+    },
+    {
+      "id": 211,
+      "domain": "sentence.svo",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "They work on the farm.",
+      "target_text": "wẹ rụn ọrụn ugbo"
+    },
+    {
+      "id": 212,
+      "domain": "sentence.svo",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "The child reads a book.",
+      "target_text": "nwata gụn ẹkụkwọ"
+    },
+    {
+      "id": 213,
+      "domain": "sentence.svo",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "The man buys yam.",
+      "target_text": "okẹnyẹn ṅọn igi"
+    },
+    {
+      "id": 214,
+      "domain": "sentence.svo",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "The woman sells plantain.",
+      "target_text": "okpoho ere ọgẹdẹ"
+    },
+    {
+      "id": 215,
+      "domain": "sentence.svo",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "We write a letter.",
+      "target_text": "ẹnyin ede ẹkụkwọ"
+    },
+    {
+      "id": 216,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "I am eating rice.",
+      "target_text": "m rị eri osikapa"
+    },
+    {
+      "id": 217,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "You are drinking water.",
+      "target_text": "ị rị ara mirin"
+    },
+    {
+      "id": 218,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "He is going now.",
+      "target_text": "o jẹnkọ kikẹni"
+    },
+    {
+      "id": 219,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "She is cooking soup.",
+      "target_text": "ọ rị ete ofe"
+    },
+    {
+      "id": 220,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "We ate yam yesterday.",
+      "target_text": "ẹnyin ri igi onyanhụn"
+    },
+    {
+      "id": 221,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "They arrived early.",
+      "target_text": "wẹ pụha  ẹgwa"
+    },
+    {
+      "id": 222,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "I will go tomorrow.",
+      "target_text": "m jẹnkọ eki"
+    },
+    {
+      "id": 223,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "We will visit the farm.",
+      "target_text": "ẹnyin ke lele ugbo"
+    },
+    {
+      "id": 224,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "They have finished the work.",
+      "target_text": "a rụn gwọ wa"
+    },
+    {
+      "id": 225,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "She has gone to church.",
+      "target_text": "o jẹnmẹn gwọ oka"
+    },
+    {
+      "id": 226,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "It has started to rain.",
+      "target_text": "mirin ezue mẹ gwọ"
+    },
+    {
+      "id": 227,
+      "domain": "sentence.tense",
+      "source_lang": "en",
+      "target_lang": "ika_ng",
+      "source_text": "The children have slept.",
+      "target_text": "mmụẹka hụ aranhịn gwọ"
+    }
+  ],
+  "indexes": {
+    "ika_token_frequency": {
+      "mẹ": 43,
+      "akan": 42,
+      "jụ": 41,
+      "okẹn": 41,
+      "rị": 15,
+      "mirin": 11,
+      "m": 10,
+      "ẹnyin": 10,
+      "o": 10,
+      "hụ": 8,
+      "afịa": 7,
+      "onyẹn": 7,
+      "goru": 7,
+      "wụ": 7,
+      "akịkọ": 6,
+      "ilu": 6,
+      "ọ": 6,
+      "ị": 6,
+      "alị": 5,
+      "ihiẹn": 5,
+      "omẹni": 5,
+      "i": 5,
+      "ụlọ": 5,
+      "ẹkụkwọ": 5,
+      "a": 5,
+      "wẹ": 5,
+      "ele": 5,
+      "iyi": 4,
+      "ẹgboko": 4,
+      "oke": 4,
+      "igwere": 4,
+      "ufere": 4,
+      "ozuzue": 4,
+      "igure": 4,
+      "azụn": 4,
+      "jẹnkọ": 4,
+      "gwọ": 4,
+      "ya": 3,
+      "ọma": 3,
+      "ẹnyasị": 3,
+      "ye": 3,
+      "nị": 3,
+      "anwụn": 3,
+      "ifọn": 3,
+      "ikokisẹ": 3,
+      "ozue": 3,
+      "ẹgede": 3,
+      "ẹbụ": 3,
+      "nrọ": 3,
+      "akpụrụ": 3,
+      "ibubu": 3,
+      "ọkụn": 3,
+      "onyinyọn": 3,
+      "ọkẹtẹ": 3,
+      "ịmaha": 3,
+      "ẹkpo": 3,
+      "mmẹnmẹn": 3,
+      "mpịn": 3,
+      "obele": 3,
+      "ọgị": 3,
+      "ijamma": 3,
+      "amamihiẹn": 3,
+      "atụtụ": 3,
+      "ohuẹ": 3,
+      "kpa": 3,
+      "ẹkwa": 3,
+      "ọwẹ": 3,
+      "gbu": 3,
+      "ri": 3,
+      "bịa": 3,
+      "ẹgwa": 3,
+      "jẹn": 3,
+      "osikapa": 3,
+      "ugbo": 3,
+      "hụn": 2,
+      "dodo": 2,
+      "eki": 2,
+      "darụ": 2,
+      "shi": 2,
+      "elu": 2,
+      "ndị": 2,
+      "ịghọ": 2,
+      "odogun": 2,
+      "mmọn": 2,
+      "ofunfọn": 2,
+      "ahụa": 2,
+      "ezue": 2,
+      "arịa": 2,
+      "ebeni": 2,
+      "ụzọ": 2,
+      "ẹfan": 2,
+      "nnin": 2,
+      "okẹnyẹn": 2,
+      "mmụlọ": 2,
+      "okpoho": 2,
+      "nwata": 2,
+      "ara": 2,
+      "ni": 2,
+      "ọnwan": 2,
+      "kị": 2,
+      "mgbe": 2,
+      "gi": 2,
+      "be": 2,
+      "pụha": 2,
+      "ofe": 2,
+      "rụn": 2,
+      "igi": 2,
+      "ụtụntụn": 1,
+      "efinaị": 1,
+      "alụa": 1,
+      "nanị": 1,
+      "irị": 1,
+      "mma": 1,
+      "mẹyekẹ": 1,
+      "gharịma": 1,
+      "ọnọbei": 1,
+      "hẹn": 1,
+      "ijẹn": 1,
+      "ẹwẹrẹ": 1,
+      "ẹkaị": 1,
+      "ighọghọ": 1,
+      "ọmụmụ": 1,
+      "ịghọghọ": 1,
+      "ahua": 1,
+      "ọhụn": 1,
+      "udọn": 1,
+      "rịnị": 1,
+      "mbụ": 1,
+      "nmọn": 1,
+      "akụnkụn": 1,
+      "ofufọn": 1,
+      "enyasị": 1,
+      "ahụn": 1,
+      "anwụ": 1,
+      "odogụn": 1,
+      "ighọ": 1,
+      "e": 1,
+      "oriri": 1,
+      "ze": 1,
+      "ekẹrẹn": 1,
+      "ezu": 1,
+      "ikẹn": 1,
+      "awịrị": 1,
+      "cheni": 1,
+      "nsọngbu": 1,
+      "osolobuẹ": 1,
+      "gọzi": 1,
+      "gụọlẹ": 1,
+      "hiọụ": 1,
+      "mẹn": 1,
+      "nọdị": 1,
+      "lihi": 1,
+      "ọtọ": 1,
+      "cheri": 1,
+      "kuhẹ": 1,
+      "kpọpụ": 1,
+      "gụnma": 1,
+      "ẹhoho": 1,
+      "ku": 1,
+      "ẹkẹrẹkẹrẹ": 1,
+      "gọ": 1,
+      "ntịn": 1,
+      "de": 1,
+      "yeni": 1,
+      "ẹka": 1,
+      "imẹn": 1,
+      "ite": 1,
+      "teburu": 1,
+      "ozọ": 1,
+      "esuekẹ": 1,
+      "nsue": 1,
+      "ewu": 1,
+      "ezi": 1,
+      "mmẹn": 1,
+      "ari": 1,
+      "yẹ": 1,
+      "ozu": 1,
+      "chọnị": 1,
+      "ejẹnkọ": 1,
+      "tanị": 1,
+      "kwademẹ": 1,
+      "ghọha": 1,
+      "zuni": 1,
+      "hụnahụn": 1,
+      "ẹkpa": 1,
+      "nnẹn": 1,
+      "lẹdi": 1,
+      "oran": 1,
+      "hi": 1,
+      "ogbe": 1,
+      "mmụ": 1,
+      "elebe": 1,
+      "lala": 1,
+      "rọ": 1,
+      "haịn": 1,
+      "lẹ": 1,
+      "egho": 1,
+      "ole": 1,
+      "hụnị": 1,
+      "ori": 1,
+      "nzere": 1,
+      "ki": 1,
+      "bi": 1,
+      "ra": 1,
+      "te": 1,
+      "gba": 1,
+      "bọrụ": 1,
+      "ọrụn": 1,
+      "gụn": 1,
+      "ọn": 1,
+      "ere": 1,
+      "ọgẹdẹ": 1,
+      "ede": 1,
+      "eri": 1,
+      "kikẹni": 1,
+      "ete": 1,
+      "onyanhụn": 1,
+      "ke": 1,
+      "lele": 1,
+      "wa": 1,
+      "jẹnmẹn": 1,
+      "oka": 1,
+      "mmụẹka": 1,
+      "aranhịn": 1
+    },
+    "english_token_frequency": {
+      "ancient": 41,
+      "gentle": 41,
+      "mighty": 41,
+      "is": 28,
+      "the": 25,
+      "you": 15,
+      "not": 9,
+      "are": 7,
+      "i": 7,
+      "market": 7,
+      "golden": 7,
+      "will": 7,
+      "we": 7,
+      "it": 6,
+      "to": 6,
+      "rain": 5,
+      "if": 5,
+      "water": 5,
+      "they": 5,
+      "evening": 4,
+      "river": 4,
+      "forest": 4,
+      "hill": 4,
+      "sky": 4,
+      "earth": 4,
+      "wind": 4,
+      "sun": 4,
+      "village": 4,
+      "palm": 4,
+      "go": 4,
+      "do": 4,
+      "she": 4,
+      "good": 3,
+      "moon": 3,
+      "stars": 3,
+      "path": 3,
+      "drum": 3,
+      "ancestor": 3,
+      "spirit": 3,
+      "song": 3,
+      "story": 3,
+      "dream": 3,
+      "harvest": 3,
+      "seed": 3,
+      "flame": 3,
+      "shadow": 3,
+      "dawn": 3,
+      "raffia": 3,
+      "masquerade": 3,
+      "festival": 3,
+      "horn": 3,
+      "calabash": 3,
+      "kola": 3,
+      "nut": 3,
+      "praise": 3,
+      "wisdom": 3,
+      "proverb": 3,
+      "griot": 3,
+      "hunter": 3,
+      "weaver": 3,
+      "farmer": 3,
+      "fisher": 3,
+      "warrior": 3,
+      "eat": 3,
+      "come": 3,
+      "there": 3,
+      "me": 3,
+      "your": 3,
+      "house": 3,
+      "at": 3,
+      "rice": 3,
+      "he": 3,
+      "going": 3,
+      "this": 3,
+      "farm": 3,
+      "where": 3,
+      "how": 2,
+      "am": 2,
+      "please": 2,
+      "well": 2,
+      "done": 2,
+      "happy": 2,
+      "be": 2,
+      "early": 2,
+      "no": 2,
+      "finished": 2,
+      "enough": 2,
+      "here": 2,
+      "write": 2,
+      "name": 2,
+      "in": 2,
+      "food": 2,
+      "on": 2,
+      "man": 2,
+      "woman": 2,
+      "road": 2,
+      "school": 2,
+      "child": 2,
+      "drink": 2,
+      "does": 2,
+      "book": 2,
+      "home": 2,
+      "our": 2,
+      "their": 2,
+      "children": 2,
+      "who": 2,
+      "when": 2,
+      "soup": 2,
+      "work": 2,
+      "a": 2,
+      "yam": 2,
+      "have": 2,
+      "has": 2,
+      "hello": 1,
+      "morning": 1,
+      "afternoon": 1,
+      "welcome": 1,
+      "fine": 1,
+      "thank": 1,
+      "sorry": 1,
+      "see": 1,
+      "later": 1,
+      "goodbye": 1,
+      "safe": 1,
+      "journey": 1,
+      "congratulations": 1,
+      "birthday": 1,
+      "new": 1,
+      "year": 1,
+      "peace": 1,
+      "with": 1,
+      "rains": 1,
+      "strong": 1,
+      "hot": 1,
+      "rest": 1,
+      "leave": 1,
+      "together": 1,
+      "boil": 1,
+      "more": 1,
+      "problem": 1,
+      "god": 1,
+      "bless": 1,
+      "sit": 1,
+      "down": 1,
+      "stand": 1,
+      "up": 1,
+      "wait": 1,
+      "for": 1,
+      "bring": 1,
+      "open": 1,
+      "door": 1,
+      "close": 1,
+      "window": 1,
+      "speak": 1,
+      "slowly": 1,
+      "listen": 1,
+      "help": 1,
+      "pot": 1,
+      "table": 1,
+      "long": 1,
+      "near": 1,
+      "goat": 1,
+      "outside": 1,
+      "behind": 1,
+      "wine": 1,
+      "want": 1,
+      "today": 1,
+      "ready": 1,
+      "understand": 1,
+      "my": 1,
+      "that": 1,
+      "his": 1,
+      "bag": 1,
+      "her": 1,
+      "mother": 1,
+      "father": 1,
+      "sleeping": 1,
+      "big": 1,
+      "those": 1,
+      "what": 1,
+      "which": 1,
+      "why": 1,
+      "late": 1,
+      "much": 1,
+      "chief": 1,
+      "did": 1,
+      "arrive": 1,
+      "live": 1,
+      "goes": 1,
+      "cooks": 1,
+      "play": 1,
+      "football": 1,
+      "reads": 1,
+      "buys": 1,
+      "sells": 1,
+      "plantain": 1,
+      "letter": 1,
+      "eating": 1,
+      "drinking": 1,
+      "now": 1,
+      "cooking": 1,
+      "ate": 1,
+      "yesterday": 1,
+      "arrived": 1,
+      "tomorrow": 1,
+      "visit": 1,
+      "gone": 1,
+      "church": 1,
+      "started": 1,
+      "slept": 1
+    }
+  },
+  "lexeme_index": {
+    "mẹ": {
+      "count": 43,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle river",
+          "target_text": "iyi mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle forest",
+          "target_text": "ẹgboko mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle hill",
+          "target_text": "oke mẹ jụ"
+        }
+      ]
+    },
+    "akan": {
+      "count": 42,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient river",
+          "target_text": "iyi akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient forest",
+          "target_text": "ẹgboko akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient hill",
+          "target_text": "oke akan"
+        }
+      ]
+    },
+    "jụ": {
+      "count": 41,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle river",
+          "target_text": "iyi mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle forest",
+          "target_text": "ẹgboko mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle hill",
+          "target_text": "oke mẹ jụ"
+        }
+      ]
+    },
+    "okẹn": {
+      "count": 41,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty river",
+          "target_text": "okẹn iyi"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty forest",
+          "target_text": "okẹn ẹgboko"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty hill",
+          "target_text": "okẹn oke"
+        }
+      ]
+    },
+    "rị": {
+      "count": 15,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "There is water in the pot.",
+          "target_text": "mirin rị imẹn ite"
+        },
+        {
+          "domain": "sentence.location",
+          "source_text": "There is food on the table.",
+          "target_text": "nnin rị elu teburu"
+        },
+        {
+          "domain": "sentence.location",
+          "source_text": "The man is in the house.",
+          "target_text": "okẹnyẹn hụ rị mmụlọ"
+        }
+      ]
+    },
+    "mirin": {
+      "count": 11,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient rain",
+          "target_text": "mirin ozuzue akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle rain",
+          "target_text": "mirin ozuzue mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty rain",
+          "target_text": "okẹn mirin ozuzue"
+        }
+      ]
+    },
+    "m": {
+      "count": 10,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "I am fine",
+          "target_text": "m  hụn mma"
+        },
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If it rains, I will not go.",
+          "target_text": "omẹni mirin ezue e jẹnkọ m"
+        },
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Wait for me.",
+          "target_text": "cheri m"
+        }
+      ]
+    },
+    "ẹnyin": {
+      "count": 10,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "see you later",
+          "target_text": "nị ẹnyin hụn ọnọbei"
+        },
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If the sun is hot, we will rest.",
+          "target_text": "omẹni anwụn ekẹrẹn ẹnyin ezu ikẹn"
+        },
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If you come early, we will leave together.",
+          "target_text": "omẹni ya bịa ẹgwa ẹnyin awịrị"
+        }
+      ]
+    },
+    "o": {
+      "count": 10,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "goodbye",
+          "target_text": "o hẹn eki"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient fisher",
+          "target_text": "o gbu azụn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle fisher",
+          "target_text": "o gbu azụn mẹ jụ"
+        }
+      ]
+    },
+    "hụ": {
+      "count": 8,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The man is in the house.",
+          "target_text": "okẹnyẹn hụ rị mmụlọ"
+        },
+        {
+          "domain": "sentence.location",
+          "source_text": "The woman is at the market.",
+          "target_text": "okpoho hụ rị afịa"
+        },
+        {
+          "domain": "sentence.location",
+          "source_text": "The road is long.",
+          "target_text": "ozọ hụ esuekẹ"
+        }
+      ]
+    },
+    "afịa": {
+      "count": 7,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient market",
+          "target_text": "afịa akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle market",
+          "target_text": "afịa mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty market",
+          "target_text": "okẹn afịa"
+        }
+      ]
+    },
+    "onyẹn": {
+      "count": 7,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient griot",
+          "target_text": "onyẹn akịkọ ilu akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle ancestor",
+          "target_text": "onyẹn akan mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle griot",
+          "target_text": "onyẹn akịkọ ilu mẹ jụ"
+        }
+      ]
+    },
+    "goru": {
+      "count": 7,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "golden river",
+          "target_text": "iyi goru"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "golden forest",
+          "target_text": "ẹgboko goru"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "golden hill",
+          "target_text": "oke goru"
+        }
+      ]
+    },
+    "wụ": {
+      "count": 7,
+      "examples": [
+        {
+          "domain": "sentence.possession",
+          "source_text": "This is my book.",
+          "target_text": "ọnwan wụ ẹkụkwọ m"
+        },
+        {
+          "domain": "sentence.possession",
+          "source_text": "That is your house.",
+          "target_text": "hụnahụn wụ ụlọ ị"
+        },
+        {
+          "domain": "sentence.possession",
+          "source_text": "This is our village.",
+          "target_text": "igure ẹnyin wụ ọnwan"
+        }
+      ]
+    },
+    "akịkọ": {
+      "count": 6,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient story",
+          "target_text": "akịkọ akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient griot",
+          "target_text": "onyẹn akịkọ ilu akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle story",
+          "target_text": "akịkọ mẹ jụ"
+        }
+      ]
+    },
+    "ilu": {
+      "count": 6,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient proverb",
+          "target_text": "atụtụ ilu akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient griot",
+          "target_text": "onyẹn akịkọ ilu akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle proverb",
+          "target_text": "atụtụ ilu mẹ jụ"
+        }
+      ]
+    },
+    "ọ": {
+      "count": 6,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient weaver",
+          "target_text": "ọ kpa ẹkwa akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle weaver",
+          "target_text": "ọ kpa ẹkwa mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty weaver",
+          "target_text": "okẹn ọ kpa ẹkwa"
+        }
+      ]
+    },
+    "ị": {
+      "count": 6,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Write your name.",
+          "target_text": "de ẹfan ị"
+        },
+        {
+          "domain": "sentence.possession",
+          "source_text": "That is your house.",
+          "target_text": "hụnahụn wụ ụlọ ị"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "What is your name?",
+          "target_text": "kị wụ ẹfan ị"
+        }
+      ]
+    },
+    "alị": {
+      "count": 5,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient earth",
+          "target_text": "alị akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle earth",
+          "target_text": "alị mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty earth",
+          "target_text": "okẹn alị"
+        }
+      ]
+    },
+    "ihiẹn": {
+      "count": 5,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient harvest",
+          "target_text": "ịghọ ihiẹn akụnkụn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle harvest",
+          "target_text": "ịghọ ihiẹn mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle festival",
+          "target_text": "ihiẹn mmẹnmẹn ahụa mẹ jụ"
+        }
+      ]
+    },
+    "omẹni": {
+      "count": 5,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If it rains, I will not go.",
+          "target_text": "omẹni mirin ezue e jẹnkọ m"
+        },
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If you eat, you will be strong.",
+          "target_text": "omẹni ye ri ihiẹn oriri ye ze"
+        },
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If the sun is hot, we will rest.",
+          "target_text": "omẹni anwụn ekẹrẹn ẹnyin ezu ikẹn"
+        }
+      ]
+    },
+    "i": {
+      "count": 5,
+      "examples": [
+        {
+          "domain": "sentence.expression",
+          "source_text": "God bless you.",
+          "target_text": "osolobuẹ gọzi i"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Where are you going?",
+          "target_text": "elebe i jẹnkọ"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Why are you late?",
+          "target_text": "kị haịn i gi lẹ ni bịa ẹgwa"
+        }
+      ]
+    },
+    "ụlọ": {
+      "count": 5,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The school is near.",
+          "target_text": "ụlọ ẹkụkwọ  hụ rị nsue"
+        },
+        {
+          "domain": "sentence.location",
+          "source_text": "The child is behind the house.",
+          "target_text": "nwata hụ rị azụn ụlọ"
+        },
+        {
+          "domain": "sentence.negation",
+          "source_text": "He does not go to school.",
+          "target_text": "a jẹn ụlọ ẹkụkwọ"
+        }
+      ]
+    },
+    "ẹkụkwọ": {
+      "count": 5,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The school is near.",
+          "target_text": "ụlọ ẹkụkwọ  hụ rị nsue"
+        },
+        {
+          "domain": "sentence.negation",
+          "source_text": "He does not go to school.",
+          "target_text": "a jẹn ụlọ ẹkụkwọ"
+        },
+        {
+          "domain": "sentence.possession",
+          "source_text": "This is my book.",
+          "target_text": "ọnwan wụ ẹkụkwọ m"
+        }
+      ]
+    },
+    "a": {
+      "count": 5,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "He does not go to school.",
+          "target_text": "a jẹn ụlọ ẹkụkwọ"
+        },
+        {
+          "domain": "sentence.negation",
+          "source_text": "They are not ready.",
+          "target_text": "a kwademẹ ni wẹ"
+        },
+        {
+          "domain": "sentence.negation",
+          "source_text": "I do not understand.",
+          "target_text": "a ghọha nị m"
+        }
+      ]
+    },
+    "wẹ": {
+      "count": 5,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "They are not ready.",
+          "target_text": "a kwademẹ ni wẹ"
+        },
+        {
+          "domain": "sentence.possession",
+          "source_text": "Their farm is big.",
+          "target_text": "ugbo wẹ hi ogbe"
+        },
+        {
+          "domain": "sentence.possession",
+          "source_text": "Those are their children.",
+          "target_text": "ndị hụ wụ mmụ wẹ"
+        }
+      ]
+    },
+    "ele": {
+      "count": 5,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "When will you come?",
+          "target_text": "ele mgbe ị lala"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Which road is it?",
+          "target_text": "ele ụzọ rọ"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Where is the market?",
+          "target_text": "ele be afịa rị"
+        }
+      ]
+    },
+    "iyi": {
+      "count": 4,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient river",
+          "target_text": "iyi akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle river",
+          "target_text": "iyi mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty river",
+          "target_text": "okẹn iyi"
+        }
+      ]
+    },
+    "ẹgboko": {
+      "count": 4,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient forest",
+          "target_text": "ẹgboko akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle forest",
+          "target_text": "ẹgboko mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty forest",
+          "target_text": "okẹn ẹgboko"
+        }
+      ]
+    },
+    "oke": {
+      "count": 4,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient hill",
+          "target_text": "oke akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle hill",
+          "target_text": "oke mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty hill",
+          "target_text": "okẹn oke"
+        }
+      ]
+    },
+    "igwere": {
+      "count": 4,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient sky",
+          "target_text": "igwere akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle sky",
+          "target_text": "igwere mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty sky",
+          "target_text": "okẹn igwere"
+        }
+      ]
+    },
+    "ufere": {
+      "count": 4,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient wind",
+          "target_text": "ufere akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle wind",
+          "target_text": "ufere mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty wind",
+          "target_text": "okẹn ufere"
+        }
+      ]
+    },
+    "ozuzue": {
+      "count": 4,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient rain",
+          "target_text": "mirin ozuzue akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle rain",
+          "target_text": "mirin ozuzue mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty rain",
+          "target_text": "okẹn mirin ozuzue"
+        }
+      ]
+    },
+    "igure": {
+      "count": 4,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient village",
+          "target_text": "igure akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle village",
+          "target_text": "igure mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty village",
+          "target_text": "okẹn igure"
+        }
+      ]
+    },
+    "azụn": {
+      "count": 4,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient fisher",
+          "target_text": "o gbu azụn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle fisher",
+          "target_text": "o gbu azụn mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty fisher",
+          "target_text": "okẹn o gbu azụn"
+        }
+      ]
+    },
+    "jẹnkọ": {
+      "count": 4,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If it rains, I will not go.",
+          "target_text": "omẹni mirin ezue e jẹnkọ m"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Where are you going?",
+          "target_text": "elebe i jẹnkọ"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "He is going now.",
+          "target_text": "o jẹnkọ kikẹni"
+        }
+      ]
+    },
+    "gwọ": {
+      "count": 4,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "They have finished the work.",
+          "target_text": "a rụn gwọ wa"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "She has gone to church.",
+          "target_text": "o jẹnmẹn gwọ oka"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "It has started to rain.",
+          "target_text": "mirin ezue mẹ gwọ"
+        }
+      ]
+    },
+    "ya": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "hello",
+          "target_text": "ya"
+        },
+        {
+          "domain": "greeting",
+          "source_text": "peace be with you",
+          "target_text": "udọn ya rịnị"
+        },
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If you come early, we will leave together.",
+          "target_text": "omẹni ya bịa ẹgwa ẹnyin awịrị"
+        }
+      ]
+    },
+    "ọma": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "good morning",
+          "target_text": "ụtụntụn ọma"
+        },
+        {
+          "domain": "greeting",
+          "source_text": "good afternoon",
+          "target_text": "efinaị ọma"
+        },
+        {
+          "domain": "greeting",
+          "source_text": "good evening",
+          "target_text": "ẹnyasị ọma"
+        }
+      ]
+    },
+    "ẹnyasị": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "good evening",
+          "target_text": "ẹnyasị ọma"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle evening",
+          "target_text": "ẹnyasị mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty evening",
+          "target_text": "okẹn ẹnyasị"
+        }
+      ]
+    },
+    "ye": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "thank you",
+          "target_text": "ye mẹyekẹ"
+        },
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If you eat, you will be strong.",
+          "target_text": "omẹni ye ri ihiẹn oriri ye ze"
+        }
+      ]
+    },
+    "nị": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "see you later",
+          "target_text": "nị ẹnyin hụn ọnọbei"
+        },
+        {
+          "domain": "greeting",
+          "source_text": "congratulations",
+          "target_text": "nị ẹkaị shi elu"
+        },
+        {
+          "domain": "sentence.negation",
+          "source_text": "I do not understand.",
+          "target_text": "a ghọha nị m"
+        }
+      ]
+    },
+    "anwụn": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient sun",
+          "target_text": "anwụn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty sun",
+          "target_text": "okẹn anwụn"
+        },
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If the sun is hot, we will rest.",
+          "target_text": "omẹni anwụn ekẹrẹn ẹnyin ezu ikẹn"
+        }
+      ]
+    },
+    "ifọn": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient moon",
+          "target_text": "ifọn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle moon",
+          "target_text": "ifọn mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty moon",
+          "target_text": "okẹn ifọn"
+        }
+      ]
+    },
+    "ikokisẹ": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient stars",
+          "target_text": "ikokisẹ akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle stars",
+          "target_text": "ikokisẹ mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty stars",
+          "target_text": "okẹn ikokisẹ"
+        }
+      ]
+    },
+    "ozue": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient path",
+          "target_text": "ozue akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle path",
+          "target_text": "ozue mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty path",
+          "target_text": "okẹn ozue"
+        }
+      ]
+    },
+    "ẹgede": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient drum",
+          "target_text": "ẹgede akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle drum",
+          "target_text": "ẹgede mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty drum",
+          "target_text": "okẹn ẹgede"
+        }
+      ]
+    },
+    "ẹbụ": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient song",
+          "target_text": "ẹbụ akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle song",
+          "target_text": "ẹbụ mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty song",
+          "target_text": "okẹn ẹbụ"
+        }
+      ]
+    },
+    "nrọ": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient dream",
+          "target_text": "nrọ akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle dream",
+          "target_text": "nrọ mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty dream",
+          "target_text": "okẹn nrọ"
+        }
+      ]
+    },
+    "akpụrụ": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient seed",
+          "target_text": "akpụrụ akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle seed",
+          "target_text": "akpụrụ mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty seed",
+          "target_text": "okẹn akpụrụ"
+        }
+      ]
+    },
+    "ibubu": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient flame",
+          "target_text": "ibubu ọkụn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle flame",
+          "target_text": "ibubu ọkụn mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty flame",
+          "target_text": "okẹn ibubu ọkụn"
+        }
+      ]
+    },
+    "ọkụn": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient flame",
+          "target_text": "ibubu ọkụn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle flame",
+          "target_text": "ibubu ọkụn mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty flame",
+          "target_text": "okẹn ibubu ọkụn"
+        }
+      ]
+    },
+    "onyinyọn": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient shadow",
+          "target_text": "onyinyọn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle shadow",
+          "target_text": "onyinyọn mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty shadow",
+          "target_text": "okẹn onyinyọn"
+        }
+      ]
+    },
+    "ọkẹtẹ": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient palm",
+          "target_text": "ọkẹtẹ akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle palm",
+          "target_text": "ọkẹtẹ mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty palm",
+          "target_text": "okẹn ọkẹtẹ"
+        }
+      ]
+    },
+    "ịmaha": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient raffia",
+          "target_text": "ịmaha akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle raffia",
+          "target_text": "ịmaha mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty raffia",
+          "target_text": "okẹn ịmaha"
+        }
+      ]
+    },
+    "ẹkpo": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient masquerade",
+          "target_text": "ẹkpo akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle masquerade",
+          "target_text": "ẹkpo mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty masquerade",
+          "target_text": "okẹn ẹkpo"
+        }
+      ]
+    },
+    "mmẹnmẹn": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient festival",
+          "target_text": "mmẹnmẹn ahụn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle festival",
+          "target_text": "ihiẹn mmẹnmẹn ahụa mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty festival",
+          "target_text": "okẹn mmẹnmẹn ahụa"
+        }
+      ]
+    },
+    "mpịn": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient horn",
+          "target_text": "mpịn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle horn",
+          "target_text": "mpịn mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty horn",
+          "target_text": "okẹn mpịn"
+        }
+      ]
+    },
+    "obele": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient calabash",
+          "target_text": "obele akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle calabash",
+          "target_text": "obele mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty calabash",
+          "target_text": "okẹn obele"
+        }
+      ]
+    },
+    "ọgị": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient kola nut",
+          "target_text": "ọgị akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle kola nut",
+          "target_text": "ọgị mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty kola nut",
+          "target_text": "okẹn ọgị"
+        }
+      ]
+    },
+    "ijamma": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient praise",
+          "target_text": "ijamma  akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle praise",
+          "target_text": "ijamma mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty praise",
+          "target_text": "okẹn ijamma"
+        }
+      ]
+    },
+    "amamihiẹn": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient wisdom",
+          "target_text": "amamihiẹn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle wisdom",
+          "target_text": "amamihiẹn mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty wisdom",
+          "target_text": "okẹn amamihiẹn"
+        }
+      ]
+    },
+    "atụtụ": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient proverb",
+          "target_text": "atụtụ ilu akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle proverb",
+          "target_text": "atụtụ ilu mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty proverb",
+          "target_text": "okẹn atụtụ ilu"
+        }
+      ]
+    },
+    "ohuẹ": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient hunter",
+          "target_text": "ohuẹ akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle hunter",
+          "target_text": "ohuẹ mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty hunter",
+          "target_text": "okẹn ohuẹ"
+        }
+      ]
+    },
+    "kpa": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient weaver",
+          "target_text": "ọ kpa ẹkwa akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle weaver",
+          "target_text": "ọ kpa ẹkwa mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty weaver",
+          "target_text": "okẹn ọ kpa ẹkwa"
+        }
+      ]
+    },
+    "ẹkwa": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient weaver",
+          "target_text": "ọ kpa ẹkwa akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle weaver",
+          "target_text": "ọ kpa ẹkwa mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty weaver",
+          "target_text": "okẹn ọ kpa ẹkwa"
+        }
+      ]
+    },
+    "ọwẹ": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient farmer",
+          "target_text": "ọwẹ akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle farmer",
+          "target_text": "ọwẹ mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty farmer",
+          "target_text": "okẹn ọwẹ"
+        }
+      ]
+    },
+    "gbu": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient fisher",
+          "target_text": "o gbu azụn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle fisher",
+          "target_text": "o gbu azụn mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty fisher",
+          "target_text": "okẹn o gbu azụn"
+        }
+      ]
+    },
+    "ri": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If you eat, you will be strong.",
+          "target_text": "omẹni ye ri ihiẹn oriri ye ze"
+        },
+        {
+          "domain": "sentence.svo",
+          "source_text": "I eat rice.",
+          "target_text": "m ri osikapa"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "We ate yam yesterday.",
+          "target_text": "ẹnyin ri igi onyanhụn"
+        }
+      ]
+    },
+    "bịa": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If you come early, we will leave together.",
+          "target_text": "omẹni ya bịa ẹgwa ẹnyin awịrị"
+        },
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Come here.",
+          "target_text": "bịa ebeni"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Why are you late?",
+          "target_text": "kị haịn i gi lẹ ni bịa ẹgwa"
+        }
+      ]
+    },
+    "ẹgwa": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If you come early, we will leave together.",
+          "target_text": "omẹni ya bịa ẹgwa ẹnyin awịrị"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Why are you late?",
+          "target_text": "kị haịn i gi lẹ ni bịa ẹgwa"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "They arrived early.",
+          "target_text": "wẹ pụha  ẹgwa"
+        }
+      ]
+    },
+    "jẹn": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Go to the market.",
+          "target_text": "jẹn mẹn afịa"
+        },
+        {
+          "domain": "sentence.negation",
+          "source_text": "He does not go to school.",
+          "target_text": "a jẹn ụlọ ẹkụkwọ"
+        },
+        {
+          "domain": "sentence.svo",
+          "source_text": "He goes to the market.",
+          "target_text": "o jẹn afịa"
+        }
+      ]
+    },
+    "osikapa": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "I do not eat rice.",
+          "target_text": "mmẹn ari osikapa"
+        },
+        {
+          "domain": "sentence.svo",
+          "source_text": "I eat rice.",
+          "target_text": "m ri osikapa"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "I am eating rice.",
+          "target_text": "m rị eri osikapa"
+        }
+      ]
+    },
+    "ugbo": {
+      "count": 3,
+      "examples": [
+        {
+          "domain": "sentence.possession",
+          "source_text": "Their farm is big.",
+          "target_text": "ugbo wẹ hi ogbe"
+        },
+        {
+          "domain": "sentence.svo",
+          "source_text": "They work on the farm.",
+          "target_text": "wẹ rụn ọrụn ugbo"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "We will visit the farm.",
+          "target_text": "ẹnyin ke lele ugbo"
+        }
+      ]
+    },
+    "hụn": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "I am fine",
+          "target_text": "m  hụn mma"
+        },
+        {
+          "domain": "greeting",
+          "source_text": "see you later",
+          "target_text": "nị ẹnyin hụn ọnọbei"
+        }
+      ]
+    },
+    "dodo": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "please",
+          "target_text": "dodo"
+        },
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Help me, please.",
+          "target_text": "yeni m ẹka dodo"
+        }
+      ]
+    },
+    "eki": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "goodbye",
+          "target_text": "o hẹn eki"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "I will go tomorrow.",
+          "target_text": "m jẹnkọ eki"
+        }
+      ]
+    },
+    "darụ": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "well done",
+          "target_text": "darụ"
+        },
+        {
+          "domain": "sentence.expression",
+          "source_text": "Well done.",
+          "target_text": "darụ"
+        }
+      ]
+    },
+    "shi": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "congratulations",
+          "target_text": "nị ẹkaị shi elu"
+        },
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If there is no water, boil more.",
+          "target_text": "omẹni mirin arịa shi mẹ cheni"
+        }
+      ]
+    },
+    "elu": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "congratulations",
+          "target_text": "nị ẹkaị shi elu"
+        },
+        {
+          "domain": "sentence.location",
+          "source_text": "There is food on the table.",
+          "target_text": "nnin rị elu teburu"
+        }
+      ]
+    },
+    "ndị": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient ancestor",
+          "target_text": "ndị mbụ"
+        },
+        {
+          "domain": "sentence.possession",
+          "source_text": "Those are their children.",
+          "target_text": "ndị hụ wụ mmụ wẹ"
+        }
+      ]
+    },
+    "ịghọ": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient harvest",
+          "target_text": "ịghọ ihiẹn akụnkụn akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle harvest",
+          "target_text": "ịghọ ihiẹn mẹ jụ"
+        }
+      ]
+    },
+    "odogun": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient warrior",
+          "target_text": "odogun akan"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty warrior",
+          "target_text": "okẹn odogun"
+        }
+      ]
+    },
+    "mmọn": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle spirit",
+          "target_text": "mmọn mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty spirit",
+          "target_text": "okẹn mmọn"
+        }
+      ]
+    },
+    "ofunfọn": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle dawn",
+          "target_text": "ofunfọn mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty dawn",
+          "target_text": "okẹn ofunfọn"
+        }
+      ]
+    },
+    "ahụa": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle festival",
+          "target_text": "ihiẹn mmẹnmẹn ahụa mẹ jụ"
+        },
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty festival",
+          "target_text": "okẹn mmẹnmẹn ahụa"
+        }
+      ]
+    },
+    "ezue": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If it rains, I will not go.",
+          "target_text": "omẹni mirin ezue e jẹnkọ m"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "It has started to rain.",
+          "target_text": "mirin ezue mẹ gwọ"
+        }
+      ]
+    },
+    "arịa": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If there is no water, boil more.",
+          "target_text": "omẹni mirin arịa shi mẹ cheni"
+        },
+        {
+          "domain": "sentence.expression",
+          "source_text": "No problem.",
+          "target_text": "nsọngbu arịa"
+        }
+      ]
+    },
+    "ebeni": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Come here.",
+          "target_text": "bịa ebeni"
+        },
+        {
+          "domain": "sentence.possession",
+          "source_text": "His bag is here.",
+          "target_text": "ẹkpa a rị ebeni"
+        }
+      ]
+    },
+    "ụzọ": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Open the door.",
+          "target_text": "kpọpụ ụzọ"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Which road is it?",
+          "target_text": "ele ụzọ rọ"
+        }
+      ]
+    },
+    "ẹfan": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Write your name.",
+          "target_text": "de ẹfan ị"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "What is your name?",
+          "target_text": "kị wụ ẹfan ị"
+        }
+      ]
+    },
+    "nnin": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "There is food on the table.",
+          "target_text": "nnin rị elu teburu"
+        },
+        {
+          "domain": "sentence.negation",
+          "source_text": "She does not want food.",
+          "target_text": "ọ chọnị nnin"
+        }
+      ]
+    },
+    "okẹnyẹn": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The man is in the house.",
+          "target_text": "okẹnyẹn hụ rị mmụlọ"
+        },
+        {
+          "domain": "sentence.svo",
+          "source_text": "The man buys yam.",
+          "target_text": "okẹnyẹn ṅọn igi"
+        }
+      ]
+    },
+    "mmụlọ": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The man is in the house.",
+          "target_text": "okẹnyẹn hụ rị mmụlọ"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Who is at home?",
+          "target_text": "onyẹn rị mmụlọ"
+        }
+      ]
+    },
+    "okpoho": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The woman is at the market.",
+          "target_text": "okpoho hụ rị afịa"
+        },
+        {
+          "domain": "sentence.svo",
+          "source_text": "The woman sells plantain.",
+          "target_text": "okpoho ere ọgẹdẹ"
+        }
+      ]
+    },
+    "nwata": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The child is behind the house.",
+          "target_text": "nwata hụ rị azụn ụlọ"
+        },
+        {
+          "domain": "sentence.svo",
+          "source_text": "The child reads a book.",
+          "target_text": "nwata gụn ẹkụkwọ"
+        }
+      ]
+    },
+    "ara": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "You do not drink palm wine.",
+          "target_text": "yẹ ara ozu"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "You are drinking water.",
+          "target_text": "ị rị ara mirin"
+        }
+      ]
+    },
+    "ni": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "They are not ready.",
+          "target_text": "a kwademẹ ni wẹ"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Why are you late?",
+          "target_text": "kị haịn i gi lẹ ni bịa ẹgwa"
+        }
+      ]
+    },
+    "ọnwan": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.possession",
+          "source_text": "This is my book.",
+          "target_text": "ọnwan wụ ẹkụkwọ m"
+        },
+        {
+          "domain": "sentence.possession",
+          "source_text": "This is our village.",
+          "target_text": "igure ẹnyin wụ ọnwan"
+        }
+      ]
+    },
+    "kị": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "What is your name?",
+          "target_text": "kị wụ ẹfan ị"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Why are you late?",
+          "target_text": "kị haịn i gi lẹ ni bịa ẹgwa"
+        }
+      ]
+    },
+    "mgbe": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "When will you come?",
+          "target_text": "ele mgbe ị lala"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "When did you arrive?",
+          "target_text": "ele mgbe i gi pụha"
+        }
+      ]
+    },
+    "gi": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "Why are you late?",
+          "target_text": "kị haịn i gi lẹ ni bịa ẹgwa"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "When did you arrive?",
+          "target_text": "ele mgbe i gi pụha"
+        }
+      ]
+    },
+    "be": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "Where is the market?",
+          "target_text": "ele be afịa rị"
+        },
+        {
+          "domain": "sentence.question",
+          "source_text": "Where do they live?",
+          "target_text": "ele be ki  i bi"
+        }
+      ]
+    },
+    "pụha": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "When did you arrive?",
+          "target_text": "ele mgbe i gi pụha"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "They arrived early.",
+          "target_text": "wẹ pụha  ẹgwa"
+        }
+      ]
+    },
+    "ofe": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "She cooks soup.",
+          "target_text": "o te ofe"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "She is cooking soup.",
+          "target_text": "ọ rị ete ofe"
+        }
+      ]
+    },
+    "rụn": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "They work on the farm.",
+          "target_text": "wẹ rụn ọrụn ugbo"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "They have finished the work.",
+          "target_text": "a rụn gwọ wa"
+        }
+      ]
+    },
+    "igi": {
+      "count": 2,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "The man buys yam.",
+          "target_text": "okẹnyẹn ṅọn igi"
+        },
+        {
+          "domain": "sentence.tense",
+          "source_text": "We ate yam yesterday.",
+          "target_text": "ẹnyin ri igi onyanhụn"
+        }
+      ]
+    },
+    "ụtụntụn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "good morning",
+          "target_text": "ụtụntụn ọma"
+        }
+      ]
+    },
+    "efinaị": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "good afternoon",
+          "target_text": "efinaị ọma"
+        }
+      ]
+    },
+    "alụa": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "welcome",
+          "target_text": "alụa"
+        }
+      ]
+    },
+    "nanị": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "how are you?",
+          "target_text": "nanị irị"
+        }
+      ]
+    },
+    "irị": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "how are you?",
+          "target_text": "nanị irị"
+        }
+      ]
+    },
+    "mma": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "I am fine",
+          "target_text": "m  hụn mma"
+        }
+      ]
+    },
+    "mẹyekẹ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "thank you",
+          "target_text": "ye mẹyekẹ"
+        }
+      ]
+    },
+    "gharịma": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "sorry",
+          "target_text": "gharịma"
+        }
+      ]
+    },
+    "ọnọbei": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "see you later",
+          "target_text": "nị ẹnyin hụn ọnọbei"
+        }
+      ]
+    },
+    "hẹn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "goodbye",
+          "target_text": "o hẹn eki"
+        }
+      ]
+    },
+    "ijẹn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "safe journey",
+          "target_text": "ijẹn ẹwẹrẹ"
+        }
+      ]
+    },
+    "ẹwẹrẹ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "safe journey",
+          "target_text": "ijẹn ẹwẹrẹ"
+        }
+      ]
+    },
+    "ẹkaị": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "congratulations",
+          "target_text": "nị ẹkaị shi elu"
+        }
+      ]
+    },
+    "ighọghọ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "happy birthday",
+          "target_text": "ighọghọ ọmụmụ"
+        }
+      ]
+    },
+    "ọmụmụ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "happy birthday",
+          "target_text": "ighọghọ ọmụmụ"
+        }
+      ]
+    },
+    "ịghọghọ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "happy new year",
+          "target_text": "ịghọghọ ahua ọhụn"
+        }
+      ]
+    },
+    "ahua": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "happy new year",
+          "target_text": "ịghọghọ ahua ọhụn"
+        }
+      ]
+    },
+    "ọhụn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "happy new year",
+          "target_text": "ịghọghọ ahua ọhụn"
+        }
+      ]
+    },
+    "udọn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "peace be with you",
+          "target_text": "udọn ya rịnị"
+        }
+      ]
+    },
+    "rịnị": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "greeting",
+          "source_text": "peace be with you",
+          "target_text": "udọn ya rịnị"
+        }
+      ]
+    },
+    "mbụ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient ancestor",
+          "target_text": "ndị mbụ"
+        }
+      ]
+    },
+    "nmọn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient spirit",
+          "target_text": "nmọn akan"
+        }
+      ]
+    },
+    "akụnkụn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient harvest",
+          "target_text": "ịghọ ihiẹn akụnkụn akan"
+        }
+      ]
+    },
+    "ofufọn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient dawn",
+          "target_text": "ofufọn akan"
+        }
+      ]
+    },
+    "enyasị": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient evening",
+          "target_text": "enyasị akan"
+        }
+      ]
+    },
+    "ahụn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "ancient festival",
+          "target_text": "mmẹnmẹn ahụn akan"
+        }
+      ]
+    },
+    "anwụ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle sun",
+          "target_text": "anwụ mẹ jụ"
+        }
+      ]
+    },
+    "odogụn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "gentle warrior",
+          "target_text": "odogụn mẹ jụ"
+        }
+      ]
+    },
+    "ighọ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "poetic_vocab",
+          "source_text": "mighty harvest",
+          "target_text": "okẹn ighọ ihiẹn"
+        }
+      ]
+    },
+    "e": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If it rains, I will not go.",
+          "target_text": "omẹni mirin ezue e jẹnkọ m"
+        }
+      ]
+    },
+    "oriri": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If you eat, you will be strong.",
+          "target_text": "omẹni ye ri ihiẹn oriri ye ze"
+        }
+      ]
+    },
+    "ze": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If you eat, you will be strong.",
+          "target_text": "omẹni ye ri ihiẹn oriri ye ze"
+        }
+      ]
+    },
+    "ekẹrẹn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If the sun is hot, we will rest.",
+          "target_text": "omẹni anwụn ekẹrẹn ẹnyin ezu ikẹn"
+        }
+      ]
+    },
+    "ezu": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If the sun is hot, we will rest.",
+          "target_text": "omẹni anwụn ekẹrẹn ẹnyin ezu ikẹn"
+        }
+      ]
+    },
+    "ikẹn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If the sun is hot, we will rest.",
+          "target_text": "omẹni anwụn ekẹrẹn ẹnyin ezu ikẹn"
+        }
+      ]
+    },
+    "awịrị": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If you come early, we will leave together.",
+          "target_text": "omẹni ya bịa ẹgwa ẹnyin awịrị"
+        }
+      ]
+    },
+    "cheni": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.conditional",
+          "source_text": "If there is no water, boil more.",
+          "target_text": "omẹni mirin arịa shi mẹ cheni"
+        }
+      ]
+    },
+    "nsọngbu": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.expression",
+          "source_text": "No problem.",
+          "target_text": "nsọngbu arịa"
+        }
+      ]
+    },
+    "osolobuẹ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.expression",
+          "source_text": "God bless you.",
+          "target_text": "osolobuẹ gọzi i"
+        }
+      ]
+    },
+    "gọzi": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.expression",
+          "source_text": "God bless you.",
+          "target_text": "osolobuẹ gọzi i"
+        }
+      ]
+    },
+    "gụọlẹ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.expression",
+          "source_text": "It is finished.",
+          "target_text": "ọ gụọlẹ"
+        }
+      ]
+    },
+    "hiọụ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.expression",
+          "source_text": "It is enough.",
+          "target_text": "o hiọụ"
+        }
+      ]
+    },
+    "mẹn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Go to the market.",
+          "target_text": "jẹn mẹn afịa"
+        }
+      ]
+    },
+    "nọdị": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Sit down.",
+          "target_text": "nọdị alị"
+        }
+      ]
+    },
+    "lihi": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Stand up.",
+          "target_text": "lihi ọtọ"
+        }
+      ]
+    },
+    "ọtọ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Stand up.",
+          "target_text": "lihi ọtọ"
+        }
+      ]
+    },
+    "cheri": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Wait for me.",
+          "target_text": "cheri m"
+        }
+      ]
+    },
+    "kuhẹ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Bring water.",
+          "target_text": "kuhẹ mirin"
+        }
+      ]
+    },
+    "kpọpụ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Open the door.",
+          "target_text": "kpọpụ ụzọ"
+        }
+      ]
+    },
+    "gụnma": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Close the window.",
+          "target_text": "gụnma ẹhoho"
+        }
+      ]
+    },
+    "ẹhoho": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Close the window.",
+          "target_text": "gụnma ẹhoho"
+        }
+      ]
+    },
+    "ku": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Speak slowly.",
+          "target_text": "ku ẹkẹrẹkẹrẹ"
+        }
+      ]
+    },
+    "ẹkẹrẹkẹrẹ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Speak slowly.",
+          "target_text": "ku ẹkẹrẹkẹrẹ"
+        }
+      ]
+    },
+    "gọ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Listen to me.",
+          "target_text": "gọ m ntịn"
+        }
+      ]
+    },
+    "ntịn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Listen to me.",
+          "target_text": "gọ m ntịn"
+        }
+      ]
+    },
+    "de": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Write your name.",
+          "target_text": "de ẹfan ị"
+        }
+      ]
+    },
+    "yeni": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Help me, please.",
+          "target_text": "yeni m ẹka dodo"
+        }
+      ]
+    },
+    "ẹka": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.imperative",
+          "source_text": "Help me, please.",
+          "target_text": "yeni m ẹka dodo"
+        }
+      ]
+    },
+    "imẹn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "There is water in the pot.",
+          "target_text": "mirin rị imẹn ite"
+        }
+      ]
+    },
+    "ite": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "There is water in the pot.",
+          "target_text": "mirin rị imẹn ite"
+        }
+      ]
+    },
+    "teburu": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "There is food on the table.",
+          "target_text": "nnin rị elu teburu"
+        }
+      ]
+    },
+    "ozọ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The road is long.",
+          "target_text": "ozọ hụ esuekẹ"
+        }
+      ]
+    },
+    "esuekẹ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The road is long.",
+          "target_text": "ozọ hụ esuekẹ"
+        }
+      ]
+    },
+    "nsue": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The school is near.",
+          "target_text": "ụlọ ẹkụkwọ  hụ rị nsue"
+        }
+      ]
+    },
+    "ewu": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The goat is outside.",
+          "target_text": "ewu hụ rị ezi"
+        }
+      ]
+    },
+    "ezi": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.location",
+          "source_text": "The goat is outside.",
+          "target_text": "ewu hụ rị ezi"
+        }
+      ]
+    },
+    "mmẹn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "I do not eat rice.",
+          "target_text": "mmẹn ari osikapa"
+        }
+      ]
+    },
+    "ari": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "I do not eat rice.",
+          "target_text": "mmẹn ari osikapa"
+        }
+      ]
+    },
+    "yẹ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "You do not drink palm wine.",
+          "target_text": "yẹ ara ozu"
+        }
+      ]
+    },
+    "ozu": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "You do not drink palm wine.",
+          "target_text": "yẹ ara ozu"
+        }
+      ]
+    },
+    "chọnị": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "She does not want food.",
+          "target_text": "ọ chọnị nnin"
+        }
+      ]
+    },
+    "ejẹnkọ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "We are not going today.",
+          "target_text": "ẹnyin ejẹnkọ tanị"
+        }
+      ]
+    },
+    "tanị": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "We are not going today.",
+          "target_text": "ẹnyin ejẹnkọ tanị"
+        }
+      ]
+    },
+    "kwademẹ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "They are not ready.",
+          "target_text": "a kwademẹ ni wẹ"
+        }
+      ]
+    },
+    "ghọha": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "I do not understand.",
+          "target_text": "a ghọha nị m"
+        }
+      ]
+    },
+    "zuni": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.negation",
+          "source_text": "It is not enough.",
+          "target_text": "o zuni"
+        }
+      ]
+    },
+    "hụnahụn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.possession",
+          "source_text": "That is your house.",
+          "target_text": "hụnahụn wụ ụlọ ị"
+        }
+      ]
+    },
+    "ẹkpa": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.possession",
+          "source_text": "His bag is here.",
+          "target_text": "ẹkpa a rị ebeni"
+        }
+      ]
+    },
+    "nnẹn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.possession",
+          "source_text": "Her mother is at home.",
+          "target_text": "nnẹn rị  ụlọ"
+        }
+      ]
+    },
+    "lẹdi": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.possession",
+          "source_text": "Our father is sleeping.",
+          "target_text": "lẹdi ẹnyin rị oran"
+        }
+      ]
+    },
+    "oran": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.possession",
+          "source_text": "Our father is sleeping.",
+          "target_text": "lẹdi ẹnyin rị oran"
+        }
+      ]
+    },
+    "hi": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.possession",
+          "source_text": "Their farm is big.",
+          "target_text": "ugbo wẹ hi ogbe"
+        }
+      ]
+    },
+    "ogbe": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.possession",
+          "source_text": "Their farm is big.",
+          "target_text": "ugbo wẹ hi ogbe"
+        }
+      ]
+    },
+    "mmụ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.possession",
+          "source_text": "Those are their children.",
+          "target_text": "ndị hụ wụ mmụ wẹ"
+        }
+      ]
+    },
+    "elebe": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "Where are you going?",
+          "target_text": "elebe i jẹnkọ"
+        }
+      ]
+    },
+    "lala": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "When will you come?",
+          "target_text": "ele mgbe ị lala"
+        }
+      ]
+    },
+    "rọ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "Which road is it?",
+          "target_text": "ele ụzọ rọ"
+        }
+      ]
+    },
+    "haịn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "Why are you late?",
+          "target_text": "kị haịn i gi lẹ ni bịa ẹgwa"
+        }
+      ]
+    },
+    "lẹ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "Why are you late?",
+          "target_text": "kị haịn i gi lẹ ni bịa ẹgwa"
+        }
+      ]
+    },
+    "egho": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "How much is this?",
+          "target_text": "egho ole wụ hụnị"
+        }
+      ]
+    },
+    "ole": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "How much is this?",
+          "target_text": "egho ole wụ hụnị"
+        }
+      ]
+    },
+    "hụnị": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "How much is this?",
+          "target_text": "egho ole wụ hụnị"
+        }
+      ]
+    },
+    "ori": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "Who is the chief?",
+          "target_text": "onyẹn wụ ori nzere"
+        }
+      ]
+    },
+    "nzere": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "Who is the chief?",
+          "target_text": "onyẹn wụ ori nzere"
+        }
+      ]
+    },
+    "ki": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "Where do they live?",
+          "target_text": "ele be ki  i bi"
+        }
+      ]
+    },
+    "bi": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.question",
+          "source_text": "Where do they live?",
+          "target_text": "ele be ki  i bi"
+        }
+      ]
+    },
+    "ra": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "You drink water.",
+          "target_text": "ị ra mirin"
+        }
+      ]
+    },
+    "te": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "She cooks soup.",
+          "target_text": "o te ofe"
+        }
+      ]
+    },
+    "gba": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "We play football.",
+          "target_text": "ẹnyin gba bọrụ"
+        }
+      ]
+    },
+    "bọrụ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "We play football.",
+          "target_text": "ẹnyin gba bọrụ"
+        }
+      ]
+    },
+    "ọrụn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "They work on the farm.",
+          "target_text": "wẹ rụn ọrụn ugbo"
+        }
+      ]
+    },
+    "gụn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "The child reads a book.",
+          "target_text": "nwata gụn ẹkụkwọ"
+        }
+      ]
+    },
+    "ọn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "The man buys yam.",
+          "target_text": "okẹnyẹn ṅọn igi"
+        }
+      ]
+    },
+    "ere": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "The woman sells plantain.",
+          "target_text": "okpoho ere ọgẹdẹ"
+        }
+      ]
+    },
+    "ọgẹdẹ": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "The woman sells plantain.",
+          "target_text": "okpoho ere ọgẹdẹ"
+        }
+      ]
+    },
+    "ede": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.svo",
+          "source_text": "We write a letter.",
+          "target_text": "ẹnyin ede ẹkụkwọ"
+        }
+      ]
+    },
+    "eri": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "I am eating rice.",
+          "target_text": "m rị eri osikapa"
+        }
+      ]
+    },
+    "kikẹni": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "He is going now.",
+          "target_text": "o jẹnkọ kikẹni"
+        }
+      ]
+    },
+    "ete": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "She is cooking soup.",
+          "target_text": "ọ rị ete ofe"
+        }
+      ]
+    },
+    "onyanhụn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "We ate yam yesterday.",
+          "target_text": "ẹnyin ri igi onyanhụn"
+        }
+      ]
+    },
+    "ke": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "We will visit the farm.",
+          "target_text": "ẹnyin ke lele ugbo"
+        }
+      ]
+    },
+    "lele": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "We will visit the farm.",
+          "target_text": "ẹnyin ke lele ugbo"
+        }
+      ]
+    },
+    "wa": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "They have finished the work.",
+          "target_text": "a rụn gwọ wa"
+        }
+      ]
+    },
+    "jẹnmẹn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "She has gone to church.",
+          "target_text": "o jẹnmẹn gwọ oka"
+        }
+      ]
+    },
+    "oka": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "She has gone to church.",
+          "target_text": "o jẹnmẹn gwọ oka"
+        }
+      ]
+    },
+    "mmụẹka": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "The children have slept.",
+          "target_text": "mmụẹka hụ aranhịn gwọ"
+        }
+      ]
+    },
+    "aranhịn": {
+      "count": 1,
+      "examples": [
+        {
+          "domain": "sentence.tense",
+          "source_text": "The children have slept.",
+          "target_text": "mmụẹka hụ aranhịn gwọ"
+        }
+      ]
+    }
+  }
+}

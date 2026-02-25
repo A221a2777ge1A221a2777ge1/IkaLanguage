@@ -1,0 +1,4146 @@
+[
+  {
+    "id": "1",
+    "source_text": "hello",
+    "target_text": "ya",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "10",
+    "source_text": "sorry",
+    "target_text": "gharịma",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "100",
+    "source_text": "powerful",
+    "target_text": "ikẹn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "101",
+    "source_text": "weak",
+    "target_text": "nzụnzụn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "102",
+    "source_text": "feeble",
+    "target_text": "nzụnzụnoma",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "103",
+    "source_text": "fragile",
+    "target_text": "aghẹghẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "104",
+    "source_text": "frail",
+    "target_text": "ochuhu",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "105",
+    "source_text": "old",
+    "target_text": "ẹgẹdi",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "106",
+    "source_text": "ancient",
+    "target_text": "akan",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "107",
+    "source_text": "aged",
+    "target_text": "pupumpu",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "108",
+    "source_text": "elderly",
+    "target_text": "onyẹnkẹhụ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "109",
+    "source_text": "young",
+    "target_text": "okoro",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "110",
+    "source_text": "youthful",
+    "target_text": "ọhaị",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "111",
+    "source_text": "new",
+    "target_text": "nkọhụn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "112",
+    "source_text": "beautiful",
+    "target_text": "ọmaka",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "113",
+    "source_text": "pretty",
+    "target_text": "mma",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "114",
+    "source_text": "lovely",
+    "target_text": "ịhụnẹnyan",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "115",
+    "source_text": "attractive",
+    "target_text": "ọlịlẹnyan",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "116",
+    "source_text": "fair",
+    "target_text": "ọhụma",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "117",
+    "source_text": "comely",
+    "target_text": "ẹhụọma",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "118",
+    "source_text": "ugly",
+    "target_text": "njọẹhụ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "119",
+    "source_text": "plain",
+    "target_text": "ọgbahu",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "120",
+    "source_text": "unattractive",
+    "target_text": "ọlanịẹnyan",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "121",
+    "source_text": "see",
+    "target_text": "hụn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "122",
+    "source_text": "look",
+    "target_text": "le",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "123",
+    "source_text": "watch",
+    "target_text": "lele",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "124",
+    "source_text": "observe",
+    "target_text": "leban",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "125",
+    "source_text": "glimpse",
+    "target_text": "yọnye",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "126",
+    "source_text": "behold",
+    "target_text": "lẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "127",
+    "source_text": "hear",
+    "target_text": "nụ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "128",
+    "source_text": "listen",
+    "target_text": "gọntịn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "129",
+    "source_text": "heed",
+    "target_text": "gidọn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "13",
+    "source_text": "safe journey",
+    "target_text": "ijẹn ẹwẹrẹ",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "130",
+    "source_text": "speak",
+    "target_text": "ku",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "131",
+    "source_text": "say",
+    "target_text": "sị",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "132",
+    "source_text": "tell",
+    "target_text": "gwa",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "133",
+    "source_text": "utter",
+    "target_text": "yẹọnụn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "134",
+    "source_text": "declare",
+    "target_text": "kupụha",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "135",
+    "source_text": "proclaim",
+    "target_text": "nịwẹmarịn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "136",
+    "source_text": "go",
+    "target_text": "ejẹn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "137",
+    "source_text": "move",
+    "target_text": "jẹn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "138",
+    "source_text": "walk",
+    "target_text": "ijẹnụkụ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "139",
+    "source_text": "travel",
+    "target_text": "jẹnụzote",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "14",
+    "source_text": "well done",
+    "target_text": "darụ",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "140",
+    "source_text": "journey",
+    "target_text": "ụzọijẹn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "141",
+    "source_text": "proceed",
+    "target_text": "bidọnzi",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "142",
+    "source_text": "come",
+    "target_text": "bịa",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "143",
+    "source_text": "arrive",
+    "target_text": "ọbịa",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "144",
+    "source_text": "approach",
+    "target_text": "nọkumẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "145",
+    "source_text": "reach",
+    "target_text": "ruẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "146",
+    "source_text": "eat",
+    "target_text": "ri",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "147",
+    "source_text": "dine",
+    "target_text": "oriri",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "148",
+    "source_text": "feast",
+    "target_text": "erimeri",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "149",
+    "source_text": "consume",
+    "target_text": "richanrịn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "150",
+    "source_text": "drink",
+    "target_text": "ra",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "151",
+    "source_text": "sip",
+    "target_text": "mịra",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "152",
+    "source_text": "gulp",
+    "target_text": "luekẹnrin",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "153",
+    "source_text": "think",
+    "target_text": "ro",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "154",
+    "source_text": "consider",
+    "target_text": "roihiẹn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "155",
+    "source_text": "ponder",
+    "target_text": "romiẹn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "156",
+    "source_text": "reflect",
+    "target_text": "tụiroro",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "157",
+    "source_text": "contemplate",
+    "target_text": "ịtụiroro",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "158",
+    "source_text": "market",
+    "target_text": "afịa",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "159",
+    "source_text": "trader",
+    "target_text": "onyẹnafịa",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "16",
+    "source_text": "happy birthday",
+    "target_text": "ighọghọ ọmụmụ",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "160",
+    "source_text": "market woman",
+    "target_text": "okpohoafịa",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "161",
+    "source_text": "vendor",
+    "target_text": "onyẹnereafịa",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "162",
+    "source_text": "customer",
+    "target_text": "onyẹneṅọnafịa",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "163",
+    "source_text": "shop",
+    "target_text": "ọdụafịa",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "164",
+    "source_text": "stall",
+    "target_text": "afịawẹchemẹn",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "165",
+    "source_text": "basket",
+    "target_text": "okpalị",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "166",
+    "source_text": "bargain",
+    "target_text": "ọhiụhiụn",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "167",
+    "source_text": "price",
+    "target_text": "ọnụafịa",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "168",
+    "source_text": "cheap",
+    "target_text": "oru",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "169",
+    "source_text": "expensive",
+    "target_text": "ọṅaran",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "170",
+    "source_text": "discount",
+    "target_text": "ibelụaọnụafịa",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "171",
+    "source_text": "buy",
+    "target_text": "ṅọn",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "172",
+    "source_text": "sell",
+    "target_text": "re",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "173",
+    "source_text": "trade",
+    "target_text": "zụ",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "174",
+    "source_text": "hire",
+    "target_text": "zhirin",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "175",
+    "source_text": "rent",
+    "target_text": "ogwọịkụ",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "176",
+    "source_text": "loan",
+    "target_text": "izhirinegho",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "177",
+    "source_text": "debt",
+    "target_text": "ogwọ",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "178",
+    "source_text": "change (money)",
+    "target_text": "eghohọdụnị",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "179",
+    "source_text": "weighing scale",
+    "target_text": "ọmụmaihiẹn",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "180",
+    "source_text": "measuring cup",
+    "target_text": "mkpuọmụma",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "19",
+    "source_text": "good",
+    "target_text": "ọhụmma",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "197",
+    "source_text": "cloth",
+    "target_text": "ẹkwa",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "2",
+    "source_text": "good morning",
+    "target_text": "ụtụntụn ọma",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "20",
+    "source_text": "great",
+    "target_text": "ọrịkamma",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "201",
+    "source_text": "salt",
+    "target_text": "nnu",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "202",
+    "source_text": "oil",
+    "target_text": "ofugbọn",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "203",
+    "source_text": "pepper",
+    "target_text": "osẹn",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "204",
+    "source_text": "spice",
+    "target_text": "ogiriofe",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "205",
+    "source_text": "onion",
+    "target_text": "arabasị",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "206",
+    "source_text": "fish",
+    "target_text": "azụn",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "207",
+    "source_text": "meat",
+    "target_text": "anụn",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "208",
+    "source_text": "goat",
+    "target_text": "ewu",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "209",
+    "source_text": "chicken",
+    "target_text": "ọhụhụ",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "21",
+    "source_text": "excellent",
+    "target_text": "ọrịkazịmma",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "210",
+    "source_text": "cassava",
+    "target_text": "mbanịgari",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "211",
+    "source_text": "yam",
+    "target_text": "igi",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "212",
+    "source_text": "plantain",
+    "target_text": "ọgẹdẹ",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "213",
+    "source_text": "banana",
+    "target_text": "ọgẹdẹnsụkpọ",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "214",
+    "source_text": "rice",
+    "target_text": "osikapa",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "215",
+    "source_text": "beans",
+    "target_text": "akpaka",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "216",
+    "source_text": "garri",
+    "target_text": "ịgari",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "217",
+    "source_text": "cloth",
+    "target_text": "ẹkwa",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "218",
+    "source_text": "beads",
+    "target_text": "ikpehue",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "219",
+    "source_text": "soap",
+    "target_text": "ncha",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "22",
+    "source_text": "fine",
+    "target_text": "mma",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "220",
+    "source_text": "sponge",
+    "target_text": "ẹru",
+    "domain": "synonym_market",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "23",
+    "source_text": "nice",
+    "target_text": "ọrịmma",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "237",
+    "source_text": "doctor",
+    "target_text": "dibiẹ",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "238",
+    "source_text": "nurse",
+    "target_text": "ọsịgu",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "239",
+    "source_text": "clinic",
+    "target_text": "ụlọgụnta",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "24",
+    "source_text": "wonderful",
+    "target_text": "atumẹnyan",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "240",
+    "source_text": "hospital",
+    "target_text": "ụiọgụn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "241",
+    "source_text": "pharmacy",
+    "target_text": "imẹnmẹnọgụn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "242",
+    "source_text": "medicine",
+    "target_text": "ọgụn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "243",
+    "source_text": "tablet",
+    "target_text": "akpụrụọgụn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "244",
+    "source_text": "injection",
+    "target_text": "olodẹn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "245",
+    "source_text": "bandage",
+    "target_text": "ngẹnrẹnẹkwa",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "246",
+    "source_text": "thermometer",
+    "target_text": "ilelẹhụ",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "247",
+    "source_text": "fever",
+    "target_text": "ịba",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "248",
+    "source_text": "malaria",
+    "target_text": "oriarụ",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "249",
+    "source_text": "cough",
+    "target_text": "ụkwara",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "25",
+    "source_text": "pleasant",
+    "target_text": "ihiẹnrịmma",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "250",
+    "source_text": "cold",
+    "target_text": "oyi",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "251",
+    "source_text": "headache",
+    "target_text": "ishiọwụwa",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "252",
+    "source_text": "stomachache",
+    "target_text": "ẹfọtịta",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "253",
+    "source_text": "back pain",
+    "target_text": "azụn orinrọn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "254",
+    "source_text": "toothache",
+    "target_text": "arịeze",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "255",
+    "source_text": "bleeding",
+    "target_text": "ihiẹnọgbụgba",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "256",
+    "source_text": "injury",
+    "target_text": "ịrụẹhụ",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "257",
+    "source_text": "fracture",
+    "target_text": "ifie",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "258",
+    "source_text": "diarrhea",
+    "target_text": "ịgbọnyịn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "259",
+    "source_text": "vomiting",
+    "target_text": "ịgbọẹgbọ",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "26",
+    "source_text": "lovely",
+    "target_text": "ihiẹnọma",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "260",
+    "source_text": "pregnancy",
+    "target_text": "ịtụimẹn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "261",
+    "source_text": "delivery",
+    "target_text": "ọmụmụn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "262",
+    "source_text": "baby",
+    "target_text": "nwanẹka",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "263",
+    "source_text": "midwife",
+    "target_text": "ọkanwịna",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "264",
+    "source_text": "wash hands",
+    "target_text": "ịkwọ ẹka",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "265",
+    "source_text": "clean water",
+    "target_text": "mirin nwuni",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "266",
+    "source_text": "mosquito net",
+    "target_text": "ọga ẹnwụnta",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "267",
+    "source_text": "boiled water",
+    "target_text": "mirin ọkụn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "268",
+    "source_text": "rest",
+    "target_text": "ezumikẹn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "269",
+    "source_text": "exercise",
+    "target_text": "imẹnshaẹhụ",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "27",
+    "source_text": "superb",
+    "target_text": "ọmaka",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "270",
+    "source_text": "healthy",
+    "target_text": "ẹhụikẹn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "271",
+    "source_text": "sick",
+    "target_text": "emu",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "272",
+    "source_text": "appointment",
+    "target_text": "okunkudọn",
+    "domain": "synonym_health",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "273",
+    "source_text": "school",
+    "target_text": "ụlọ ẹkụkwọ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "274",
+    "source_text": "teacher",
+    "target_text": "onyẹnkuzi",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "275",
+    "source_text": "student",
+    "target_text": "nwataẹkụkwọ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "276",
+    "source_text": "classroom",
+    "target_text": "mmụghẹọmụmụẹkụkwọ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "277",
+    "source_text": "lesson",
+    "target_text": "ihiẹnọmụmụ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "278",
+    "source_text": "homework",
+    "target_text": "ọrụnẹkụkwọụlọ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "279",
+    "source_text": "exam",
+    "target_text": "nlele",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "28",
+    "source_text": "brilliant",
+    "target_text": "ọkan",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "280",
+    "source_text": "test",
+    "target_text": "nkwademẹnlele",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "281",
+    "source_text": "result",
+    "target_text": "ihiẹnghanlelepụha",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "282",
+    "source_text": "grade",
+    "target_text": "ọkwa",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "283",
+    "source_text": "pass",
+    "target_text": "ịghaihụn",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "284",
+    "source_text": "fail",
+    "target_text": "ịlụazụn",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "285",
+    "source_text": "notebook",
+    "target_text": "ẹkụkwọodide",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "286",
+    "source_text": "book",
+    "target_text": "ẹkụkwọ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "287",
+    "source_text": "pen",
+    "target_text": "ukekeọkwauku",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "288",
+    "source_text": "pencil",
+    "target_text": "ukekeọkwanta",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "289",
+    "source_text": "chalk",
+    "target_text": "nzụn",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "29",
+    "source_text": "bad",
+    "target_text": "njọ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "290",
+    "source_text": "blackboard",
+    "target_text": "ibeagbaogi",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "291",
+    "source_text": "desk",
+    "target_text": "teburummụẹkụkwọ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "292",
+    "source_text": "chair",
+    "target_text": "oche",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "293",
+    "source_text": "uniform",
+    "target_text": "ẹkwaụlọẹkụkwọ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "294",
+    "source_text": "library",
+    "target_text": "ebewedọnmẹkụkwọ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "295",
+    "source_text": "laboratory",
+    "target_text": "ebewẹnọamụihiẹn",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "296",
+    "source_text": "mathematics",
+    "target_text": "mgbakọ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "297",
+    "source_text": "science",
+    "target_text": "nchọpụha",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "298",
+    "source_text": "history",
+    "target_text": "akịkọ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "299",
+    "source_text": "geography",
+    "target_text": "ịmarịnalị",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "3",
+    "source_text": "good afternoon",
+    "target_text": "efinaị ọma",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "30",
+    "source_text": "poor",
+    "target_text": "ịlụazụn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "300",
+    "source_text": "music",
+    "target_text": "ịmarịnebụ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "301",
+    "source_text": "art",
+    "target_text": "osiseihiẹn",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "302",
+    "source_text": "reading",
+    "target_text": "ọgụngụn",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "303",
+    "source_text": "writing",
+    "target_text": "odide",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "304",
+    "source_text": "study",
+    "target_text": "imụihiẹn",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "305",
+    "source_text": "learn",
+    "target_text": "ọmụmụ",
+    "domain": "synonym_education",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "306",
+    "source_text": "king",
+    "target_text": "nze",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "307",
+    "source_text": "chief",
+    "target_text": "orinzere",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "308",
+    "source_text": "queen mother",
+    "target_text": "nneze",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "309",
+    "source_text": "elders",
+    "target_text": "ndịchẹn",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "31",
+    "source_text": "awful",
+    "target_text": "ọrịmmarị",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "310",
+    "source_text": "council",
+    "target_text": "iko",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "311",
+    "source_text": "village square",
+    "target_text": "ughere",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "312",
+    "source_text": "meeting",
+    "target_text": "ọgbakọ",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "313",
+    "source_text": "decision",
+    "target_text": "nkwa",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "314",
+    "source_text": "law",
+    "target_text": "iwu",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "315",
+    "source_text": "rule",
+    "target_text": "ịgbasọniwu",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "316",
+    "source_text": "fine",
+    "target_text": "nhan",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "317",
+    "source_text": "tax",
+    "target_text": "ogwọishi",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "318",
+    "source_text": "vote",
+    "target_text": "tụye",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "319",
+    "source_text": "election",
+    "target_text": "hanfụha",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "32",
+    "source_text": "terrible",
+    "target_text": "ọjọka",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "320",
+    "source_text": "leader",
+    "target_text": "onyẹnọkịkị",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "321",
+    "source_text": "govern",
+    "target_text": "ọkịkị",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "322",
+    "source_text": "guide",
+    "target_text": "odudu",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "323",
+    "source_text": "protect",
+    "target_text": "nchedọn",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "324",
+    "source_text": "police",
+    "target_text": "ụlakpa",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "325",
+    "source_text": "court",
+    "target_text": "ikotu",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "326",
+    "source_text": "judge",
+    "target_text": "ezeikpe",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "327",
+    "source_text": "case",
+    "target_text": "ikpe",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "328",
+    "source_text": "prison",
+    "target_text": "ngan",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "329",
+    "source_text": "community",
+    "target_text": "idumu",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "33",
+    "source_text": "horrible",
+    "target_text": "ọrịmmakakaị",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "330",
+    "source_text": "announcement",
+    "target_text": "ịmaọkwa",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "331",
+    "source_text": "speech",
+    "target_text": "ikuoku",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "332",
+    "source_text": "public work",
+    "target_text": "ọrụnalị",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "333",
+    "source_text": "road repair",
+    "target_text": "idọnziụzọ",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "334",
+    "source_text": "water project",
+    "target_text": "ọrụnmirin",
+    "domain": "synonym_governance",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "34",
+    "source_text": "dreadful",
+    "target_text": "ọjọkẹmẹkẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "35",
+    "source_text": "worse",
+    "target_text": "njọkanị",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "36",
+    "source_text": "worst",
+    "target_text": "njọkachanrịnị",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "360",
+    "source_text": "family",
+    "target_text": "ebọn",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "361",
+    "source_text": "home",
+    "target_text": "ezilẹụlọ",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "362",
+    "source_text": "house",
+    "target_text": "ụlọ",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "363",
+    "source_text": "compound",
+    "target_text": "eziẹgodo",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "364",
+    "source_text": "father",
+    "target_text": "lẹdi",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "365",
+    "source_text": "mother",
+    "target_text": "nnẹn",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "366",
+    "source_text": "parents",
+    "target_text": "nnẹnlẹlẹdi",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "367",
+    "source_text": "child",
+    "target_text": "nwan",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "368",
+    "source_text": "children",
+    "target_text": "mmụn",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "369",
+    "source_text": "son",
+    "target_text": "nwaokẹnyẹn",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "37",
+    "source_text": "big",
+    "target_text": "ohiogbe",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "370",
+    "source_text": "daughter",
+    "target_text": "nwaokpoho",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "371",
+    "source_text": "brother",
+    "target_text": "nwẹnẹokẹnyẹn",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "372",
+    "source_text": "sister",
+    "target_text": "nwẹnẹokpoho",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "373",
+    "source_text": "uncle",
+    "target_text": "nwẹnẹnnẹlẹlẹdiokẹnyẹn",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "374",
+    "source_text": "aunt",
+    "target_text": "nwẹnẹnnẹlẹlẹdiokpoho",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "375",
+    "source_text": "cousin",
+    "target_text": "nwanwẹnnẹ",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "376",
+    "source_text": "grandfather",
+    "target_text": "lẹdikanị",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "377",
+    "source_text": "grandmother",
+    "target_text": "nnẹkanị",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "378",
+    "source_text": "grandparents",
+    "target_text": "nnẹlẹlẹdikanị",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "379",
+    "source_text": "marriage",
+    "target_text": "ọlụlụdilẹnwụnyẹn",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "38",
+    "source_text": "large",
+    "target_text": "ogbe",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "380",
+    "source_text": "wedding",
+    "target_text": "ọgbụgbaẹkụkwọ",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "381",
+    "source_text": "bride",
+    "target_text": "okpohokalụdi",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "382",
+    "source_text": "groom",
+    "target_text": "okẹnyẹnkalụnwụnyẹn",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "383",
+    "source_text": "dowry",
+    "target_text": "ogwọishiokpoho",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "384",
+    "source_text": "kinship",
+    "target_text": "ẹbozo",
+    "domain": "synonym_family",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "385",
+    "source_text": "left",
+    "target_text": "ẹkaekpẹn",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "386",
+    "source_text": "right",
+    "target_text": "ẹkaihiẹn",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "387",
+    "source_text": "straight",
+    "target_text": "ozirin",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "388",
+    "source_text": "forward",
+    "target_text": "ibihun",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "389",
+    "source_text": "backward",
+    "target_text": "imẹlụazụn",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "39",
+    "source_text": "huge",
+    "target_text": "ohikẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "390",
+    "source_text": "north",
+    "target_text": "uguawụsa",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "391",
+    "source_text": "south",
+    "target_text": "ndịdanmirin",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "392",
+    "source_text": "east",
+    "target_text": "ọwụwaẹnyanwụn",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "393",
+    "source_text": "west",
+    "target_text": "ọdịdanẹnyanwụn",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "394",
+    "source_text": "up",
+    "target_text": "elu",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "395",
+    "source_text": "down",
+    "target_text": "alị",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "396",
+    "source_text": "near",
+    "target_text": "nsue",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "397",
+    "source_text": "far",
+    "target_text": "otite",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "398",
+    "source_text": "across",
+    "target_text": "nfetu",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "399",
+    "source_text": "between",
+    "target_text": "mkpankpa",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "4",
+    "source_text": "good evening",
+    "target_text": "ẹnyasị ọma",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "40",
+    "source_text": "enormous",
+    "target_text": "ohikẹzi",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "400",
+    "source_text": "behind",
+    "target_text": "azụan",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "401",
+    "source_text": "before",
+    "target_text": "ogineru",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "402",
+    "source_text": "after",
+    "target_text": "omẹgụ",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "403",
+    "source_text": "come here",
+    "target_text": "bịa eben",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "404",
+    "source_text": "go there",
+    "target_text": "jẹmẹn ebẹhụ",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "405",
+    "source_text": "stop",
+    "target_text": "kụsị",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "406",
+    "source_text": "wait",
+    "target_text": "cheri",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "407",
+    "source_text": "turn around",
+    "target_text": "gbehutọ",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "409",
+    "source_text": "which way?",
+    "target_text": "ele ụzọ",
+    "domain": "synonym_directions",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "41",
+    "source_text": "giant",
+    "target_text": "ohikarị",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "410",
+    "source_text": "zero",
+    "target_text": "uforo",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "411",
+    "source_text": "one",
+    "target_text": "mbụ",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "412",
+    "source_text": "two",
+    "target_text": "ẹbụọ",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "413",
+    "source_text": "three",
+    "target_text": "ẹtọ",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "414",
+    "source_text": "four",
+    "target_text": "ẹnọn",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "415",
+    "source_text": "five",
+    "target_text": "isẹn",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "416",
+    "source_text": "six",
+    "target_text": "ishin",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "417",
+    "source_text": "seven",
+    "target_text": "ẹsa",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "418",
+    "source_text": "eight",
+    "target_text": "ẹsatọ",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "419",
+    "source_text": "nine",
+    "target_text": "itenẹi",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "42",
+    "source_text": "vast",
+    "target_text": "ọgbẹgbẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "420",
+    "source_text": "ten",
+    "target_text": "iri",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "421",
+    "source_text": "eleven",
+    "target_text": "mmanaị",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "422",
+    "source_text": "twelve",
+    "target_text": "mmẹbụọ",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "423",
+    "source_text": "thirteen",
+    "target_text": "mmẹtọ",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "424",
+    "source_text": "fourteen",
+    "target_text": "mmẹnọn",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "425",
+    "source_text": "fifteen",
+    "target_text": "mmisẹn",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "426",
+    "source_text": "sixteen",
+    "target_text": "mmishin",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "427",
+    "source_text": "seventeen",
+    "target_text": "mmẹsa",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "428",
+    "source_text": "eighteen",
+    "target_text": "mmẹsatọ",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "429",
+    "source_text": "nineteen",
+    "target_text": "mmitenẹi",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "43",
+    "source_text": "immense",
+    "target_text": "ohikẹmẹkẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "430",
+    "source_text": "twenty",
+    "target_text": "ọgụn",
+    "domain": "synonym_money_numbers",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "44",
+    "source_text": "small",
+    "target_text": "ẹkẹrẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "45",
+    "source_text": "little",
+    "target_text": "ntịn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "46",
+    "source_text": "tiny",
+    "target_text": "suẹin",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "47",
+    "source_text": "mini",
+    "target_text": "mpe",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "48",
+    "source_text": "petite",
+    "target_text": "nwampe",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "49",
+    "source_text": "slight",
+    "target_text": "ruẹin",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "495",
+    "source_text": "farm",
+    "target_text": "ugbo",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "496",
+    "source_text": "farmer",
+    "target_text": "ọwẹ",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "497",
+    "source_text": "field",
+    "target_text": "agbagada",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "498",
+    "source_text": "soil",
+    "target_text": "ẹjan",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "499",
+    "source_text": "rain",
+    "target_text": "mirin ozuzue",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "5",
+    "source_text": "welcome",
+    "target_text": "alụa",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "50",
+    "source_text": "fast",
+    "target_text": "ẹjijẹi",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "500",
+    "source_text": "sun",
+    "target_text": "anwụn",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "501",
+    "source_text": "dry season",
+    "target_text": "ọhọhị",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "502",
+    "source_text": "rainy season",
+    "target_text": "udu mirin",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "503",
+    "source_text": "seed",
+    "target_text": "akpụrụ",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "504",
+    "source_text": "seedling",
+    "target_text": "ẹfrụrụ",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "505",
+    "source_text": "plant",
+    "target_text": "ihiẹn akụnkụn",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "506",
+    "source_text": "sow",
+    "target_text": "kụn",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "507",
+    "source_text": "weed",
+    "target_text": "ẹfịfịa",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "508",
+    "source_text": "harvest",
+    "target_text": "ghọrị",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "509",
+    "source_text": "granary",
+    "target_text": "ẹgunakụnkụn",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "51",
+    "source_text": "quick",
+    "target_text": "ozikpo",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "510",
+    "source_text": "barn",
+    "target_text": "ọban",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "511",
+    "source_text": "hoe",
+    "target_text": "aho",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "512",
+    "source_text": "cutlass",
+    "target_text": "ọpịa",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "513",
+    "source_text": "machete",
+    "target_text": "ọpịagha",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "514",
+    "source_text": "plough",
+    "target_text": "ogbukpọalị",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "515",
+    "source_text": "irrigation",
+    "target_text": "otemirin",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "516",
+    "source_text": "fertilizer",
+    "target_text": "ọgụnakụnkụn",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "517",
+    "source_text": "compost",
+    "target_text": "ẹjanogi",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "518",
+    "source_text": "yam mound",
+    "target_text": "oluigi",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "519",
+    "source_text": "cassava stem",
+    "target_text": "mkpịsịnigari",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "52",
+    "source_text": "rapid",
+    "target_text": "ngwa",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "520",
+    "source_text": "maize",
+    "target_text": "ishiọka",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "521",
+    "source_text": "corn",
+    "target_text": "ọka",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "522",
+    "source_text": "rice",
+    "target_text": "osikapa",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "523",
+    "source_text": "beans",
+    "target_text": "ihiẹnmẹn",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "524",
+    "source_text": "groundnut",
+    "target_text": "isawẹ",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "525",
+    "source_text": "pepper",
+    "target_text": "osẹn",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "526",
+    "source_text": "tomato",
+    "target_text": "nkpụrụododo",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "527",
+    "source_text": "okra",
+    "target_text": "alete",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "528",
+    "source_text": "palm oil",
+    "target_text": "ofugbọn",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "529",
+    "source_text": "palm kernel",
+    "target_text": "akụnịhaha",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "53",
+    "source_text": "swift",
+    "target_text": "ngwangwa",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "530",
+    "source_text": "cocoyam",
+    "target_text": "akasị",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "531",
+    "source_text": "plantain",
+    "target_text": "ọgẹdẹ",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "532",
+    "source_text": "banana",
+    "target_text": "ọgẹdẹnsụkpọ",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "533",
+    "source_text": "goat",
+    "target_text": "ewu",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "534",
+    "source_text": "sheep",
+    "target_text": "ilolo",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "535",
+    "source_text": "cow",
+    "target_text": "efin",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "536",
+    "source_text": "chicken",
+    "target_text": "ọhụhụ",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "537",
+    "source_text": "fish",
+    "target_text": "azụn",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "538",
+    "source_text": "snail",
+    "target_text": "egi",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "539",
+    "source_text": "beehive",
+    "target_text": "ẹkpaẹnwụn",
+    "domain": "synonym_agriculture",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "54",
+    "source_text": "speedy",
+    "target_text": "egbulẹogẹn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "540",
+    "source_text": "help!",
+    "target_text": "yẹka",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "541",
+    "source_text": "danger",
+    "target_text": "nsọngbu",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "542",
+    "source_text": "fire!",
+    "target_text": "ọkụn",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "543",
+    "source_text": "flood",
+    "target_text": "okẹnmirin",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "544",
+    "source_text": "storm",
+    "target_text": "ẹbi",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "545",
+    "source_text": "accident",
+    "target_text": "nsụkụma",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "546",
+    "source_text": "thief",
+    "target_text": "ohin",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "547",
+    "source_text": "robbery",
+    "target_text": "ohinikẹn",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "548",
+    "source_text": "fight",
+    "target_text": "ọgụn",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "549",
+    "source_text": "injury",
+    "target_text": "ịrụẹhụ",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "55",
+    "source_text": "brisk",
+    "target_text": "ufiẹnohu",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "550",
+    "source_text": "poison",
+    "target_text": "nshi",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "551",
+    "source_text": "snake bite",
+    "target_text": "agwọtịta",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "552",
+    "source_text": "bleeding",
+    "target_text": "ihiẹnọgbụgba",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "553",
+    "source_text": "unconscious",
+    "target_text": "uchearịa",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "554",
+    "source_text": "call the doctor",
+    "target_text": "kpọha dibiẹ",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "555",
+    "source_text": "call the nurse",
+    "target_text": "kpọha ọsịgu",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "556",
+    "source_text": "call the police",
+    "target_text": "kpọha ụlakpa",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "557",
+    "source_text": "call the elders",
+    "target_text": "kpọha ndịchẹn",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "559",
+    "source_text": "go to the hospital",
+    "target_text": "jẹnmẹn ụlọgụn",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "56",
+    "source_text": "slow",
+    "target_text": "nwayọ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "560",
+    "source_text": "run!",
+    "target_text": "gbaọsọ",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "561",
+    "source_text": "hide!",
+    "target_text": "warị",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "562",
+    "source_text": "be careful",
+    "target_text": "kpachanrịn ẹnyan",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "563",
+    "source_text": "stay calm",
+    "target_text": "wetu obi",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "565",
+    "source_text": "save me",
+    "target_text": "zụọ m",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "566",
+    "source_text": "I am lost",
+    "target_text": "etuhu m",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "567",
+    "source_text": "where is the child?",
+    "target_text": "nwata hụ",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "569",
+    "source_text": "it is urgent",
+    "target_text": "ọrị ẹjijẹi",
+    "domain": "synonym_emergency",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "57",
+    "source_text": "sluggish",
+    "target_text": "ogbugbe",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "570",
+    "source_text": "ancient river",
+    "target_text": "iyi akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "571",
+    "source_text": "ancient forest",
+    "target_text": "ẹgboko akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "572",
+    "source_text": "ancient hill",
+    "target_text": "oke akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "573",
+    "source_text": "ancient sky",
+    "target_text": "igwere akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "574",
+    "source_text": "ancient earth",
+    "target_text": "alị akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "575",
+    "source_text": "ancient wind",
+    "target_text": "ufere akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "577",
+    "source_text": "ancient sun",
+    "target_text": "anwụn akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "578",
+    "source_text": "ancient moon",
+    "target_text": "ifọn akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "579",
+    "source_text": "ancient stars",
+    "target_text": "ikokisẹ akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "58",
+    "source_text": "unhurried",
+    "target_text": "ahụhụlẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "580",
+    "source_text": "ancient path",
+    "target_text": "ozue akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "581",
+    "source_text": "ancient drum",
+    "target_text": "ẹgede akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "582",
+    "source_text": "ancient market",
+    "target_text": "afịa akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "583",
+    "source_text": "ancient village",
+    "target_text": "igure akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "584",
+    "source_text": "ancient ancestor",
+    "target_text": "ndị mbụ",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "585",
+    "source_text": "ancient spirit",
+    "target_text": "nmọn akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "586",
+    "source_text": "ancient song",
+    "target_text": "ẹbụ akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "587",
+    "source_text": "ancient story",
+    "target_text": "akịkọ akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "588",
+    "source_text": "ancient dream",
+    "target_text": "nrọ akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "59",
+    "source_text": "lethargic",
+    "target_text": "adụdụ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "590",
+    "source_text": "ancient seed",
+    "target_text": "akpụrụ akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "592",
+    "source_text": "ancient shadow",
+    "target_text": "onyinyọn akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "593",
+    "source_text": "ancient dawn",
+    "target_text": "ofufọn akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "594",
+    "source_text": "ancient evening",
+    "target_text": "enyasị akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "595",
+    "source_text": "ancient palm",
+    "target_text": "ọkẹtẹ akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "596",
+    "source_text": "ancient raffia",
+    "target_text": "ịmaha akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "597",
+    "source_text": "ancient masquerade",
+    "target_text": "ẹkpo akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "599",
+    "source_text": "ancient horn",
+    "target_text": "mpịn akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "6",
+    "source_text": "how are you?",
+    "target_text": "nanị irị",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "60",
+    "source_text": "begin",
+    "target_text": "ishimbidọn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "600",
+    "source_text": "ancient calabash",
+    "target_text": "obele akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "601",
+    "source_text": "ancient kola nut",
+    "target_text": "ọgị akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "602",
+    "source_text": "ancient praise",
+    "target_text": "ijamma  akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "603",
+    "source_text": "ancient wisdom",
+    "target_text": "amamihiẹn akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "606",
+    "source_text": "ancient hunter",
+    "target_text": "ohuẹ akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "608",
+    "source_text": "ancient farmer",
+    "target_text": "ọwẹ akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "61",
+    "source_text": "start",
+    "target_text": "bldọn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "610",
+    "source_text": "ancient warrior",
+    "target_text": "odogun akan",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "62",
+    "source_text": "commence",
+    "target_text": "bidọmẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "63",
+    "source_text": "open",
+    "target_text": "kpọpụ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "64",
+    "source_text": "end",
+    "target_text": "ọgụgụ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "65",
+    "source_text": "finish",
+    "target_text": "ọgụ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "652",
+    "source_text": "mighty river",
+    "target_text": "okẹn iyi",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "653",
+    "source_text": "mighty forest",
+    "target_text": "okẹn ẹgboko",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "654",
+    "source_text": "mighty hill",
+    "target_text": "okẹn oke",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "655",
+    "source_text": "mighty sky",
+    "target_text": "okẹn igwere",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "656",
+    "source_text": "mighty earth",
+    "target_text": "okẹn alị",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "657",
+    "source_text": "mighty wind",
+    "target_text": "okẹn ufere",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "659",
+    "source_text": "mighty sun",
+    "target_text": "okẹn anwụn",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "66",
+    "source_text": "close",
+    "target_text": "mẹkin",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "660",
+    "source_text": "mighty moon",
+    "target_text": "okẹn ifọn",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "661",
+    "source_text": "mighty stars",
+    "target_text": "okẹn ikokisẹ",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "662",
+    "source_text": "mighty path",
+    "target_text": "okẹn ozue",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "663",
+    "source_text": "mighty drum",
+    "target_text": "okẹn ẹgede",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "664",
+    "source_text": "mighty market",
+    "target_text": "okẹn afịa",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "665",
+    "source_text": "mighty village",
+    "target_text": "okẹn igure",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "667",
+    "source_text": "mighty spirit",
+    "target_text": "okẹn mmọn",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "668",
+    "source_text": "mighty song",
+    "target_text": "okẹn ẹbụ",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "669",
+    "source_text": "mighty story",
+    "target_text": "okẹn akịkọ",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "67",
+    "source_text": "conclude",
+    "target_text": "okuikpanzụn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "670",
+    "source_text": "mighty dream",
+    "target_text": "okẹn nrọ",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "672",
+    "source_text": "mighty seed",
+    "target_text": "okẹn akpụrụ",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "674",
+    "source_text": "mighty shadow",
+    "target_text": "okẹn onyinyọn",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "675",
+    "source_text": "mighty dawn",
+    "target_text": "okẹn ofunfọn",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "676",
+    "source_text": "mighty evening",
+    "target_text": "okẹn ẹnyasị",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "677",
+    "source_text": "mighty palm",
+    "target_text": "okẹn ọkẹtẹ",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "678",
+    "source_text": "mighty raffia",
+    "target_text": "okẹn ịmaha",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "679",
+    "source_text": "mighty masquerade",
+    "target_text": "okẹn ẹkpo",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "68",
+    "source_text": "complete",
+    "target_text": "ozuọlẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "681",
+    "source_text": "mighty horn",
+    "target_text": "okẹn mpịn",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "682",
+    "source_text": "mighty calabash",
+    "target_text": "okẹn obele",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "683",
+    "source_text": "mighty kola nut",
+    "target_text": "okẹn ọgị",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "684",
+    "source_text": "mighty praise",
+    "target_text": "okẹn ijamma",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "685",
+    "source_text": "mighty wisdom",
+    "target_text": "okẹn amamihiẹn",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "688",
+    "source_text": "mighty hunter",
+    "target_text": "okẹn ohuẹ",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "69",
+    "source_text": "bright",
+    "target_text": "okike",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "690",
+    "source_text": "mighty farmer",
+    "target_text": "okẹn ọwẹ",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "692",
+    "source_text": "mighty warrior",
+    "target_text": "okẹn odogun",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "693",
+    "source_text": "golden river",
+    "target_text": "iyi goru",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "694",
+    "source_text": "golden forest",
+    "target_text": "ẹgboko goru",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "695",
+    "source_text": "golden hill",
+    "target_text": "oke goru",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "696",
+    "source_text": "golden sky",
+    "target_text": "igwere goru",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "697",
+    "source_text": "golden earth",
+    "target_text": "alị goru",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "698",
+    "source_text": "golden wind",
+    "target_text": "ufere goru",
+    "domain": "poetic_vocab",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "70",
+    "source_text": "brilliant",
+    "target_text": "ọrịrọ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "71",
+    "source_text": "radiant",
+    "target_text": "oririẹn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "717",
+    "source_text": "It is not enough.",
+    "target_text": "o zuni",
+    "domain": "sentence.negation",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "72",
+    "source_text": "luminous",
+    "target_text": "ụnwanwan",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "73",
+    "source_text": "shining",
+    "target_text": "egbuke",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "74",
+    "source_text": "dark",
+    "target_text": "ishi",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "742",
+    "source_text": "Come here.",
+    "target_text": "bịa ebeni",
+    "domain": "sentence.imperative",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "744",
+    "source_text": "Sit down.",
+    "target_text": "nọdị alị",
+    "domain": "sentence.imperative",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "745",
+    "source_text": "Stand up.",
+    "target_text": "lihi ọtọ",
+    "domain": "sentence.imperative",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "746",
+    "source_text": "Wait for me.",
+    "target_text": "cheri m",
+    "domain": "sentence.imperative",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "747",
+    "source_text": "Bring water.",
+    "target_text": "kuhẹ mirin",
+    "domain": "sentence.imperative",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "749",
+    "source_text": "Close the window.",
+    "target_text": "gụnma ẹhoho",
+    "domain": "sentence.imperative",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "75",
+    "source_text": "dim",
+    "target_text": "fịlụa",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "750",
+    "source_text": "Speak slowly.",
+    "target_text": "ku ẹkẹrẹkẹrẹ",
+    "domain": "sentence.imperative",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "76",
+    "source_text": "gloomy",
+    "target_text": "oriẹni",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "77",
+    "source_text": "shadowy",
+    "target_text": "aghẹghẹ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "775",
+    "source_text": "No problem.",
+    "target_text": "nsọngbu arịa",
+    "domain": "sentence.expression",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "777",
+    "source_text": "It is finished.",
+    "target_text": "ọ gụọlẹ",
+    "domain": "sentence.expression",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "778",
+    "source_text": "It is enough.",
+    "target_text": "o hiọụ",
+    "domain": "sentence.expression",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "779",
+    "source_text": "Well done.",
+    "target_text": "darụ",
+    "domain": "sentence.expression",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "78",
+    "source_text": "happy",
+    "target_text": "ghọghọ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "79",
+    "source_text": "glad",
+    "target_text": "obiosụọ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "8",
+    "source_text": "thank you",
+    "target_text": "ye mẹyekẹ",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "80",
+    "source_text": "joyful",
+    "target_text": "anwụnrịn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "81",
+    "source_text": "cheerful",
+    "target_text": "obianwụnrịn",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "82",
+    "source_text": "delighted",
+    "target_text": "ịghọghọ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "83",
+    "source_text": "content",
+    "target_text": "ozugwọ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "84",
+    "source_text": "sad",
+    "target_text": "ize",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "85",
+    "source_text": "unhappy",
+    "target_text": "iwe",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "86",
+    "source_text": "sorrowful",
+    "target_text": "obilọmirin",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "87",
+    "source_text": "downcast",
+    "target_text": "ẹhụọgbọrọ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "88",
+    "source_text": "mournful",
+    "target_text": "ahịọ",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "89",
+    "source_text": "love",
+    "target_text": "ọhụnhụnẹnyan",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "9",
+    "source_text": "please",
+    "target_text": "dodo",
+    "domain": "greeting",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "90",
+    "source_text": "adore",
+    "target_text": "ihiẹnbanẹnyan",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "91",
+    "source_text": "cherish",
+    "target_text": "ihụnẹnyan",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "92",
+    "source_text": "treasure",
+    "target_text": "ihiẹnrịmkpa",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "93",
+    "source_text": "hate",
+    "target_text": "ọsụọnịm",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "94",
+    "source_text": "dislike",
+    "target_text": "ihiẹnsụọlẹnim",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "95",
+    "source_text": "detest",
+    "target_text": "ọsụọnịmkaka",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "96",
+    "source_text": "loathe",
+    "target_text": "ihiẹnsụọlẹnimkaka",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "97",
+    "source_text": "strong",
+    "target_text": "ozize",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "98",
+    "source_text": "sturdy",
+    "target_text": "ihiẹnzeni",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  },
+  {
+    "id": "99",
+    "source_text": "robust",
+    "target_text": "atụmaohu",
+    "domain": "synonym_general",
+    "pos_verified": "",
+    "notes": ""
+  }
+]

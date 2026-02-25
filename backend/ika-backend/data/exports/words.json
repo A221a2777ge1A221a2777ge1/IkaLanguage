@@ -1,0 +1,98 @@
+[
+  {
+    "definition": "image_picker",
+    "audioUrl": "",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/images%2F18.jpg?alt=media&token=bf26d8d1-e1cd-4b4a-a22f-cdcce39703a9",
+    "word": "add",
+    "pos": "verb",
+    "_doc_id": "58oGXLN9chfbVEwTx1Ov"
+  },
+  {
+    "definition": "this is two",
+    "audioUrl": "",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/images%2F1000162815.webp?alt=media&token=b5eac4a8-1fb6-4ca9-96dc-428d82444e0e",
+    "word": "two",
+    "pos": "number",
+    "_doc_id": "CVP3uJuaoQRsPIVMR7Zx"
+  },
+  {
+    "definition": "this is eight",
+    "audioUrl": "",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/images%2F1000162880.jpg?alt=media&token=72c23a2d-fd87-4f92-be5f-70d7900293f0",
+    "word": "eight",
+    "pos": "number",
+    "_doc_id": "GKKzbITB8ONEaZZiWtlR"
+  },
+  {
+    "definition": "this is five",
+    "audioUrl": "",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/images%2F1000162816.webp?alt=media&token=3e162455-773c-4409-9d06-e35398833cf5",
+    "word": "five",
+    "pos": "number",
+    "_doc_id": "JGVjJKBSIc2ujHZtANpc"
+  },
+  {
+    "definition": "this is four",
+    "audioUrl": "",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/images%2F1000162885.jpg?alt=media&token=f79384c3-6903-4761-85ec-6c8111438ca6",
+    "word": "four",
+    "pos": "number",
+    "_doc_id": "Jp0RwYoeN7KEH2mdf4pq"
+  },
+  {
+    "definition": "pub",
+    "audioUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/audio%2Fintro-music-black-box-string-violin-12349.mp3?alt=media&token=b3b1c64a-1010-4382-b51d-05f506b85cb0",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/images%2F18.jpg?alt=media&token=1f903b44-c3f6-46d0-b4dc-699475f791f4",
+    "word": "flutter",
+    "pos": "noun",
+    "_doc_id": "KPfH9QzV54n6pRUXhA7v"
+  },
+  {
+    "definition": "good job",
+    "audioUrl": "",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/images%2F1000162882.jpg?alt=media&token=03dee45a-1e3d-427d-b0d2-afce2816465e",
+    "word": "Great Job",
+    "pos": "adjective",
+    "_doc_id": "QdXy3daWev2Umo2X3fYD"
+  },
+  {
+    "definition": "this is three",
+    "audioUrl": "",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/images%2F1000162886.jpg?alt=media&token=94518a93-5dca-4527-93c5-362144fff52a",
+    "word": "three",
+    "pos": "number",
+    "_doc_id": "UYtKHTcdd0U2cqU1wtiW"
+  },
+  {
+    "definition": "this me",
+    "audioUrl": "",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/images%2F1000163481.jpg?alt=media&token=b13386ca-07d3-45f7-85fa-74ca2f397da8",
+    "word": "fin",
+    "pos": "noun",
+    "_doc_id": "Xlu6vye98quWjjfCC58W"
+  },
+  {
+    "definition": "image_picker",
+    "audioUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/audio%2Fdark-engine-logo-141942.mp3?alt=media&token=e477f9dd-3203-427d-9718-ceea983e1685",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/images%2Fpic5.jpg?alt=media&token=8fa2410f-b0af-4546-9cfb-bac59bf3a97e",
+    "word": "one",
+    "pos": "number",
+    "_doc_id": "bUHy6fDj0BHV29CMFAGO"
+  },
+  {
+    "definition": "this is seven",
+    "audioUrl": "",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ikause.appspot.com/o/images%2F1000162735.webp?alt=media&token=e297e718-a5da-4bf1-b2fe-c3853fa11708",
+    "word": "seven",
+    "pos": "number",
+    "_doc_id": "xCFYRuY2XumOdA2aU5Iu"
+  },
+  {
+    "definition": "this is six",
+    "audioUrl": "",
+    "imageUrl": "",
+    "word": "six",
+    "pos": "number",
+    "_doc_id": "zLDkMugwD0iIGCxXlObK"
+  }
+]

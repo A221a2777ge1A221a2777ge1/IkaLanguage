@@ -1,0 +1,13 @@
+
+# Local python env / caches
+backend/ika-backend/.venv/
+**/__pycache__/
+*.pyc
+
+# local test audio outputs
+*.mp3
+*.wav
+*.m4a
+
+# Local app scratch file (do not commit)
+backend/ika-backend/app/__init__.py

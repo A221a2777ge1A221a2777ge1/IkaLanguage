@@ -1,30 +1,40 @@
 {
-  "version": "1.0",
-  "description": "IKA Grammar Patterns - Structure for grammar rules and transformations",
+  "version": "2.0",
+  "description": "IKA Grammar Patterns aligned to ika_grammar.txt domains",
   "patterns": [
-    {
-      "pattern_id": "simple_sentence",
-      "slots": ["Subject", "Verb", "Object"],
-      "category": "sentence",
-      "example": ""
-    },
-    {
-      "pattern_id": "verb_phrase",
-      "slots": ["Verb", "Object"],
-      "category": "phrase",
-      "example": ""
-    },
-    {
-      "pattern_id": "noun_phrase",
-      "slots": ["Adjective", "Noun"],
-      "category": "phrase",
-      "example": ""
-    }
+    { "pattern_id": "sentence.svo", "slots": ["Subject", "Verb", "ObjectOrComplement"], "category": "sentence", "example": "" },
+
+    { "pattern_id": "sentence.location", "slots": ["NounPhrase", "rị", "LocationPhrase"], "category": "sentence", "example": "" },
+    { "pattern_id": "sentence.location.hụ_rị", "slots": ["NounPhrase", "hụ", "rị", "LocationPhrase"], "category": "sentence", "example": "" },
+
+    { "pattern_id": "sentence.possession.wụ", "slots": ["DemonstrativeOrNoun", "wụ", "NounPhrase"], "category": "sentence", "example": "" },
+    { "pattern_id": "sentence.possession.locative", "slots": ["PossessedNoun", "rị", "LocationPhrase"], "category": "sentence", "example": "" },
+
+    { "pattern_id": "sentence.negation.template", "slots": ["NegativeForm", "VerbPhraseOrClause"], "category": "sentence", "example": "" },
+
+    { "pattern_id": "sentence.question.kị_wụ", "slots": ["kị", "wụ", "NounPhrase"], "category": "sentence", "example": "" },
+    { "pattern_id": "sentence.question.onyẹn", "slots": ["onyẹn", "VerbOrState", "LocationPhrase"], "category": "sentence", "example": "" },
+    { "pattern_id": "sentence.question.elebe", "slots": ["elebe", "Subject", "VerbPhrase"], "category": "sentence", "example": "" },
+    { "pattern_id": "sentence.question.ele_mgbe", "slots": ["ele", "mgbe", "Subject", "VerbPhrase"], "category": "sentence", "example": "" },
+    { "pattern_id": "sentence.question.egho_ole", "slots": ["egho", "ole", "wụ", "NounPhrase"], "category": "sentence", "example": "" },
+
+    { "pattern_id": "sentence.tense.progressive_rị", "slots": ["Subject", "rị", "Verb", "ObjectOrComplement"], "category": "sentence", "example": "" },
+    { "pattern_id": "sentence.tense.future_ke", "slots": ["Subject", "ke", "VerbPhrase"], "category": "sentence", "example": "" },
+    { "pattern_id": "sentence.tense.completive_gwọ", "slots": ["Clause", "gwọ"], "category": "sentence", "example": "" },
+
+    { "pattern_id": "sentence.conditional.omẹni", "slots": ["omẹni", "Clause1", "Clause2"], "category": "sentence", "example": "" },
+
+    { "pattern_id": "sentence.expression.fixed", "slots": ["FixedExpression"], "category": "sentence", "example": "" },
+    { "pattern_id": "sentence.imperative", "slots": ["Verb", "ObjectOrLocation"], "category": "sentence", "example": "" },
+
+    { "pattern_id": "greeting.fixed", "slots": ["GreetingPhrase"], "category": "greeting", "example": "" },
+
+    { "pattern_id": "poetic.noun_suffix", "slots": ["Noun", "DescriptorSuffix"], "category": "poetic_vocab", "example": "" },
+    { "pattern_id": "poetic.prefix_okẹn", "slots": ["okẹn", "Noun"], "category": "poetic_vocab", "example": "" }
   ],
   "notes": [
-    "Add your verified Ika grammar patterns here",
-    "Patterns must NOT contain example_language field",
-    "Examples must NOT contain banned tokens: akwukwo, anyi, umunna, ga eje, ya mere, mgbe",
-    "Examples are display-only and never used in generation"
+    "Pattern IDs match your domain names in ika_grammar.txt (sentence.* + greeting + poetic_vocab).",
+    "Examples are left blank to avoid banned-token issues.",
+    "Fill slots from lexicon/domain lists (Firestore or extracted text)."
   ]
 }
