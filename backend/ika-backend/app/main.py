@@ -2,13 +2,18 @@
 IKA Language Engine Backend - FastAPI Application
 Option A: Rule-based generator using Firestore lexicon + grammar patterns
 """
+
 import os
 import logging
+from typing import Optional, Dict, Any, List, Tuple
+
 from fastapi import FastAPI, HTTPException, Depends, Security, Query
 from fastapi.responses import FileResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
-from typing import Optional, Dict, Any, List
+
+import firebase_admin
+from firebase_admin import auth as fb_auth
 
 from app.firebase_client import get_firestore_client, get_storage_client
 from app.lexicon_repo import LexiconRepository
@@ -20,7 +25,10 @@ from app.templates_engine import TemplatesEngine
 from app.audio_cache import AudioCache
 from app.validators import validate_on_startup
 from app.build_info import get_build_info
-from app.local_audio_cache import get_or_generate as local_audio_get_or_generate, get_file_path as local_audio_get_file_path
+from app.local_audio_cache import (
+    get_or_generate as local_audio_get_or_generate,
+    get_file_path as local_audio_get_file_path,
+)
 
 try:
     from app.lexicon_store import get_store
@@ -54,8 +62,8 @@ AUDIO_CACHE_PREFIX = os.getenv("AUDIO_CACHE_PREFIX", "audio-cache")
 # Initialize FastAPI app
 app = FastAPI(title="IKA Language Engine", version="1.0.0")
 
-# Security for Cloud Run (requires authentication)
-security = HTTPBearer()
+# Security
+security = HTTPBearer(auto_error=False)
 
 # Global components
 firestore_client = None
@@ -69,12 +77,43 @@ templates_engine = None
 audio_cache = None
 store = None  # LexiconStore from firestore_lexicon_export.json when available
 
+# Firebase init guard
+_firebase_inited = False
 
-async def verify_token(credentials: HTTPAuthorizationCredentials = Security(security)):
-    """Verify authentication token (Cloud Run handles this, but we validate presence)"""
-    if not credentials:
+
+def _init_firebase_once() -> None:
+    """
+    Initialize firebase_admin once (ADC on Cloud Run).
+    This enables fb_auth.verify_id_token for Firebase ID tokens.
+    """
+    global _firebase_inited
+    if _firebase_inited:
+        return
+    try:
+        firebase_admin.get_app()
+    except ValueError:
+        firebase_admin.initialize_app()
+    _firebase_inited = True
+
+
+async def verify_token(credentials: HTTPAuthorizationCredentials = Security(security)) -> Dict[str, Any]:
+    """
+    Verify Firebase ID token.
+    - If token invalid/expired -> 401
+    - Returns decoded claims on success
+    """
+    token = credentials.credentials if credentials else None
+    if not token:
         raise HTTPException(status_code=401, detail="Missing authorization token")
-    return credentials.credentials
+
+    _init_firebase_once()
+
+    try:
+        decoded = fb_auth.verify_id_token(token, check_revoked=False)
+        return decoded
+    except Exception:
+        # Do not leak token or internal error details
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
 
 
 @app.on_event("startup")
@@ -83,7 +122,7 @@ async def startup_event():
     global firestore_client, storage_client, lexicon_repo, pattern_repo
     global rule_engine, slot_filler, generator, templates_engine, audio_cache, store
 
-    logger.info(f"Initializing IKA backend for project: {PROJECT_ID}")
+    logger.info("Initializing IKA backend for project: %s", PROJECT_ID)
 
     # Validate data files (log only; do not block startup so Cloud Run can see the port)
     try:
@@ -109,13 +148,13 @@ async def startup_event():
         lexicon_repo = pattern_repo = rule_engine = slot_filler = None
         templates_engine = generator = audio_cache = None
 
-    # Dataset from JSON (optional; file may be gitignored in deploy)
+    # Dataset from JSON (optional)
     if _dataset_available and get_store:
         try:
             store = get_store()
-            logger.info("Dataset (firestore_lexicon_export) loaded: %d entries", len(store.entries))
+            logger.info("Dataset loaded: %d entries", len(store.entries))
         except Exception as e:
-            logger.warning("Dataset not loaded (add data/firestore_lexicon_export.json for full features): %s", e)
+            logger.warning("Dataset not loaded (add data/firestore_lexicon_export.json): %s", e)
             store = None
     else:
         store = None
@@ -123,32 +162,44 @@ async def startup_event():
     logger.info("IKA backend initialized successfully")
 
 
-# Request/Response models
+# -----------------------------
+# Models (new contract + legacy)
+# -----------------------------
+
+class ApiResponse(BaseModel):
+    """
+    New contract:
+      - ika_text: Ika output text
+      - english_meaning: English meaning of the produced Ika output
+      - trace: debug-only structure used for development (pattern ids, lexicon ids, etc.)
+
+    Backward-compat (temporary):
+      - text: same as ika_text
+      - meta: legacy meta object
+    """
+    ika_text: str
+    english_meaning: str
+    trace: Dict[str, Any] = {}
+    # legacy
+    text: str
+    meta: Dict[str, Any] = {}
+
+
 class TranslateRequest(BaseModel):
     text: str
     tense: Optional[str] = "present"  # present|past|future|progressive
     mode: Optional[str] = "rule_based"
 
 
-class TranslateResponse(BaseModel):
-    text: str
-    meta: Dict[str, Any]
-
-
 class GenerateRequest(BaseModel):
-    kind: str  # poem|story|lecture
+    kind: str  # sentence|poem|story|lecture|song
     topic: str
-    tone: Optional[str] = "neutral"  # neutral|formal|poetic
+    tone: Optional[str] = "neutral"   # neutral|formal|poetic
     length: Optional[str] = "medium"  # short|medium|long
 
 
-class GenerateResponse(BaseModel):
-    text: str
-    meta: Dict[str, Any]
-
-
 class StoryIn(BaseModel):
-    """Request body for POST /generate-story (app sends prompt + length)."""
+    """Request body for POST /generate-story /generate-poem /generate-lecture."""
     prompt: str
     length: Optional[str] = "short"
 
@@ -173,25 +224,94 @@ class NaturalizeIn(BaseModel):
     length: Optional[str] = "short"
 
 
-class NaturalizeOut(BaseModel):
-    ika: str
-    english_backtranslation: str
-    notes: List[str]
-
-
 class DictionaryEntry(BaseModel):
     source_text: str
     target_text: str
     pos: Optional[str] = None
     domain: Optional[str] = None
     doc_id: Optional[str] = None
+    # future: audio_id/audio_url for original recordings
+    audio_id: Optional[str] = None
+    audio_url: Optional[str] = None
 
 
 class DictionaryResponse(BaseModel):
     entries: List[DictionaryEntry]
 
 
+# -----------------------------
+# Helpers
+# -----------------------------
+
+def _make_response(
+    ika_text: str,
+    english_meaning: str,
+    *,
+    legacy_meta: Optional[Dict[str, Any]] = None,
+    trace: Optional[Dict[str, Any]] = None,
+) -> ApiResponse:
+    legacy_meta = legacy_meta or {}
+    trace = trace or {}
+    return ApiResponse(
+        ika_text=ika_text,
+        english_meaning=english_meaning,
+        trace=trace,
+        # legacy
+        text=ika_text,
+        meta=legacy_meta,
+    )
+
+
+def _extract_trace_from_meta(meta: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Normalize legacy meta into a trace block used for debugging and future UI.
+    """
+    trace: Dict[str, Any] = {}
+    if not isinstance(meta, dict):
+        return trace
+    if "pattern_ids" in meta:
+        trace["pattern_ids"] = meta.get("pattern_ids", [])
+    if "lexicon_entries" in meta:
+        # keep doc_id + source/target for debugging
+        trace["lexicon_entries"] = meta.get("lexicon_entries", [])
+    if "tense" in meta:
+        trace["tense"] = meta.get("tense")
+    if "mode" in meta:
+        trace["mode"] = meta.get("mode")
+    if "source_lang" in meta:
+        trace["source_lang"] = meta.get("source_lang")
+    if "target_lang" in meta:
+        trace["target_lang"] = meta.get("target_lang")
+    return trace
+
+
+def _english_meaning_for_ika_output(
+    produced_ika_text: str,
+    *,
+    source_text: str,
+    mode: str,
+) -> str:
+    """
+    English meaning should reflect the meaning of what we produced in Ika,
+    not the topic.
+    Strategy:
+      - If store is available and we can translate ika->en, use that.
+      - Else fallback to the original English input (best-effort).
+    """
+    if store is not None and translate_ika_to_en is not None:
+        try:
+            # If we produced Ika, back-translate it to English meaning.
+            return translate_ika_to_en(store, produced_ika_text)
+        except Exception:
+            pass
+    # Fallback: if user input was English, keep it as meaning baseline
+    return source_text.strip()
+
+
+# -----------------------------
 # Endpoints
+# -----------------------------
+
 @app.get("/health")
 async def health():
     """Health check endpoint (no auth). Returns ok + build fingerprint."""
@@ -204,204 +324,278 @@ async def health():
 
 @app.get("/build-info")
 async def build_info():
-    """Build and dataset fingerprint (no auth). For verifying Cursor/GitHub/Cloud Run match."""
+    """Build and dataset fingerprint (no auth)."""
     try:
         return get_build_info()
     except Exception:
         return {"git_sha": "unknown", "dataset_sha256": "error", "dataset_files_count": 0}
 
 
-@app.post("/translate", response_model=TranslateResponse)
+@app.post("/translate", response_model=ApiResponse)
 async def translate(
     request: TranslateRequest,
-    token: str = Depends(verify_token)
+    _claims: Dict[str, Any] = Depends(verify_token),
 ):
     """
-    Translate: use dataset (strict Ika patterns) when mode is auto|en_to_ika|ika_to_en
-    and store is loaded; otherwise rule-based. Returns text + meta (source_lang/target_lang when dataset).
+    Translate:
+      - If dataset store is loaded and mode in (auto|en_to_ika|ika_to_en) use dataset translator.
+      - Otherwise use rule-based generator.translate().
+    Returns NEW contract:
+      ika_text + english_meaning + trace (+ legacy text/meta).
     """
     mode = (request.mode or "rule_based").lower()
+    text_in = request.text.strip()
+
     if store is None and generator is None:
         raise HTTPException(status_code=503, detail="Translation unavailable (backend not fully initialized)")
+
+    # Dataset-driven path (supports ika_to_en too)
     if store is not None and mode in ("auto", "en_to_ika", "ika_to_en"):
         try:
-            text = request.text.strip()
             if mode == "ika_to_en":
-                result_text = translate_ika_to_en(store, text)
-                return TranslateResponse(
-                    text=result_text,
-                    meta={"source_lang": "ika", "target_lang": "en"}
+                en_text = translate_ika_to_en(store, text_in)
+                # produced output here is English; we still fill fields consistently
+                return _make_response(
+                    ika_text=text_in,
+                    english_meaning=en_text,
+                    legacy_meta={"source_lang": "ika", "target_lang": "en"},
+                    trace={"source_lang": "ika", "target_lang": "en", "mode": mode},
                 )
+
             if mode == "en_to_ika":
-                result_text = translate_en_to_ika_sentence(store, text)
-                return TranslateResponse(
-                    text=result_text,
-                    meta={"source_lang": "en", "target_lang": "ika"}
+                ika_text = translate_en_to_ika_sentence(store, text_in)
+                english_meaning = _english_meaning_for_ika_output(
+                    ika_text, source_text=text_in, mode=mode
                 )
-            # auto: detect by is_ika_text
-            if store.is_ika_text(text):
-                result_text = translate_ika_to_en(store, text)
-                return TranslateResponse(
-                    text=result_text,
-                    meta={"source_lang": "ika", "target_lang": "en"}
+                return _make_response(
+                    ika_text=ika_text,
+                    english_meaning=english_meaning,
+                    legacy_meta={"source_lang": "en", "target_lang": "ika"},
+                    trace={"source_lang": "en", "target_lang": "ika", "mode": mode},
                 )
-            result_text = translate_en_to_ika_sentence(store, text)
-            return TranslateResponse(
-                text=result_text,
-                meta={"source_lang": "en", "target_lang": "ika"}
+
+            # auto
+            if store.is_ika_text(text_in):
+                en_text = translate_ika_to_en(store, text_in)
+                return _make_response(
+                    ika_text=text_in,
+                    english_meaning=en_text,
+                    legacy_meta={"source_lang": "ika", "target_lang": "en"},
+                    trace={"source_lang": "ika", "target_lang": "en", "mode": mode},
+                )
+
+            ika_text = translate_en_to_ika_sentence(store, text_in)
+            english_meaning = _english_meaning_for_ika_output(
+                ika_text, source_text=text_in, mode=mode
+            )
+            return _make_response(
+                ika_text=ika_text,
+                english_meaning=english_meaning,
+                legacy_meta={"source_lang": "en", "target_lang": "ika"},
+                trace={"source_lang": "en", "target_lang": "ika", "mode": mode},
             )
         except Exception as e:
-            logger.error(f"Dataset translation error: {str(e)}", exc_info=True)
+            logger.error("Dataset translation error: %s", str(e), exc_info=True)
             raise HTTPException(status_code=500, detail=f"Translation failed: {str(e)}")
+
+    # Rule-based path
     try:
-        result = generator.translate(
-            text=request.text,
-            tense=request.tense,
-            mode=request.mode
+        result = generator.translate(text=text_in, tense=request.tense, mode=request.mode)
+        ika_text = result.get("text", "").strip()
+        meta = result.get("meta", {}) or {}
+        trace = _extract_trace_from_meta(meta)
+        english_meaning = _english_meaning_for_ika_output(
+            ika_text, source_text=text_in, mode=mode
         )
-        return TranslateResponse(
-            text=result["text"],
-            meta=result["meta"]
+        return _make_response(
+            ika_text=ika_text,
+            english_meaning=english_meaning,
+            legacy_meta=meta,
+            trace=trace,
         )
     except Exception as e:
-        logger.error(f"Translation error: {str(e)}", exc_info=True)
+        logger.error("Translation error: %s", str(e), exc_info=True)
         raise HTTPException(status_code=500, detail=f"Translation failed: {str(e)}")
 
 
-@app.post("/generate", response_model=GenerateResponse)
+@app.post("/generate", response_model=ApiResponse)
 async def generate(
     request: GenerateRequest,
-    token: str = Depends(verify_token)
+    _claims: Dict[str, Any] = Depends(verify_token),
 ):
     """
-    Generate Ika text (poem/story/lecture) based on topic and parameters.
-    Returns text only - NO audio generation.
+    Generate Ika text based on topic and parameters.
+    IMPORTANT: english_meaning must reflect the produced Ika output, not the topic.
     """
     if store is None and generator is None:
         raise HTTPException(status_code=503, detail="Generation unavailable (backend not fully initialized)")
+
+    kind = (request.kind or "").strip().lower()
+    topic = (request.topic or "").strip()
+
+    if not kind or not topic:
+        raise HTTPException(status_code=422, detail="kind and topic are required")
+
     try:
-        result = generator.generate(
-            kind=request.kind,
-            topic=request.topic,
-            tone=request.tone,
-            length=request.length
+        result = generator.generate(kind=kind, topic=topic, tone=request.tone, length=request.length)
+        ika_text = (result.get("text") or "").strip()
+        meta = result.get("meta", {}) or {}
+        trace = _extract_trace_from_meta(meta)
+        # back-meaning from produced text if possible
+        english_meaning = _english_meaning_for_ika_output(
+            ika_text, source_text=topic, mode="generate"
         )
-        return GenerateResponse(
-            text=result["text"],
-            meta=result["meta"]
+        return _make_response(
+            ika_text=ika_text,
+            english_meaning=english_meaning,
+            legacy_meta=meta,
+            trace=trace,
         )
     except Exception as e:
-        logger.error(f"Generation error: {str(e)}", exc_info=True)
+        logger.error("Generation error: %s", str(e), exc_info=True)
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
 
 
-@app.post("/generate-story", response_model=GenerateResponse)
+@app.post("/generate-story", response_model=ApiResponse)
 async def generate_story(
     request: StoryIn,
-    token: str = Depends(verify_token)
+    _claims: Dict[str, Any] = Depends(verify_token),
 ):
-    """
-    Generate Ika story. Uses dataset (659 entries) when loaded; else rule-based.
-    """
+    """Generate Ika story (dataset when available, else rule-based)."""
     if store is None and generator is None:
         raise HTTPException(status_code=503, detail="Generation unavailable (backend not fully initialized)")
+
+    prompt = (request.prompt or "").strip()
+    length = (request.length or "short").strip().lower()
+
+    # Dataset path
     if store is not None and dataset_generate_story is not None:
         try:
-            length = request.length or "short"
-            text = dataset_generate_story(store, length)
-            return GenerateResponse(text=text, meta={"source": "dataset", "length": length})
+            ika_text = dataset_generate_story(store, length)
+            english_meaning = _english_meaning_for_ika_output(
+                ika_text, source_text=prompt, mode="generate_story"
+            )
+            return _make_response(
+                ika_text=ika_text,
+                english_meaning=english_meaning,
+                legacy_meta={"source": "dataset", "length": length},
+                trace={"source": "dataset", "length": length},
+            )
         except Exception as e:
-            logger.error(f"Dataset generate story error: {str(e)}", exc_info=True)
+            logger.error("Dataset generate story error: %s", str(e), exc_info=True)
             raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+
+    # Rule-based path
     try:
-        result = generator.generate(
-            kind="story",
-            topic=request.prompt.strip(),
-            tone="neutral",
-            length=request.length or "short",
+        result = generator.generate(kind="story", topic=prompt, tone="neutral", length=length)
+        ika_text = (result.get("text") or "").strip()
+        meta = result.get("meta", {}) or {}
+        trace = _extract_trace_from_meta(meta)
+        english_meaning = _english_meaning_for_ika_output(
+            ika_text, source_text=prompt, mode="generate_story"
         )
-        return GenerateResponse(
-            text=result["text"],
-            meta=result["meta"]
-        )
+        return _make_response(ika_text=ika_text, english_meaning=english_meaning, legacy_meta=meta, trace=trace)
     except Exception as e:
-        logger.error(f"Generate story error: {str(e)}", exc_info=True)
+        logger.error("Generate story error: %s", str(e), exc_info=True)
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
 
 
-@app.post("/generate-poem", response_model=GenerateResponse)
+@app.post("/generate-poem", response_model=ApiResponse)
 async def generate_poem(
     request: StoryIn,
-    token: str = Depends(verify_token)
+    _claims: Dict[str, Any] = Depends(verify_token),
 ):
-    """Generate Ika poem from dataset (length short -> 8 lines, medium/long -> 14)."""
+    """Generate Ika poem (dataset when available, else rule-based)."""
     if store is None and generator is None:
         raise HTTPException(status_code=503, detail="Generation unavailable (backend not fully initialized)")
+
+    prompt = (request.prompt or "").strip()
+    length = (request.length or "short").strip().lower()
+
     if store is not None and dataset_generate_poem is not None:
         try:
-            length = request.length or "short"
             lines = 14 if length in ("medium", "long") else 8
-            text = dataset_generate_poem(store, lines=lines)
-            return GenerateResponse(text=text, meta={"source": "dataset", "lines": lines})
+            ika_text = dataset_generate_poem(store, lines=lines)
+            english_meaning = _english_meaning_for_ika_output(
+                ika_text, source_text=prompt, mode="generate_poem"
+            )
+            return _make_response(
+                ika_text=ika_text,
+                english_meaning=english_meaning,
+                legacy_meta={"source": "dataset", "lines": lines},
+                trace={"source": "dataset", "lines": lines},
+            )
         except Exception as e:
-            logger.error(f"Dataset generate poem error: {str(e)}", exc_info=True)
+            logger.error("Dataset generate poem error: %s", str(e), exc_info=True)
             raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+
     try:
-        result = generator.generate(
-            kind="poem",
-            topic=request.prompt.strip() or "poem",
-            tone="neutral",
-            length=request.length or "short",
+        result = generator.generate(kind="poem", topic=prompt or "poem", tone="neutral", length=length)
+        ika_text = (result.get("text") or "").strip()
+        meta = result.get("meta", {}) or {}
+        trace = _extract_trace_from_meta(meta)
+        english_meaning = _english_meaning_for_ika_output(
+            ika_text, source_text=prompt, mode="generate_poem"
         )
-        return GenerateResponse(text=result["text"], meta=result["meta"])
+        return _make_response(ika_text=ika_text, english_meaning=english_meaning, legacy_meta=meta, trace=trace)
     except Exception as e:
-        logger.error(f"Generate poem error: {str(e)}", exc_info=True)
+        logger.error("Generate poem error: %s", str(e), exc_info=True)
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
 
 
-@app.post("/generate-lecture", response_model=GenerateResponse)
+@app.post("/generate-lecture", response_model=ApiResponse)
 async def generate_lecture(
     request: StoryIn,
-    token: str = Depends(verify_token)
+    _claims: Dict[str, Any] = Depends(verify_token),
 ):
-    """Generate Ika lecture from dataset."""
+    """Generate Ika lecture (dataset when available, else rule-based)."""
     if store is None and generator is None:
         raise HTTPException(status_code=503, detail="Generation unavailable (backend not fully initialized)")
+
+    prompt = (request.prompt or "").strip()
+    length = (request.length or "short").strip().lower()
+
     if store is not None and dataset_generate_lecture is not None:
         try:
-            length = request.length or "short"
-            text = dataset_generate_lecture(store, length)
-            return GenerateResponse(text=text, meta={"source": "dataset", "length": length})
+            ika_text = dataset_generate_lecture(store, length)
+            english_meaning = _english_meaning_for_ika_output(
+                ika_text, source_text=prompt, mode="generate_lecture"
+            )
+            return _make_response(
+                ika_text=ika_text,
+                english_meaning=english_meaning,
+                legacy_meta={"source": "dataset", "length": length},
+                trace={"source": "dataset", "length": length},
+            )
         except Exception as e:
-            logger.error(f"Dataset generate lecture error: {str(e)}", exc_info=True)
+            logger.error("Dataset generate lecture error: %s", str(e), exc_info=True)
             raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+
     try:
-        result = generator.generate(
-            kind="lecture",
-            topic=request.prompt.strip() or "lecture",
-            tone="neutral",
-            length=request.length or "short",
+        result = generator.generate(kind="lecture", topic=prompt or "lecture", tone="neutral", length=length)
+        ika_text = (result.get("text") or "").strip()
+        meta = result.get("meta", {}) or {}
+        trace = _extract_trace_from_meta(meta)
+        english_meaning = _english_meaning_for_ika_output(
+            ika_text, source_text=prompt, mode="generate_lecture"
         )
-        return GenerateResponse(text=result["text"], meta=result["meta"])
+        return _make_response(ika_text=ika_text, english_meaning=english_meaning, legacy_meta=meta, trace=trace)
     except Exception as e:
-        logger.error(f"Generate lecture error: {str(e)}", exc_info=True)
+        logger.error("Generate lecture error: %s", str(e), exc_info=True)
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
 
 
-@app.post("/naturalize", response_model=NaturalizeOut)
+@app.post("/naturalize", response_model=ApiResponse)
 async def naturalize(
     request: NaturalizeIn,
-    token: str = Depends(verify_token),
+    _claims: Dict[str, Any] = Depends(verify_token),
 ):
     """
-    Naturalize: "Say it like an Ika person." Input is English intent;
-    output is natural Ika phrasing from dataset (no word-for-word translation).
+    Naturalize: "Say it like an Ika person."
+    Returns new contract (ika_text + english_meaning).
     """
     if store is None or dataset_naturalize is None:
-        raise HTTPException(
-            status_code=503,
-            detail="Dataset not loaded; naturalize unavailable",
-        )
+        raise HTTPException(status_code=503, detail="Dataset not loaded; naturalize unavailable")
     try:
         ika_text, en_back, notes = dataset_naturalize(
             store,
@@ -409,20 +603,22 @@ async def naturalize(
             tone=request.tone or "polite",
             length=request.length or "short",
         )
-        return NaturalizeOut(
-            ika=ika_text,
-            english_backtranslation=en_back,
-            notes=notes,
+        # Here, english meaning is what dataset already provides as backtranslation
+        return _make_response(
+            ika_text=ika_text,
+            english_meaning=en_back,
+            legacy_meta={"notes": notes},
+            trace={"notes": notes},
         )
     except Exception as e:
-        logger.error(f"Naturalize error: {str(e)}", exc_info=True)
+        logger.error("Naturalize error: %s", str(e), exc_info=True)
         raise HTTPException(status_code=500, detail=f"Naturalize failed: {str(e)}")
 
 
 @app.post("/generate-audio", response_model=GenerateAudioResponse)
 async def generate_audio(
     request: GenerateAudioRequest,
-    token: str = Depends(verify_token)
+    _claims: Dict[str, Any] = Depends(verify_token),
 ):
     """
     Generate or retrieve audio for Ika text. Uses local file cache (data/audio_cache/).
@@ -442,7 +638,7 @@ async def generate_audio(
             text=request.text.strip(),
         )
     except Exception as e:
-        logger.error(f"Audio generation error: {str(e)}", exc_info=True)
+        logger.error("Audio generation error: %s", str(e), exc_info=True)
         raise HTTPException(status_code=500, detail=f"Audio generation failed: {str(e)}")
 
 
@@ -450,7 +646,6 @@ async def generate_audio(
 async def serve_audio(filename: str):
     """
     Serve cached audio file. No auth required so the app can download by URL.
-    Content-Type: audio/mpeg, Cache-Control: public, long-lived.
     """
     path = local_audio_get_file_path(filename)
     if path is None:
@@ -458,43 +653,47 @@ async def serve_audio(filename: str):
     return FileResponse(
         path,
         media_type="audio/mpeg",
-        headers={
-            "Cache-Control": "public, max-age=31536000, immutable",
-        },
+        headers={"Cache-Control": "public, max-age=31536000, immutable"},
     )
 
 
 @app.get("/dictionary", response_model=DictionaryResponse)
 async def dictionary_lookup(
     q: str = Query("", description="English word or prefix; empty = return all entries"),
-    limit: int = Query(700, ge=1, le=1000, description="Max entries (e.g. 700 for full lexicon)"),
-    token: str = Depends(verify_token),
+    limit: int = Query(700, ge=1, le=1000, description="Max entries"),
+    _claims: Dict[str, Any] = Depends(verify_token),
 ):
     """
-    Dictionary lookup: type English word (or prefix) and get Ika word(s).
-    Empty q returns all lexicon entries up to limit (e.g. 675+ words).
+    Dictionary lookup.
+    NOTE: To fully support original audios, your lexicon repo must store audio_id/audio_url fields.
     """
     if lexicon_repo is None:
         raise HTTPException(status_code=503, detail="Dictionary unavailable (Firestore not connected)")
+
     try:
         query = (q or "").strip()
         if not query:
             entries = lexicon_repo.get_all()[:limit]
         else:
             entries = lexicon_repo.search_by_source_prefix(prefix=query, limit=min(limit, 200))
-        out = [
-            DictionaryEntry(
-                source_text=e.get("source_text", ""),
-                target_text=e.get("target_text", ""),
-                pos=e.get("pos"),
-                domain=e.get("domain"),
-                doc_id=e.get("doc_id"),
+
+        out = []
+        for e in entries:
+            out.append(
+                DictionaryEntry(
+                    source_text=e.get("source_text", ""),
+                    target_text=e.get("target_text", ""),
+                    pos=e.get("pos"),
+                    domain=e.get("domain"),
+                    doc_id=e.get("doc_id"),
+                    audio_id=e.get("audio_id"),
+                    audio_url=e.get("audio_url"),
+                )
             )
-            for e in entries
-        ]
+
         return DictionaryResponse(entries=out)
     except Exception as e:
-        logger.error(f"Dictionary lookup error: {str(e)}", exc_info=True)
+        logger.error("Dictionary lookup error: %s", str(e), exc_info=True)
         raise HTTPException(status_code=500, detail=f"Dictionary lookup failed: {str(e)}")
 
 
