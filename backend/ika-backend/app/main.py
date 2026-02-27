@@ -2,13 +2,16 @@
 IKA Language Engine Backend - FastAPI Application
 Option A: Rule-based generator using Firestore lexicon + grammar patterns
 """
-
 import os
 import logging
+from app.nlp.phrasebank import phrasebank_ika_to_en
 from typing import Optional, Dict, Any, List, Tuple
-
-from fastapi import FastAPI, HTTPException, Depends, Security, Query
+from fastapi import FastAPI, HTTPException, Depends, Security, Query, Request
+from app.nlp.phrasebank import phrasebank_ika_to_en_fuzzy
+from app.nlp.local_translate_phrasebank import phrasebank_translate
 from fastapi.responses import FileResponse
+from app.nlp.local_translate_phrasebank import phrasebank_translate
+from app.nlp.phrasebank import phrasebank_ika_to_en
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 
@@ -96,23 +99,27 @@ def _init_firebase_once() -> None:
     _firebase_inited = True
 
 
-async def verify_token(credentials: HTTPAuthorizationCredentials = Security(security)) -> Dict[str, Any]:
-    """
-    Verify Firebase ID token.
-    - If token invalid/expired -> 401
-    - Returns decoded claims on success
-    """
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+security = HTTPBearer(auto_error=False)
+
+async def verify_token(
+    request: Request,
+    credentials: HTTPAuthorizationCredentials = Security(security),
+) -> Dict[str, Any]:
+    # Local dev bypass (localhost only)
+    client_host = request.client.host if request.client else ""
+    if client_host in ("127.0.0.1", "localhost"):
+        return {"uid": "local-dev", "auth": "bypass"}
+
     token = credentials.credentials if credentials else None
     if not token:
         raise HTTPException(status_code=401, detail="Missing authorization token")
 
     _init_firebase_once()
-
     try:
         decoded = fb_auth.verify_id_token(token, check_revoked=False)
         return decoded
     except Exception:
-        # Do not leak token or internal error details
         raise HTTPException(status_code=401, detail="Invalid or expired token")
 
 
@@ -330,176 +337,186 @@ async def build_info():
     except Exception:
         return {"git_sha": "unknown", "dataset_sha256": "error", "dataset_files_count": 0}
 
+    # --- Phrasebank local chunker (fast, exact phrase matches) ---
+    pb_text, pb_meta = phrasebank_translate(text)
+    if pb_text and pb_text.strip():
+        return {
+            "ok": True,
+            "data": {
+                "target_text": pb_text,
+                "source": "phrasebank",
+                "confidence": "high",
+                "meta": pb_meta,
+            },
+        }
+def _is_not_found_en(en_text: str | None) -> bool:
+    if not en_text:
+        return True
+    t = en_text.strip().lower()
+    return t in ("not found in dataset.", "not found", "")
+
+
+def _is_not_found_en(en_text: str | None) -> bool:
+    t = (en_text or "").strip().lower()
+    return (not t) or (t in ("not found in dataset.", "not found"))
+
 
 @app.post("/translate", response_model=ApiResponse)
-async def translate(
-    request: TranslateRequest,
-    _claims: Dict[str, Any] = Depends(verify_token),
-):
+async def translate(req: TranslateRequest, decoded: Dict[str, Any] = Depends(verify_token)):
     """
     Translate:
-      - If dataset store is loaded and mode in (auto|en_to_ika|ika_to_en) use dataset translator.
-      - Otherwise use rule-based generator.translate().
-    Returns NEW contract:
-      ika_text + english_meaning + trace (+ legacy text/meta).
+      - Phrasebank first (fast phrase chunks) for English->Ika in (auto|en_to_ika)
+      - Dataset store next (auto|en_to_ika|ika_to_en) when available
+      - Rule-based generator last
     """
-    mode = (request.mode or "rule_based").lower()
-    text_in = request.text.strip()
+    mode = (req.mode or "rule_based").lower()
+    text_in = (req.text or "").strip()
+
+    if not text_in:
+        raise HTTPException(status_code=422, detail="text is required")
 
     if store is None and generator is None:
         raise HTTPException(status_code=503, detail="Translation unavailable (backend not fully initialized)")
 
+    # ======================================================
+    # Phrasebank FIRST (English -> Ika)
+    # Only for: en_to_ika, auto(when input is NOT ika)
+    # Meaning must be the original English input.
+    # ======================================================
+    try:
+        if mode in ("en_to_ika", "auto"):
+            is_ika = (store is not None and store.is_ika_text(text_in))
+            if not is_ika:
+                pb_ika, pb_meta = phrasebank_translate(text_in)
+                if pb_ika and pb_ika.strip():
+                    return _make_response(
+                        ika_text=pb_ika.strip(),
+                        english_meaning=text_in,  # ✅ original English input
+                        legacy_meta={**(pb_meta or {}), "engine": "phrasebank"},
+                        trace={
+                            "source_lang": "en",
+                            "target_lang": "ika",
+                            "mode": mode,
+                            "engine": "phrasebank",
+                            "meaning_source": "original_input",
+                        },
+                    )
+    except Exception as e:
+        logger.warning("phrasebank failed (ignored): %s", str(e), exc_info=True)
+
+    # ======================================================
     # Dataset-driven path (supports ika_to_en too)
+    # ======================================================
     if store is not None and mode in ("auto", "en_to_ika", "ika_to_en"):
         try:
+            # -------------------------
+            # IKA -> EN (dataset first, then phrasebank FUZZY fallback)
+            # -------------------------
             if mode == "ika_to_en":
                 en_text = translate_ika_to_en(store, text_in)
-                # produced output here is English; we still fill fields consistently
+
+                if _is_not_found_en(en_text):
+                    pb_en = phrasebank_ika_to_en_fuzzy(text_in)  # ✅ fuzzy handles "jẹn afịa"
+                    if pb_en and pb_en.strip():
+                        return _make_response(
+                            ika_text=text_in,
+                            english_meaning=pb_en.strip(),
+                            legacy_meta={"source_lang": "ika", "target_lang": "en", "engine": "phrasebank"},
+                            trace={
+                                "source_lang": "ika",
+                                "target_lang": "en",
+                                "mode": mode,
+                                "engine": "phrasebank",
+                                "meaning_source": "phrasebank_fuzzy",
+                            },
+                        )
+
                 return _make_response(
                     ika_text=text_in,
-                    english_meaning=en_text,
-                    legacy_meta={"source_lang": "ika", "target_lang": "en"},
-                    trace={"source_lang": "ika", "target_lang": "en", "mode": mode},
+                    english_meaning=(en_text or "").strip(),
+                    legacy_meta={"source_lang": "ika", "target_lang": "en", "engine": "dataset"},
+                    trace={"source_lang": "ika", "target_lang": "en", "mode": mode, "engine": "dataset"},
                 )
 
+            # -------------------------
+            # EN -> IKA (dataset)
+            # Meaning should be original English input for this endpoint contract.
+            # -------------------------
             if mode == "en_to_ika":
                 ika_text = translate_en_to_ika_sentence(store, text_in)
-                english_meaning = _english_meaning_for_ika_output(
-                    ika_text, source_text=text_in, mode=mode
-                )
                 return _make_response(
                     ika_text=ika_text,
-                    english_meaning=english_meaning,
-                    legacy_meta={"source_lang": "en", "target_lang": "ika"},
-                    trace={"source_lang": "en", "target_lang": "ika", "mode": mode},
+                    english_meaning=text_in,  # ✅ original English input
+                    legacy_meta={"source_lang": "en", "target_lang": "ika", "engine": "dataset"},
+                    trace={"source_lang": "en", "target_lang": "ika", "mode": mode, "engine": "dataset"},
                 )
 
-            # auto
-            if store.is_ika_text(text_in):
-                en_text = translate_ika_to_en(store, text_in)
+            # -------------------------
+            # AUTO
+            # -------------------------
+            if mode == "auto":
+                # If input looks like Ika => Ika->En path
+                if store.is_ika_text(text_in):
+                    en_text = translate_ika_to_en(store, text_in)
+
+                    if _is_not_found_en(en_text):
+                        pb_en = phrasebank_ika_to_en_fuzzy(text_in)  # ✅ fuzzy fallback
+                        if pb_en and pb_en.strip():
+                            return _make_response(
+                                ika_text=text_in,
+                                english_meaning=pb_en.strip(),
+                                legacy_meta={"source_lang": "ika", "target_lang": "en", "engine": "phrasebank"},
+                                trace={
+                                    "source_lang": "ika",
+                                    "target_lang": "en",
+                                    "mode": mode,
+                                    "engine": "phrasebank",
+                                    "meaning_source": "phrasebank_fuzzy",
+                                },
+                            )
+
+                    return _make_response(
+                        ika_text=text_in,
+                        english_meaning=(en_text or "").strip(),
+                        legacy_meta={"source_lang": "ika", "target_lang": "en", "engine": "dataset"},
+                        trace={"source_lang": "ika", "target_lang": "en", "mode": mode, "engine": "dataset"},
+                    )
+
+                # Otherwise input is English => En->Ika path
+                ika_text = translate_en_to_ika_sentence(store, text_in)
                 return _make_response(
-                    ika_text=text_in,
-                    english_meaning=en_text,
-                    legacy_meta={"source_lang": "ika", "target_lang": "en"},
-                    trace={"source_lang": "ika", "target_lang": "en", "mode": mode},
+                    ika_text=ika_text,
+                    english_meaning=text_in,
+                    legacy_meta={"source_lang": "en", "target_lang": "ika", "engine": "dataset"},
+                    trace={"source_lang": "en", "target_lang": "ika", "mode": mode, "engine": "dataset"},
                 )
 
-            ika_text = translate_en_to_ika_sentence(store, text_in)
-            english_meaning = _english_meaning_for_ika_output(
-                ika_text, source_text=text_in, mode=mode
-            )
-            return _make_response(
-                ika_text=ika_text,
-                english_meaning=english_meaning,
-                legacy_meta={"source_lang": "en", "target_lang": "ika"},
-                trace={"source_lang": "en", "target_lang": "ika", "mode": mode},
-            )
         except Exception as e:
             logger.error("Dataset translation error: %s", str(e), exc_info=True)
             raise HTTPException(status_code=500, detail=f"Translation failed: {str(e)}")
 
-    # Rule-based path
+    # ======================================================
+    # Rule-based path (last)
+    # ======================================================
     try:
-        result = generator.translate(text=text_in, tense=request.tense, mode=request.mode)
-        ika_text = result.get("text", "").strip()
+        result = generator.translate(text=text_in, tense=req.tense, mode=req.mode)
+        ika_text = (result.get("text") or "").strip()
         meta = result.get("meta", {}) or {}
         trace = _extract_trace_from_meta(meta)
+
         english_meaning = _english_meaning_for_ika_output(
             ika_text, source_text=text_in, mode=mode
         )
+
         return _make_response(
             ika_text=ika_text,
             english_meaning=english_meaning,
-            legacy_meta=meta,
+            legacy_meta={**meta, "engine": "rule_based"},
             trace=trace,
         )
     except Exception as e:
         logger.error("Translation error: %s", str(e), exc_info=True)
         raise HTTPException(status_code=500, detail=f"Translation failed: {str(e)}")
-
-
-@app.post("/generate", response_model=ApiResponse)
-async def generate(
-    request: GenerateRequest,
-    _claims: Dict[str, Any] = Depends(verify_token),
-):
-    """
-    Generate Ika text based on topic and parameters.
-    IMPORTANT: english_meaning must reflect the produced Ika output, not the topic.
-    """
-    if store is None and generator is None:
-        raise HTTPException(status_code=503, detail="Generation unavailable (backend not fully initialized)")
-
-    kind = (request.kind or "").strip().lower()
-    topic = (request.topic or "").strip()
-
-    if not kind or not topic:
-        raise HTTPException(status_code=422, detail="kind and topic are required")
-
-    try:
-        result = generator.generate(kind=kind, topic=topic, tone=request.tone, length=request.length)
-        ika_text = (result.get("text") or "").strip()
-        meta = result.get("meta", {}) or {}
-        trace = _extract_trace_from_meta(meta)
-        # back-meaning from produced text if possible
-        english_meaning = _english_meaning_for_ika_output(
-            ika_text, source_text=topic, mode="generate"
-        )
-        return _make_response(
-            ika_text=ika_text,
-            english_meaning=english_meaning,
-            legacy_meta=meta,
-            trace=trace,
-        )
-    except Exception as e:
-        logger.error("Generation error: %s", str(e), exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
-
-
-@app.post("/generate-story", response_model=ApiResponse)
-async def generate_story(
-    request: StoryIn,
-    _claims: Dict[str, Any] = Depends(verify_token),
-):
-    """Generate Ika story (dataset when available, else rule-based)."""
-    if store is None and generator is None:
-        raise HTTPException(status_code=503, detail="Generation unavailable (backend not fully initialized)")
-
-    prompt = (request.prompt or "").strip()
-    length = (request.length or "short").strip().lower()
-
-    # Dataset path
-    if store is not None and dataset_generate_story is not None:
-        try:
-            ika_text = dataset_generate_story(store, length)
-            english_meaning = _english_meaning_for_ika_output(
-                ika_text, source_text=prompt, mode="generate_story"
-            )
-            return _make_response(
-                ika_text=ika_text,
-                english_meaning=english_meaning,
-                legacy_meta={"source": "dataset", "length": length},
-                trace={"source": "dataset", "length": length},
-            )
-        except Exception as e:
-            logger.error("Dataset generate story error: %s", str(e), exc_info=True)
-            raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
-
-    # Rule-based path
-    try:
-        result = generator.generate(kind="story", topic=prompt, tone="neutral", length=length)
-        ika_text = (result.get("text") or "").strip()
-        meta = result.get("meta", {}) or {}
-        trace = _extract_trace_from_meta(meta)
-        english_meaning = _english_meaning_for_ika_output(
-            ika_text, source_text=prompt, mode="generate_story"
-        )
-        return _make_response(ika_text=ika_text, english_meaning=english_meaning, legacy_meta=meta, trace=trace)
-    except Exception as e:
-        logger.error("Generate story error: %s", str(e), exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
-
-
 @app.post("/generate-poem", response_model=ApiResponse)
 async def generate_poem(
     request: StoryIn,
